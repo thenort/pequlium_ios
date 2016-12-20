@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MonthlyIncomeViewController : UIViewController
+@interface MonthDebitViewController : UIViewController
 
 @end

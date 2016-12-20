@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		137964B51E093DA10042BF27 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964B41E093DA10042BF27 /* Manager.m */; };
+		137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964BA1E095A4B0042BF27 /* CalculationViewController.m */; };
 		4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */; };
 		449917A01DFAFB800099800E /* MainScreenHeaderXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */; };
 		44A7A7911DFFFF2C00AB7BDD /* Qanelas-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A77D1DFFFF2C00AB7BDD /* Qanelas-Black.otf */; };
@@ -29,7 +31,7 @@
 		44A7A7A21DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78E1DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf */; };
 		44A7A7A31DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78F1DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf */; };
 		44A7A7A41DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7901DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf */; };
-		44A7A7A61E00072200AB7BDD /* CustomFontInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7A51E00072200AB7BDD /* CustomFontInfo.plist */; };
+		44A7A7A61E00072200AB7BDD /* CustomFont.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7A51E00072200AB7BDD /* CustomFont.plist */; };
 		44C0D9111DFAB6C300E3D413 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C0D9101DFAB6C300E3D413 /* main.m */; };
 		44C0D9141DFAB6C300E3D413 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C0D9131DFAB6C300E3D413 /* AppDelegate.m */; };
 		44C0D9171DFAB6C300E3D413 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C0D9161DFAB6C300E3D413 /* ViewController.m */; };
@@ -41,12 +43,16 @@
 		44C9213C1E01648800F3D004 /* DayEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C9213B1E01648800F3D004 /* DayEndViewController.m */; };
 		44C9213F1E0164AC00F3D004 /* MonthEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C9213E1E0164AC00F3D004 /* MonthEndViewController.m */; };
 		44C921421E0164DB00F3D004 /* NegativeBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */; };
-		44C921451E0170B300F3D004 /* MonthlyIncomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C921441E0170B300F3D004 /* MonthlyIncomeViewController.m */; };
+		44C921451E0170B300F3D004 /* MonthDebitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C921441E0170B300F3D004 /* MonthDebitViewController.m */; };
 		44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeader.m */; };
 		44E28D7D1DFEB7B10033514F /* SettingsMainScreenHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		137964B31E093DA10042BF27 /* Manager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Manager.h; sourceTree = "<group>"; };
+		137964B41E093DA10042BF27 /* Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
+		137964B91E095A4B0042BF27 /* CalculationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculationViewController.h; sourceTree = "<group>"; };
+		137964BA1E095A4B0042BF27 /* CalculationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculationViewController.m; sourceTree = "<group>"; };
 		4499179C1DFAFAF90099800E /* MainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenHeaderView.h; sourceTree = "<group>"; };
 		4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenHeaderView.m; sourceTree = "<group>"; };
 		4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreenHeaderXib.xib; sourceTree = "<group>"; };
@@ -70,7 +76,7 @@
 		44A7A78E1DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-ThinItalic.otf"; sourceTree = "<group>"; };
 		44A7A78F1DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-UltraLight.otf"; sourceTree = "<group>"; };
 		44A7A7901DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-UltraLightItalic.otf"; sourceTree = "<group>"; };
-		44A7A7A51E00072200AB7BDD /* CustomFontInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CustomFontInfo.plist; sourceTree = "<group>"; };
+		44A7A7A51E00072200AB7BDD /* CustomFont.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CustomFont.plist; sourceTree = "<group>"; };
 		44C0D90C1DFAB6C300E3D413 /* Pequlium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pequlium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44C0D9101DFAB6C300E3D413 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		44C0D9121DFAB6C300E3D413 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -91,8 +97,8 @@
 		44C9213E1E0164AC00F3D004 /* MonthEndViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthEndViewController.m; sourceTree = "<group>"; };
 		44C921401E0164DB00F3D004 /* NegativeBalanceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NegativeBalanceViewController.h; sourceTree = "<group>"; };
 		44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NegativeBalanceViewController.m; sourceTree = "<group>"; };
-		44C921431E0170B300F3D004 /* MonthlyIncomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthlyIncomeViewController.h; sourceTree = "<group>"; };
-		44C921441E0170B300F3D004 /* MonthlyIncomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthlyIncomeViewController.m; sourceTree = "<group>"; };
+		44C921431E0170B300F3D004 /* MonthDebitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthDebitViewController.h; sourceTree = "<group>"; };
+		44C921441E0170B300F3D004 /* MonthDebitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthDebitViewController.m; sourceTree = "<group>"; };
 		44E28D791DFEB7A80033514F /* SettingsMainScreenHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenHeader.h; sourceTree = "<group>"; };
 		44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenHeader.m; sourceTree = "<group>"; };
 		44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsMainScreenHeader.xib; sourceTree = "<group>"; };
@@ -112,6 +118,10 @@
 		449917981DFAFA7C0099800E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				44C0D9121DFAB6C300E3D413 /* AppDelegate.h */,
+				44C0D9131DFAB6C300E3D413 /* AppDelegate.m */,
+				137964B31E093DA10042BF27 /* Manager.h */,
+				137964B41E093DA10042BF27 /* Manager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -122,21 +132,11 @@
 				4499179C1DFAFAF90099800E /* MainScreenHeaderView.h */,
 				4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */,
 				4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */,
-				44C9212F1E0149FA00F3D004 /* MainScreenTableViewController.h */,
-				44C921301E0149FA00F3D004 /* MainScreenTableViewController.m */,
-				44C921431E0170B300F3D004 /* MonthlyIncomeViewController.h */,
-				44C921441E0170B300F3D004 /* MonthlyIncomeViewController.m */,
-				44C9213A1E01648800F3D004 /* DayEndViewController.h */,
-				44C9213B1E01648800F3D004 /* DayEndViewController.m */,
-				44C9213D1E0164AC00F3D004 /* MonthEndViewController.h */,
-				44C9213E1E0164AC00F3D004 /* MonthEndViewController.m */,
-				44C921401E0164DB00F3D004 /* NegativeBalanceViewController.h */,
-				44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */,
 				44E28D791DFEB7A80033514F /* SettingsMainScreenHeader.h */,
 				44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeader.m */,
 				44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */,
-				44C921321E014B2300F3D004 /* SettingsMainScreenTableViewController.h */,
-				44C921331E014B2300F3D004 /* SettingsMainScreenTableViewController.m */,
+				44C0D9181DFAB6C300E3D413 /* Main.storyboard */,
+				44C0D91D1DFAB6C300E3D413 /* LaunchScreen.storyboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -144,6 +144,20 @@
 		4499179A1DFAFA800099800E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				44C921431E0170B300F3D004 /* MonthDebitViewController.h */,
+				44C921441E0170B300F3D004 /* MonthDebitViewController.m */,
+				137964B91E095A4B0042BF27 /* CalculationViewController.h */,
+				137964BA1E095A4B0042BF27 /* CalculationViewController.m */,
+				44C9212F1E0149FA00F3D004 /* MainScreenTableViewController.h */,
+				44C921301E0149FA00F3D004 /* MainScreenTableViewController.m */,
+				44C9213A1E01648800F3D004 /* DayEndViewController.h */,
+				44C9213B1E01648800F3D004 /* DayEndViewController.m */,
+				44C9213D1E0164AC00F3D004 /* MonthEndViewController.h */,
+				44C9213E1E0164AC00F3D004 /* MonthEndViewController.m */,
+				44C921401E0164DB00F3D004 /* NegativeBalanceViewController.h */,
+				44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */,
+				44C921321E014B2300F3D004 /* SettingsMainScreenTableViewController.h */,
+				44C921331E014B2300F3D004 /* SettingsMainScreenTableViewController.m */,
 				44C0D9151DFAB6C300E3D413 /* ViewController.h */,
 				44C0D9161DFAB6C300E3D413 /* ViewController.m */,
 			);
@@ -204,16 +218,12 @@
 			isa = PBXGroup;
 			children = (
 				4499179B1DFAFA930099800E /* Categories */,
-				4499179A1DFAFA800099800E /* Controller */,
-				449917991DFAFA7E0099800E /* View */,
 				449917981DFAFA7C0099800E /* Model */,
-				44C0D9121DFAB6C300E3D413 /* AppDelegate.h */,
-				44C0D9131DFAB6C300E3D413 /* AppDelegate.m */,
-				44C0D9181DFAB6C300E3D413 /* Main.storyboard */,
+				449917991DFAFA7E0099800E /* View */,
+				4499179A1DFAFA800099800E /* Controller */,
 				44C0D91B1DFAB6C300E3D413 /* Assets.xcassets */,
-				44C0D91D1DFAB6C300E3D413 /* LaunchScreen.storyboard */,
 				44C0D9201DFAB6C300E3D413 /* Info.plist */,
-				44A7A7A51E00072200AB7BDD /* CustomFontInfo.plist */,
+				44A7A7A51E00072200AB7BDD /* CustomFont.plist */,
 				44A7A77C1DFFFF2C00AB7BDD /* Qanelas-fonts */,
 				44C0D90F1DFAB6C300E3D413 /* Supporting Files */,
 			);
@@ -300,7 +310,7 @@
 				44A7A7941DFFFF2C00AB7BDD /* Qanelas-BoldItalic.otf in Resources */,
 				44E28D7D1DFEB7B10033514F /* SettingsMainScreenHeader.xib in Resources */,
 				44A7A7A21DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf in Resources */,
-				44A7A7A61E00072200AB7BDD /* CustomFontInfo.plist in Resources */,
+				44A7A7A61E00072200AB7BDD /* CustomFont.plist in Resources */,
 				44C0D91C1DFAB6C300E3D413 /* Assets.xcassets in Resources */,
 				44A7A7A31DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf in Resources */,
 				44A7A7A11DFFFF2C00AB7BDD /* Qanelas-Thin.otf in Resources */,
@@ -329,8 +339,10 @@
 				44C921421E0164DB00F3D004 /* NegativeBalanceViewController.m in Sources */,
 				4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */,
 				44C9213F1E0164AC00F3D004 /* MonthEndViewController.m in Sources */,
+				137964B51E093DA10042BF27 /* Manager.m in Sources */,
+				137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */,
 				44C9213C1E01648800F3D004 /* DayEndViewController.m in Sources */,
-				44C921451E0170B300F3D004 /* MonthlyIncomeViewController.m in Sources */,
+				44C921451E0170B300F3D004 /* MonthDebitViewController.m in Sources */,
 				44C921311E0149FA00F3D004 /* MainScreenTableViewController.m in Sources */,
 				44C0D9111DFAB6C300E3D413 /* main.m in Sources */,
 			);

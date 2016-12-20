@@ -1,27 +1,33 @@
 //
-//  MonthlyIncomeViewController.m
+//  CalculationViewController.m
 //  Pequlium
 //
-//  Created by Kyrylo Matvieiev on 14.12.16.
+//  Created by Kyrylo Matvieiev on 20.12.16.
 //  Copyright © 2016 Kyrylo Matvieiev. All rights reserved.
 //
 
-#import "MonthlyIncomeViewController.h"
+#import "CalculationViewController.h"
+#import "Manager.h"
 
-@interface MonthlyIncomeViewController ()
-
+@interface CalculationViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *budgetOnDayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *budgetOnDayWithSavingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *moneySavingYearLabel;
 @end
 
-@implementation MonthlyIncomeViewController
+@implementation CalculationViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
 
 /*
