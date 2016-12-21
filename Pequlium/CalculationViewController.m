@@ -17,18 +17,27 @@
 
 @implementation CalculationViewController
 
-- (void)viewDidLoad {
-    
-    [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
-}
-
 - (void)didReceiveMemoryWarning {
     
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
     
 }
+
+- (void)viewDidLoad {
+    
+    [super viewDidLoad];
+    self.navigationItem.hidesBackButton = YES;
+    [self textLabelFill];
+}
+
+- (void)textLabelFill {
+    self.budgetOnDayLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"budgetOnDay"];
+    self.budgetOnDayWithSavingLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"budgetOnDayWithEconomy"];
+    self.moneySavingYearLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"moneySavingYear"];
+}
+
+
 
 /*
 #pragma mark - Navigation

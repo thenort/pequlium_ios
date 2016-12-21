@@ -12,7 +12,10 @@
 
 + (instancetype) sharedInstance;
 
-- (void)saveInData:(NSString*)textFromTextField withKey:(NSString*)key;
-- (NSString*)getDebitFromData:(NSString*)key;
-
+- (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key;
+- (void)saveInData:(double)anyDoubleValue withKey:(NSString*)key;
+- (NSString*)getDebitFromDataInStringFormat:(NSString*)key;
+- (double)getDebitFromDataInDoubleFormat:(NSString*)key;
+- (NSUInteger)daysInCurrentMonth;
+- (void)calculationBudget;
 @end

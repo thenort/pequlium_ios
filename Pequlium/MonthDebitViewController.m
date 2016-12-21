@@ -60,7 +60,9 @@
         
     } else {
         
-        [[Manager sharedInstance] saveInData:self.monthDebitTextField.text withKey:@"monthDebit"];
+        [[Manager sharedInstance] saveInDataFromTextField:self.monthDebitTextField.text withKey:@"monthDebit"];
+        [[Manager sharedInstance]calculationBudget];
+        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
         CalculationViewController *calculationVC = [storyboard instantiateViewControllerWithIdentifier:@"CalculationViewController"];
         [self.navigationController pushViewController:calculationVC animated:YES];
