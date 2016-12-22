@@ -21,15 +21,9 @@
     //добавление xib в tableview header
     SettingsMainScreenHeaderView *headerView = (SettingsMainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"SettingsMainScreenHeader" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = headerView;
-    
     self.tableView.tableFooterView = [UIView new];
-    self.textForCell = @[@"Дневной остаток", @"Ежемесячный остаток", @"Разрешить уведомления", @"Отзыв", @"О приложении"];
-    [self.navigationItem.backBarButtonItem setTitle:@"Назад"];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.textForCell = @[@"Дневной остаток", @"Ежемесячный остаток", @"Разрешить уведомления", @"Отзыв", @"О приложении"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,6 +49,9 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+}
 
 /*
 // Override to support conditional editing of the table view.

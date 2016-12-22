@@ -76,5 +76,19 @@
     return range.length;
 }
 
+#pragma mark - Button on keyboard -
+
+- (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action {
+    
+    UIToolbar *ViewForDoneButtonOnKeyboard = [[UIToolbar alloc] init];
+    [ViewForDoneButtonOnKeyboard sizeToFit];
+    UIBarButtonItem *btnAddOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Add"
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:nil
+                                                                        action:action];
+    [ViewForDoneButtonOnKeyboard setItems:@[btnAddOnKeyboard]];
+    nameOfTextField.inputAccessoryView = ViewForDoneButtonOnKeyboard;
+}
+
 
 @end

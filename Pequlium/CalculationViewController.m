@@ -18,15 +18,13 @@
 @implementation CalculationViewController
 
 - (void)didReceiveMemoryWarning {
-    
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
+    self.navigationItem.hidesBackButton = YES;
     [self textLabelFill];
 }
 

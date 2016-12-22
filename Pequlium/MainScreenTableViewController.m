@@ -8,6 +8,8 @@
 
 #import "MainScreenTableViewController.h"
 #import "MainScreenHeaderView.h"
+#import "Manager.h"
+#import "MainScreenTableViewCell.h"
 
 @interface MainScreenTableViewController ()
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
@@ -26,7 +28,7 @@
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
     [self xibInHeaderToTableView];
-  
+    [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
 }
 
 - (void)xibInHeaderToTableView {
@@ -37,7 +39,10 @@
 }
 
 
-
+//вызов функции при нажатии на созданую кнопку Add
+- (IBAction)addBtnFromKeyboardClicked:(id)sender {
+    
+}
 
 #pragma mark - Table view data source
 
@@ -46,18 +51,19 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 0;
+    return 10;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+    MainScreenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseId" forIndexPath:indexPath];
+    cell.howLongAgoSpandMoneyLabel.text = @"";
+    cell.howMuchMoneySpendLabel.text = @"";
     
-    // Configure the cell...
     
     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

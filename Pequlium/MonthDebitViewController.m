@@ -24,28 +24,16 @@
     
     [super viewDidLoad];
     [self.monthDebitTextField becomeFirstResponder];
-    [self customBtnOnKeyboard];
-    [self customNavigationController];
+   // [self customNavigationController];
+    [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     
 }
+
 #pragma mark - Custom Button Add -
 
 //вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
     [self checkTextField];
-}
-
-//создание кнопки над клавиатурой
-- (void)customBtnOnKeyboard {
-    
-    UIToolbar *ViewForDoneButtonOnKeyboard = [[UIToolbar alloc] init];
-    [ViewForDoneButtonOnKeyboard sizeToFit];
-    UIBarButtonItem *btnAddOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Add"
-                                                                 style:UIBarButtonItemStylePlain
-                                                                 target:self
-                                                                 action:@selector(addBtnFromKeyboardClicked:)];
-    [ViewForDoneButtonOnKeyboard setItems:@[btnAddOnKeyboard]];
-    self.monthDebitTextField.inputAccessoryView = ViewForDoneButtonOnKeyboard;
 }
 
 #pragma mark - Work with UITextField -
@@ -84,15 +72,6 @@
     else{
         return YES;
     }
-}
-#pragma mark - Custom NavigationController -
-
-- (void)customNavigationController {
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
-                                             forBarMetrics:UIBarMetricsDefault];
-    self.navigationController.navigationBar.shadowImage = [UIImage new];
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.view.backgroundColor = [UIColor clearColor];
 }
 
 /*
