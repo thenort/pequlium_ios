@@ -25,17 +25,20 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
     [self textLabelFill];
 }
 
+
+
+//заполняем TextField информацией с базы
 - (void)textLabelFill {
     self.budgetOnDayLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"budgetOnDay"];
     self.budgetOnDayWithSavingLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"budgetOnDayWithEconomy"];
     self.moneySavingYearLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"moneySavingYear"];
 }
+
 
 
 

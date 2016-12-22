@@ -1,14 +1,14 @@
 //
-//  SettingsScreenHeader.m
+//  SettingsMainScreenHeaderView.m
 //  Pequlium
 //
 //  Created by Kyrylo Matvieiev on 12.12.16.
 //  Copyright © 2016 Kyrylo Matvieiev. All rights reserved.
 //
 
-#import "SettingsMainScreenHeader.h"
+#import "SettingsMainScreenHeaderView.h"
 
-@implementation SettingsMainScreenHeader
+@implementation SettingsMainScreenHeaderView
 
 /*
 // Only override drawRect: if you perform custom drawing.

@@ -28,13 +28,14 @@
     [self customNavigationController];
     
 }
+#pragma mark - Custom Button Add -
 
+//вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
-    
     [self checkTextField];
-    
 }
 
+//создание кнопки над клавиатурой
 - (void)customBtnOnKeyboard {
     
     UIToolbar *ViewForDoneButtonOnKeyboard = [[UIToolbar alloc] init];
@@ -45,12 +46,13 @@
                                                                  action:@selector(addBtnFromKeyboardClicked:)];
     [ViewForDoneButtonOnKeyboard setItems:@[btnAddOnKeyboard]];
     self.monthDebitTextField.inputAccessoryView = ViewForDoneButtonOnKeyboard;
-    
 }
 
+#pragma mark - Work with UITextField -
+//проверка пустое полу или нет (если нет - сохраняем инфу в базу)
 - (void)checkTextField {
     
-    if ([self.monthDebitTextField.text length] <= 0) {
+    if ([self.monthDebitTextField.text length] <= 0 || [self.monthDebitTextField.text  isEqual: @"0"]) {
         
         NSString *error = @"Введите сумму";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -68,17 +70,29 @@
         [self.navigationController pushViewController:calculationVC animated:YES];
         
     }
-    
 }
+#pragma mark - UITextFieldDelegate -
+
+#define ACCEPTABLE_CHARECTERS @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-+=!№;%:?@#$^&*() "
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    NSCharacterSet *acceptedInput = [NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS];
+    if ([[string componentsSeparatedByCharactersInSet:acceptedInput] count] > 1){
+        return NO;
+    }
+    else{
+        return YES;
+    }
+}
+#pragma mark - Custom NavigationController -
 
 - (void)customNavigationController {
-    
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
                                              forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.navigationController.navigationBar.translucent = YES;
     self.navigationController.view.backgroundColor = [UIColor clearColor];
-    
 }
 
 /*

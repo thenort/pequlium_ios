@@ -7,37 +7,45 @@
 //
 
 #import "MainScreenTableViewController.h"
+#import "MainScreenHeaderView.h"
 
 @interface MainScreenTableViewController ()
-
+@property (strong, nonatomic) MainScreenHeaderView *headerView;
 @end
 
 @implementation MainScreenTableViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
 }
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
+    [self xibInHeaderToTableView];
+  
+}
+
+- (void)xibInHeaderToTableView {
+    //добавление xib в tableview header
+    self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
+    self.tableView.tableHeaderView = self.headerView;
+    [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+}
+
+
+
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
     return 0;
 }
 

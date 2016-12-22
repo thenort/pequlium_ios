@@ -9,5 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface MainScreenHeaderView : UIView
-
+@property (weak, nonatomic) IBOutlet UILabel *currentBudgetOnDayLabel;
+@property (weak, nonatomic) IBOutlet UITextField *processOfSpendingMoneyTextField;
+@property (weak, nonatomic) IBOutlet UILabel *startEnterLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iSpendTextLabel;
 @end

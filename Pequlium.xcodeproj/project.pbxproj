@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		137964B51E093DA10042BF27 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964B41E093DA10042BF27 /* Manager.m */; };
 		137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964BA1E095A4B0042BF27 /* CalculationViewController.m */; };
+		13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */; };
+		13C35BB21E0C189100DD497B /* MainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */; };
 		4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */; };
 		449917A01DFAFB800099800E /* MainScreenHeaderXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */; };
 		44A7A7911DFFFF2C00AB7BDD /* Qanelas-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A77D1DFFFF2C00AB7BDD /* Qanelas-Black.otf */; };
@@ -44,7 +46,7 @@
 		44C9213F1E0164AC00F3D004 /* MonthEndViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C9213E1E0164AC00F3D004 /* MonthEndViewController.m */; };
 		44C921421E0164DB00F3D004 /* NegativeBalanceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */; };
 		44C921451E0170B300F3D004 /* MonthDebitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C921441E0170B300F3D004 /* MonthDebitViewController.m */; };
-		44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeader.m */; };
+		44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */; };
 		44E28D7D1DFEB7B10033514F /* SettingsMainScreenHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +55,10 @@
 		137964B41E093DA10042BF27 /* Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
 		137964B91E095A4B0042BF27 /* CalculationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculationViewController.h; sourceTree = "<group>"; };
 		137964BA1E095A4B0042BF27 /* CalculationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculationViewController.m; sourceTree = "<group>"; };
+		13C35BAD1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenTableViewCell.h; sourceTree = "<group>"; };
+		13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenTableViewCell.m; sourceTree = "<group>"; };
+		13C35BB01E0C189100DD497B /* MainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTableViewCell.h; sourceTree = "<group>"; };
+		13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenTableViewCell.m; sourceTree = "<group>"; };
 		4499179C1DFAFAF90099800E /* MainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenHeaderView.h; sourceTree = "<group>"; };
 		4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenHeaderView.m; sourceTree = "<group>"; };
 		4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreenHeaderXib.xib; sourceTree = "<group>"; };
@@ -99,8 +105,8 @@
 		44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NegativeBalanceViewController.m; sourceTree = "<group>"; };
 		44C921431E0170B300F3D004 /* MonthDebitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthDebitViewController.h; sourceTree = "<group>"; };
 		44C921441E0170B300F3D004 /* MonthDebitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthDebitViewController.m; sourceTree = "<group>"; };
-		44E28D791DFEB7A80033514F /* SettingsMainScreenHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenHeader.h; sourceTree = "<group>"; };
-		44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenHeader.m; sourceTree = "<group>"; };
+		44E28D791DFEB7A80033514F /* SettingsMainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenHeaderView.h; sourceTree = "<group>"; };
+		44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenHeaderView.m; sourceTree = "<group>"; };
 		44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsMainScreenHeader.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -132,9 +138,13 @@
 				4499179C1DFAFAF90099800E /* MainScreenHeaderView.h */,
 				4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */,
 				4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */,
-				44E28D791DFEB7A80033514F /* SettingsMainScreenHeader.h */,
-				44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeader.m */,
+				13C35BB01E0C189100DD497B /* MainScreenTableViewCell.h */,
+				13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */,
+				44E28D791DFEB7A80033514F /* SettingsMainScreenHeaderView.h */,
+				44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */,
 				44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */,
+				13C35BAD1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.h */,
+				13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */,
 				44C0D9181DFAB6C300E3D413 /* Main.storyboard */,
 				44C0D91D1DFAB6C300E3D413 /* LaunchScreen.storyboard */,
 			);
@@ -333,8 +343,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				44C0D9171DFAB6C300E3D413 /* ViewController.m in Sources */,
-				44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeader.m in Sources */,
+				44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeaderView.m in Sources */,
 				44C921341E014B2300F3D004 /* SettingsMainScreenTableViewController.m in Sources */,
+				13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */,
 				44C0D9141DFAB6C300E3D413 /* AppDelegate.m in Sources */,
 				44C921421E0164DB00F3D004 /* NegativeBalanceViewController.m in Sources */,
 				4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */,
@@ -343,6 +354,7 @@
 				137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */,
 				44C9213C1E01648800F3D004 /* DayEndViewController.m in Sources */,
 				44C921451E0170B300F3D004 /* MonthDebitViewController.m in Sources */,
+				13C35BB21E0C189100DD497B /* MainScreenTableViewCell.m in Sources */,
 				44C921311E0149FA00F3D004 /* MainScreenTableViewController.m in Sources */,
 				44C0D9111DFAB6C300E3D413 /* main.m in Sources */,
 			);

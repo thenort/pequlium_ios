@@ -349,6 +349,9 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="80"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="decimalPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="dXh-ig-4gv" id="bFL-iC-tbA"/>
+                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -473,7 +476,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="00A-bA-htq" kind="show" id="Phq-N3-MQU"/>
+                                    <segue destination="00A-bA-htq" kind="show" id="EAh-kU-Xg7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -498,7 +501,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="17" rowHeight="50" id="NbC-dK-Cfo">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="17" rowHeight="50" id="NbC-dK-Cfo" customClass="MainScreenTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NbC-dK-Cfo" id="TdM-aX-kTW">
@@ -521,6 +524,10 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="howLongAgoSpandMoneyLabel" destination="HbR-vA-O2u" id="rZ9-WH-zVy"/>
+                                    <outlet property="howMuchMoneySpendLabel" destination="sxp-GN-jKa" id="cxV-6k-j1p"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -529,14 +536,15 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="oJh-vT-RbV">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="EDR-gb-0nf"/>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Vdv-zu-S7m">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="BMh-8E-IfB">
                                 <rect key="frame" x="337" y="11" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="Ck1-7J-z3A" kind="show" id="446-34-bR8"/>
+                                </connections>
                             </button>
-                            <connections>
-                                <segue destination="Ck1-7J-z3A" kind="show" id="Yts-kn-br5"/>
-                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
@@ -553,15 +561,15 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="28R-ey-BX2">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CellReuseIdentifier" id="28R-ey-BX2" customClass="SettingsMainScreenTableViewCell">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="28R-ey-BX2" id="gfL-8s-68V">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Дневной остаток" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKh-h0-Zdo">
-                                            <rect key="frame" x="51" y="11" width="275.5" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKh-h0-Zdo">
+                                            <rect key="frame" x="50.5" y="11" width="276" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -580,122 +588,8 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Kw3-j9-Z2D" kind="show" id="n80-jF-5lK"/>
+                                    <outlet property="textForCellInSettingsMainScreenTableViewController" destination="FKh-h0-Zdo" id="ydB-qi-Cob"/>
                                 </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="gmH-Cs-ERc">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gmH-Cs-ERc" id="6fF-mM-tCK">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Ежемесячный остаток" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2TZ-H5-4IN">
-                                            <rect key="frame" x="51" y="11" width="275.5" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydA-rS-ebJ">
-                                            <rect key="frame" x="8" y="9" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                            <color key="backgroundColor" red="0.22139382360000001" green="0.77392953630000005" blue="0.97283440830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="QUR-EE-bgq" kind="show" id="NLZ-0G-i9H"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="2Sj-j8-Aar">
-                                <rect key="frame" x="0.0" y="116" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2Sj-j8-Aar" id="vCe-tH-HdI">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Разрешить уведомления" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qpc-RL-buG">
-                                            <rect key="frame" x="51" y="11" width="275.5" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mvn-6q-ue4">
-                                            <rect key="frame" x="8" y="9" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                            <color key="backgroundColor" red="0.22139382360000001" green="0.77392953630000005" blue="0.97283440830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="r2S-Pn-H3B" kind="show" id="nXf-6h-BQ8"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="q9N-6O-1IB">
-                                <rect key="frame" x="0.0" y="160" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="q9N-6O-1IB" id="1QZ-Bd-I4n">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Отзыв" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rT-QE-M9A">
-                                            <rect key="frame" x="51" y="11" width="275.5" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iIK-3h-hyh">
-                                            <rect key="frame" x="8" y="9" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                            <color key="backgroundColor" red="0.22139382360000001" green="0.77392953630000005" blue="0.97283440830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" id="LMm-xD-RmK">
-                                <rect key="frame" x="0.0" y="204" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LMm-xD-RmK" id="TWg-hk-j73">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="О приложении" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EjQ-4F-KLJ">
-                                            <rect key="frame" x="51" y="11" width="275.5" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j51-ip-4Cm">
-                                            <rect key="frame" x="8" y="9" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                            <color key="backgroundColor" red="0.22139382360000001" green="0.77392953630000005" blue="0.97283440830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </imageView>
-                                    </subviews>
-                                </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -707,7 +601,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Ch-rr-OA6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1991" y="-646"/>
+            <point key="canvasLocation" x="-1766" y="-690"/>
         </scene>
         <!--Дневной остаток-->
         <scene sceneID="Wkh-B1-qQD">
@@ -726,7 +620,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Переносить на следующий день" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FzM-GK-Uby">
-                                            <rect key="frame" x="5.5" y="11" width="298.5" height="21"/>
+                                            <rect key="frame" x="5.5" y="11" width="298" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -743,7 +637,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Распределять на дневной бюджет" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jED-Zk-tP9">
-                                            <rect key="frame" x="5.5" y="11" width="298.5" height="21"/>
+                                            <rect key="frame" x="5.5" y="11" width="298" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -762,7 +656,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LGp-xH-tlv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1222" y="-1026"/>
+            <point key="canvasLocation" x="-942" y="-1034"/>
         </scene>
         <!--Ежемесячный остаток-->
         <scene sceneID="aGJ-jj-eMG">
@@ -781,7 +675,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Переносить на следующий день" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7q6-Sm-uzz">
-                                            <rect key="frame" x="4.5" y="11" width="298.5" height="21"/>
+                                            <rect key="frame" x="4.5" y="11" width="298" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -798,7 +692,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Распределять на дневной бюджет" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yMQ-d2-pCY">
-                                            <rect key="frame" x="4.5" y="11" width="298.5" height="21"/>
+                                            <rect key="frame" x="4.5" y="11" width="298" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -815,7 +709,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Отложить деньги" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eP4-j7-cx1">
-                                            <rect key="frame" x="4.5" y="11" width="275.5" height="21"/>
+                                            <rect key="frame" x="4.5" y="11" width="274.5" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -834,7 +728,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CMK-PP-YUQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1082" y="-165"/>
+            <point key="canvasLocation" x="-942" y="-168"/>
         </scene>
         <!--Разрешения-->
         <scene sceneID="EFG-WO-PnH">
@@ -892,7 +786,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
         <image name="FirstScreen" width="750" height="245"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LWU-GM-VEO"/>
+        <segue reference="EAh-kU-Xg7"/>
         <segue reference="V1Q-Xk-Syq"/>
     </inferredMetricsTieBreakers>
 </document>

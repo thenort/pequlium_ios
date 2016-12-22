@@ -1,5 +1,5 @@
 //
-//  SettingsScreenHeader.h
+//  SettingsMainScreenHeaderView.h
 //  Pequlium
 //
 //  Created by Kyrylo Matvieiev on 12.12.16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingsMainScreenHeader : UIView
+@interface SettingsMainScreenHeaderView : UIView
 
 @end

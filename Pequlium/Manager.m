@@ -8,6 +8,7 @@
 
 #import "Manager.h"
 
+
 @implementation Manager
 
 #pragma mark - Singletone Methods -
@@ -20,6 +21,7 @@
     });
     return _singleton;
 }
+
 #pragma mark - Work with NSUserDefaults -
 
 - (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key {
@@ -45,7 +47,7 @@
     return valueFromData;
 }
 
-#pragma mark -  - 
+#pragma mark - calculationBudget - 
 
 - (void)calculationBudget {
     
@@ -63,6 +65,8 @@
     
 }
 
+
+
 #pragma mark - Work with Date -
 
 - (NSUInteger)daysInCurrentMonth {
@@ -71,9 +75,6 @@
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:currentDate];
     return range.length;
 }
-
-
-
 
 
 @end
