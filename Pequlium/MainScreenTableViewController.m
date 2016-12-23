@@ -25,8 +25,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self stackOfFunctions];
-    
-    
 }
 
 - (void)stackOfFunctions {
@@ -50,6 +48,18 @@
     [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
 }
 
+#pragma mark - UIScrollViewDelegat -
+
+//когда клавиатура больше 50 прячется, меньше выезжает
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.contentOffset.y < 50) {
+        [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+    }
+    else if (scrollView.contentOffset.y >= 50) {
+        [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
+    }
+}
+
 #pragma mark - Work with TextFieldKeyboard and Custom Button "Add" -
 
 //вызов функции при нажатии на созданую кнопку Add
@@ -59,7 +69,7 @@
 
 - (void)checkTextField {
     
-    if ([self.headerView.processOfSpendingMoneyTextField.text length] <= 0 || [self.headerView.processOfSpendingMoneyTextField.text  isEqual: @"0"]) {
+    if ([self.headerView.processOfSpendingMoneyTextField.text length] <= 0 || [self.headerView.processOfSpendingMoneyTextField.text  isEqual: @"-0"]) {
         
         NSString *error = @"Введите сумму";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -74,9 +84,6 @@
             [self.headerView.iSpendTextLabel setAlpha:0];
             [self.headerView.startEnterLabel setAlpha:1];
         }
-        
-        ////////////////////////
-        
     }
 }
 
@@ -93,9 +100,15 @@
         return YES;
     }
 }
-//найти 1-ый символ сабскрипт range
-//работа с лейблами находящимися в UITextField
+
+//работа с лейблами находящимися в UITextField и знак минус
 -(void)textFieldDidChange:(UITextField *)textField {
+    if ([textField.text length] > 0) {
+        NSString *firstLetter = [textField.text substringToIndex:1];
+        if (![firstLetter isEqualToString:@"-"]) {
+            textField.text = [NSString stringWithFormat:@"%s%@", "-", textField.text];
+        }
+    }
     if ([textField.text length] > 0) {
         [self.headerView.startEnterLabel setAlpha:0];
         [self.headerView.iSpendTextLabel setAlpha:1];
@@ -105,7 +118,7 @@
     }
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table view data source -
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
