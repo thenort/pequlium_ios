@@ -18,12 +18,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.tableView.tableFooterView = [UIView new];
+    [self xibInHeaderToTableView];
+    
+    self.textForCell = @[@"Дневной остаток", @"Ежемесячный остаток", @"Разрешить уведомления", @"Отзыв", @"О приложении"];
+}
+
+- (void)xibInHeaderToTableView {
     //добавление xib в tableview header
     SettingsMainScreenHeaderView *headerView = (SettingsMainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"SettingsMainScreenHeader" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = headerView;
-    self.tableView.tableFooterView = [UIView new];
-    
-    self.textForCell = @[@"Дневной остаток", @"Ежемесячный остаток", @"Разрешить уведомления", @"Отзыв", @"О приложении"];
 }
 
 - (void)didReceiveMemoryWarning {

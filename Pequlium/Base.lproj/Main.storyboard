@@ -85,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28a-ZG-ei7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5898" y="108"/>
+            <point key="canvasLocation" x="-5834" y="-10"/>
         </scene>
         <!--Month End View Controller-->
         <scene sceneID="kCv-0V-CZP">
@@ -153,7 +153,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eHU-Hv-Qqq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5222" y="107"/>
+            <point key="canvasLocation" x="-5191" y="-10"/>
         </scene>
         <!--Negative Balance View Controller-->
         <scene sceneID="BdT-nh-jHu">
@@ -226,9 +226,6 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <state key="normal" title="Я ошибся, хочу ввести другую сумму ">
                                     <color key="titleColor" red="0.2351302207" green="0.55616778140000001" blue="0.88706135750000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
-                                <connections>
-                                    <segue destination="dXh-ig-4gv" kind="show" id="kNK-1t-Bvm"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="otH-ns-tYC">
                                 <rect key="frame" x="16" y="332" width="343" height="30"/>
@@ -250,7 +247,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="14h-jZ-BbH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4583" y="107"/>
+            <point key="canvasLocation" x="-4506" y="-10"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="8kW-4A-YVI">
@@ -447,7 +444,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="00A-bA-htq" kind="show" id="LWU-GM-VEO"/>
+                                    <action selector="budgetWithNonSavingMoney:" destination="oDm-Hs-1VP" eventType="touchUpInside" id="ucf-ZP-OgM"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5l-4d-wO3">
@@ -476,7 +473,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="00A-bA-htq" kind="show" id="EAh-kU-Xg7"/>
+                                    <action selector="budgetWithSavingMoney:" destination="oDm-Hs-1VP" eventType="touchUpInside" id="qh4-XA-Usk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -495,7 +492,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
         <!--Main Screen Table View Controller-->
         <scene sceneID="Vr8-sH-z30">
             <objects>
-                <tableViewController id="00A-bA-htq" customClass="MainScreenTableViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="MainScreenTableViewController" id="00A-bA-htq" customClass="MainScreenTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="K4F-Sy-zBW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -785,8 +782,4 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
     <resources>
         <image name="FirstScreen" width="750" height="245"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="EAh-kU-Xg7"/>
-        <segue reference="V1Q-Xk-Syq"/>
-    </inferredMetricsTieBreakers>
 </document>

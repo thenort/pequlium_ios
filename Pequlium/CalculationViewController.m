@@ -8,6 +8,7 @@
 
 #import "CalculationViewController.h"
 #import "Manager.h"
+#import "MainScreenTableViewController.h"
 
 @interface CalculationViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *budgetOnDayLabel;
@@ -37,7 +38,21 @@
     self.moneySavingYearLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"moneySavingYear"];
 }
 
+- (IBAction)budgetWithSavingMoney:(id)sender {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    MainScreenTableViewController *mainScreenTableViewVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [self.navigationController pushViewController:mainScreenTableViewVC animated:YES];
+    mainScreenTableViewVC.dailyMoney = [[Manager sharedInstance]getDebitFromDataInDoubleFormat:@"budgetOnDayWithEconomy"];
+}
 
+- (IBAction)budgetWithNonSavingMoney:(id)sender {
+    
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    MainScreenTableViewController *mainScreenTableViewVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [self.navigationController pushViewController:mainScreenTableViewVC animated:YES];
+    mainScreenTableViewVC.dailyMoney = [[Manager sharedInstance]getDebitFromDataInDoubleFormat:@"budgetOnDay"];
+}
 
 
 /*

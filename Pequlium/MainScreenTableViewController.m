@@ -11,7 +11,7 @@
 #import "Manager.h"
 #import "MainScreenTableViewCell.h"
 
-@interface MainScreenTableViewController ()
+@interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
 @end
 
@@ -20,28 +20,89 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
-    [self xibInHeaderToTableView];
-    [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
+    [self stackOfFunctions];
+    
+    
 }
 
+- (void)stackOfFunctions {
+    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
+    [self xibInHeaderToTableView];
+    self.headerView.processOfSpendingMoneyTextField.delegate = self;
+    [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
+    [self.headerView.iSpendTextLabel setAlpha:0];
+    self.headerView.processOfSpendingMoneyTextField.tintColor = [UIColor clearColor];//убираем мигающий курсор
+    [self.headerView.processOfSpendingMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    
+    //сохранение дневного бюджета в базу
+    [[Manager sharedInstance] saveInData:self.dailyMoney withKey:@"daylyMoney"];
+    self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] getDebitFromDataInStringFormat:@"daylyMoney"];
+}
+
+//добавление xib в tableview header
 - (void)xibInHeaderToTableView {
-    //добавление xib в tableview header
     self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = self.headerView;
     [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
 }
 
+#pragma mark - Work with TextFieldKeyboard and Custom Button "Add" -
 
 //вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
+    [self checkTextField];
+}
+
+- (void)checkTextField {
     
+    if ([self.headerView.processOfSpendingMoneyTextField.text length] <= 0 || [self.headerView.processOfSpendingMoneyTextField.text  isEqual: @"0"]) {
+        
+        NSString *error = @"Введите сумму";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+    } else {
+        //при нажатии на кнопку Add отчищаем textfield и ставим lable в изначальные значения Альфы
+        self.headerView.processOfSpendingMoneyTextField.text = @"";
+        if ([self.headerView.processOfSpendingMoneyTextField.text  isEqual: @""]) {
+            [self.headerView.iSpendTextLabel setAlpha:0];
+            [self.headerView.startEnterLabel setAlpha:1];
+        }
+        
+        ////////////////////////
+        
+    }
+}
+
+#pragma mark - UITextFieldDelegate -
+
+#define ACCEPTABLE_CHARECTERS @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-+=!№;%:?@#$^&*() "
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSCharacterSet *acceptedInput = [NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS];
+    if ([[string componentsSeparatedByCharactersInSet:acceptedInput] count] > 1){
+        return NO;
+    }
+    else{
+        return YES;
+    }
+}
+//найти 1-ый символ сабскрипт range
+//работа с лейблами находящимися в UITextField
+-(void)textFieldDidChange:(UITextField *)textField {
+    if ([textField.text length] > 0) {
+        [self.headerView.startEnterLabel setAlpha:0];
+        [self.headerView.iSpendTextLabel setAlpha:1];
+    } else {
+        [self.headerView.startEnterLabel setAlpha:1];
+        [self.headerView.iSpendTextLabel setAlpha:0];
+    }
 }
 
 #pragma mark - Table view data source

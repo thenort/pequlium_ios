@@ -24,7 +24,6 @@
     
     [super viewDidLoad];
     [self.monthDebitTextField becomeFirstResponder];
-   // [self customNavigationController];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     
 }

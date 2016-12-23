@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface MainScreenTableViewController : UITableViewController
-
+@property (assign, nonatomic) double dailyMoney;
 @end
