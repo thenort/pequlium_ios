@@ -10,9 +10,11 @@
 #import "MainScreenHeaderView.h"
 #import "Manager.h"
 #import "MainScreenTableViewCell.h"
+#import "DayEndViewController.h"
 
 @interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
+@property (strong, nonatomic) NSArray *arrayForTable;
 @end
 
 @implementation MainScreenTableViewController
@@ -24,38 +26,65 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self stackOfFunctions];
-}
-
-- (void)stackOfFunctions {
     self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
-    [self xibInHeaderToTableView];
+    BOOL result = [self recalculationEveryDay];
+    [self xibInHeaderToTableView:result];
+    
+    //[self xibInHeaderToTableView];
     self.headerView.processOfSpendingMoneyTextField.delegate = self;
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     [self.headerView.iSpendTextLabel setAlpha:0];
     self.headerView.processOfSpendingMoneyTextField.tintColor = [UIColor clearColor];//убираем мигающий курсор
     [self.headerView.processOfSpendingMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    //сохранение дневного бюджета в базу
-    [[Manager sharedInstance] saveInData:self.dailyMoney withKey:@"daylyMoney"];
-    self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] getDebitFromDataInStringFormat:@"daylyMoney"];
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    self.arrayForTable = [userDefault objectForKey:@"historySpendOfMonth"];
+    
+    self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [userDefault doubleForKey:@"budgetOnDay"]];
+
+}
+
+- (BOOL)recalculationEveryDay {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
+    
+    NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:dateFromDict toDate:[NSDate date] options:0];
+
+    if (difference.day != 0) {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+        DayEndViewController *DayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
+        [self.navigationController presentViewController:DayEndViewControllerVC animated:NO completion:nil];
+        
+        
+        double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
+        budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+        return false;
+    }
+    return true;
+    
 }
 
 //добавление xib в tableview header
-- (void)xibInHeaderToTableView {
+- (void)xibInHeaderToTableView: (BOOL)firstResponder {
     self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = self.headerView;
-    [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+    if (firstResponder) {
+        [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+    }
+    
 }
 
 #pragma mark - UIScrollViewDelegat -
 
-//когда клавиатура больше 50 прячется, меньше выезжает
+//когда клавиатура выезжает
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < 50) {
+    if (scrollView.contentOffset.y < -80) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
     }
-    else if (scrollView.contentOffset.y >= 50) {
+    else if (scrollView.contentOffset.y > -60) {
         [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
     }
 }
@@ -78,7 +107,30 @@
         [self presentViewController:alertController animated:YES completion:nil];
         
     } else {
-        //при нажатии на кнопку Add отчищаем textfield и ставим lable в изначальные значения Альфы
+        
+        double currentSpend = [self.headerView.processOfSpendingMoneyTextField.text doubleValue];
+        NSNumber *currentSpendNumber = [NSNumber numberWithDouble:currentSpend];
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        NSMutableArray *historySpendOfMonth = [NSMutableArray arrayWithArray:[userDefault objectForKey:@"historySpendOfMonth"]];
+        
+        if (historySpendOfMonth == nil) {
+
+            historySpendOfMonth = [NSMutableArray array];
+            
+        }
+        
+        NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
+        
+        [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
+        [dictWithDateAndSum setObject:[NSDate date] forKey:@"currentDateOfSpend"];
+        
+        [historySpendOfMonth addObject:dictWithDateAndSum];
+        
+        [userDefault setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
+        [userDefault synchronize];
+        self.arrayForTable = historySpendOfMonth;
+        [self.tableView reloadData];
+        //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальные значения Альфы
         self.headerView.processOfSpendingMoneyTextField.text = @"";
         if ([self.headerView.processOfSpendingMoneyTextField.text  isEqual: @""]) {
             [self.headerView.iSpendTextLabel setAlpha:0];
@@ -120,22 +172,34 @@
 
 #pragma mark - Table view data source -
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return [self.arrayForTable count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainScreenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseId" forIndexPath:indexPath];
-    cell.howLongAgoSpandMoneyLabel.text = @"";
-    cell.howMuchMoneySpendLabel.text = @"";
+    NSDictionary *tempDataOfSpend = [self.arrayForTable objectAtIndex:indexPath.row];
+    
+    NSDate *date = [tempDataOfSpend objectForKey:@"currentDateOfSpend"];
+    cell.howLongAgoSpandMoneyLabel.text = [[Manager sharedInstance] formatDate:date];
+    
+    NSNumber *spend = [tempDataOfSpend objectForKey:@"currentSpendNumber"];
+    cell.howMuchMoneySpendLabel.text = [NSString stringWithFormat:@"%.2f", [spend doubleValue]];
     
     
     return cell;
+}
+
+
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [tableView reloadData];
+    }
 }
 
 
@@ -144,18 +208,6 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the specified item to be editable.
     return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
 }
 */
 

@@ -11,9 +11,6 @@
 #import "MainScreenTableViewController.h"
 
 @interface CalculationViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *budgetOnDayLabel;
-@property (weak, nonatomic) IBOutlet UILabel *budgetOnDayWithSavingLabel;
-@property (weak, nonatomic) IBOutlet UILabel *moneySavingYearLabel;
 @end
 
 @implementation CalculationViewController
@@ -23,27 +20,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    self.budgetOnDayLabel.text = self.budgetOnDay;
+    self.budgetOnDayWithSavingLabel.text = self.budgetOnDayWithSaving;
+    self.moneySavingYearLabel.text = self.moneySavingYear;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
-    [self textLabelFill];
 }
 
-
-
-//заполняем TextField информацией с базы
-- (void)textLabelFill {
-    self.budgetOnDayLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"budgetOnDay"];
-    self.budgetOnDayWithSavingLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"budgetOnDayWithEconomy"];
-    self.moneySavingYearLabel.text = [[Manager sharedInstance]getDebitFromDataInStringFormat:@"moneySavingYear"];
-}
 
 - (IBAction)budgetWithSavingMoney:(id)sender {
     
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
     MainScreenTableViewController *mainScreenTableViewVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
     [self.navigationController pushViewController:mainScreenTableViewVC animated:YES];
-    mainScreenTableViewVC.dailyMoney = [[Manager sharedInstance]getDebitFromDataInDoubleFormat:@"budgetOnDayWithEconomy"];
+    
+    [self writeInDict:self.budgetOnDayWithSavingLabel.text];
+    
+    
 }
 
 - (IBAction)budgetWithNonSavingMoney:(id)sender {
@@ -51,9 +50,18 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
     MainScreenTableViewController *mainScreenTableViewVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
     [self.navigationController pushViewController:mainScreenTableViewVC animated:YES];
-    mainScreenTableViewVC.dailyMoney = [[Manager sharedInstance]getDebitFromDataInDoubleFormat:@"budgetOnDay"];
+    
+    [self writeInDict:self.budgetOnDayLabel.text];
 }
 
+- (void)writeInDict:(NSString*) budgetOnDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *budgetOnDayNumber = [NSNumber numberWithDouble:[budgetOnDay doubleValue]];
+    NSDictionary *budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", budgetOnDayNumber, @"mutableBudgetOnDay", nil];
+    [userDefaults setObject:budgetOnDayNumber forKey:@"budgetOnDay"];
+    [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+    [userDefaults synchronize];
+}
 
 /*
 #pragma mark - Navigation

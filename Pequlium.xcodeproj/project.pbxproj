@@ -11,6 +11,7 @@
 		137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964BA1E095A4B0042BF27 /* CalculationViewController.m */; };
 		13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */; };
 		13C35BB21E0C189100DD497B /* MainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */; };
+		13C6693B1E11820D00852945 /* NavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C6693A1E11820D00852945 /* NavViewController.m */; };
 		4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */; };
 		449917A01DFAFB800099800E /* MainScreenHeaderXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */; };
 		44A7A7911DFFFF2C00AB7BDD /* Qanelas-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A77D1DFFFF2C00AB7BDD /* Qanelas-Black.otf */; };
@@ -59,6 +60,8 @@
 		13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenTableViewCell.m; sourceTree = "<group>"; };
 		13C35BB01E0C189100DD497B /* MainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTableViewCell.h; sourceTree = "<group>"; };
 		13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenTableViewCell.m; sourceTree = "<group>"; };
+		13C669391E11820D00852945 /* NavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavViewController.h; sourceTree = "<group>"; };
+		13C6693A1E11820D00852945 /* NavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavViewController.m; sourceTree = "<group>"; };
 		4499179C1DFAFAF90099800E /* MainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenHeaderView.h; sourceTree = "<group>"; };
 		4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenHeaderView.m; sourceTree = "<group>"; };
 		4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreenHeaderXib.xib; sourceTree = "<group>"; };
@@ -140,9 +143,9 @@
 				4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */,
 				13C35BB01E0C189100DD497B /* MainScreenTableViewCell.h */,
 				13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */,
-				44E28D791DFEB7A80033514F /* SettingsMainScreenHeaderView.h */,
 				44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */,
 				44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */,
+				44E28D791DFEB7A80033514F /* SettingsMainScreenHeaderView.h */,
 				13C35BAD1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.h */,
 				13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */,
 				44C0D9181DFAB6C300E3D413 /* Main.storyboard */,
@@ -154,6 +157,10 @@
 		4499179A1DFAFA800099800E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				13C669391E11820D00852945 /* NavViewController.h */,
+				13C6693A1E11820D00852945 /* NavViewController.m */,
+				44C0D9151DFAB6C300E3D413 /* ViewController.h */,
+				44C0D9161DFAB6C300E3D413 /* ViewController.m */,
 				44C921431E0170B300F3D004 /* MonthDebitViewController.h */,
 				44C921441E0170B300F3D004 /* MonthDebitViewController.m */,
 				137964B91E095A4B0042BF27 /* CalculationViewController.h */,
@@ -168,8 +175,6 @@
 				44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */,
 				44C921321E014B2300F3D004 /* SettingsMainScreenTableViewController.h */,
 				44C921331E014B2300F3D004 /* SettingsMainScreenTableViewController.m */,
-				44C0D9151DFAB6C300E3D413 /* ViewController.h */,
-				44C0D9161DFAB6C300E3D413 /* ViewController.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -344,6 +349,7 @@
 			files = (
 				44C0D9171DFAB6C300E3D413 /* ViewController.m in Sources */,
 				44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeaderView.m in Sources */,
+				13C6693B1E11820D00852945 /* NavViewController.m in Sources */,
 				44C921341E014B2300F3D004 /* SettingsMainScreenTableViewController.m in Sources */,
 				13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */,
 				44C0D9141DFAB6C300E3D413 /* AppDelegate.m in Sources */,

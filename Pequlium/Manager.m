@@ -37,6 +37,7 @@
     [userDefault synchronize];
 }
 
+
 - (NSString*)getDebitFromDataInStringFormat:(NSString*)key {
     double valueFromData = [[NSUserDefaults standardUserDefaults]doubleForKey:key];
     return [NSString stringWithFormat:@"%.2f",valueFromData];
@@ -47,25 +48,26 @@
     return valueFromData;
 }
 
-#pragma mark - calculationBudget - 
-
-- (void)calculationBudget {
+- (void)resetData {
     
-    double monthDebit = [[Manager sharedInstance] getDebitFromDataInDoubleFormat:@"monthDebit"];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    double balanceOnCurrentMonth = [userDefaults doubleForKey:@"muttableMonthDebit"];
+    double balance = [userDefaults doubleForKey:@"balance"];
+    [userDefaults setDouble:balanceOnCurrentMonth + balance forKey:@"balance"];
+    double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
+    [userDefaults setDouble:monthDebit forKey:@"muttableMonthDebit"];
+    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     
-    double budgetOnDay = monthDebit / [[Manager sharedInstance] daysInCurrentMonth];
-    [self saveInData:budgetOnDay withKey:@"budgetOnDay"];
     
-    double monthDebitWithEightPercent = (monthDebit / 100) * 8;
+    NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+    [dateComponents setMonth:1];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:resetDateEveryMonth options:0];
+    [userDefaults setObject:newDate forKey:@"resetDateEveryMonth"];
     
-    double budgetOnDayWithEconomy = (monthDebit - monthDebitWithEightPercent) / [[Manager sharedInstance] daysInCurrentMonth];
-    [self saveInData:budgetOnDayWithEconomy withKey:@"budgetOnDayWithEconomy"];
-    double moneySavingYear = monthDebitWithEightPercent * 12;
-    [self saveInData:moneySavingYear withKey:@"moneySavingYear"];
-    
+    [userDefaults synchronize];
 }
-
-
 
 #pragma mark - Work with Date -
 
@@ -74,6 +76,13 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:currentDate];
     return range.length;
+}
+
+- (NSString*)formatDate:(NSDate*)date {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setDateFormat:@"dd.MM.YY HH:mm:ss"];
+    NSString *dateString = [dateFormatter stringFromDate:date];
+    return dateString;
 }
 
 #pragma mark - Button on keyboard -

@@ -25,7 +25,7 @@
     [super viewDidLoad];
     [self.monthDebitTextField becomeFirstResponder];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
-    
+    [[Manager sharedInstance] resetData];
 }
 
 #pragma mark - Custom Button Add -
@@ -33,6 +33,7 @@
 //вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
     [self checkTextField];
+    
 }
 
 #pragma mark - Work with UITextField -
@@ -49,11 +50,32 @@
         
     } else {
         
-        [[Manager sharedInstance] saveInDataFromTextField:self.monthDebitTextField.text withKey:@"monthDebit"];
-        [[Manager sharedInstance]calculationBudget];
+        double monthDebit = [self.monthDebitTextField.text doubleValue];
+        double budgetOnDay = monthDebit / [[Manager sharedInstance] daysInCurrentMonth];
+        double monthDebitWithEightPercent = (monthDebit / 100) * 8;
+        double budgetOnDayWithEconomy = (monthDebit - monthDebitWithEightPercent) / [[Manager sharedInstance] daysInCurrentMonth];
+        double moneySavingInYear = monthDebitWithEightPercent * 12;
+        
+        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        [userDefault setDouble:monthDebit forKey:@"monthDebit"];
+        
+        NSDate *currDate = [NSDate date];
+        [userDefault setObject:currDate forKey:@"dateWhenCreateMonthDebit"];
+        
+        [userDefault setDouble:[self.monthDebitTextField.text doubleValue] forKey:@"muttableMonthDebit"];
+        
+        
+        NSDate *resetDate = [NSDate date];
+        [userDefault setObject:resetDate forKey:@"resetDateEveryMonth"];
+        
+        [userDefault synchronize];
+        
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
         CalculationViewController *calculationVC = [storyboard instantiateViewControllerWithIdentifier:@"CalculationViewController"];
+        calculationVC.budgetOnDay = [NSString stringWithFormat:@"%.2f", budgetOnDay];
+        calculationVC.budgetOnDayWithSaving = [NSString stringWithFormat:@"%.2f", budgetOnDayWithEconomy];
+        calculationVC.moneySavingYear = [NSString stringWithFormat:@"%.2f", moneySavingInYear];
         [self.navigationController pushViewController:calculationVC animated:YES];
         
     }

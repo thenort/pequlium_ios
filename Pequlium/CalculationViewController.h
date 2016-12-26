@@ -9,4 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface CalculationViewController : UIViewController
+@property (strong, nonatomic) NSString *budgetOnDay;
+@property (strong, nonatomic) NSString *budgetOnDayWithSaving;
+@property (strong, nonatomic) NSString *moneySavingYear;
+
+@property (weak, nonatomic) IBOutlet UILabel *budgetOnDayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *budgetOnDayWithSavingLabel;
+@property (weak, nonatomic) IBOutlet UILabel *moneySavingYearLabel;
 @end

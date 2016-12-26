@@ -18,6 +18,8 @@
 - (NSString*)getDebitFromDataInStringFormat:(NSString*)key;
 - (double)getDebitFromDataInDoubleFormat:(NSString*)key;
 - (NSUInteger)daysInCurrentMonth;
-- (void)calculationBudget;
+//- (void)calculationBudget;
 - (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action;
+- (NSString*)formatDate:(NSDate*)date;
+- (void)resetData;
 @end
