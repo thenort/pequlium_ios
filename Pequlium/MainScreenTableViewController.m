@@ -26,11 +26,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
     BOOL result = [self recalculationEveryDay];
     [self xibInHeaderToTableView:result];
     
-    //[self xibInHeaderToTableView];
     self.headerView.processOfSpendingMoneyTextField.delegate = self;
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     [self.headerView.iSpendTextLabel setAlpha:0];
@@ -41,7 +41,10 @@
     self.arrayForTable = [userDefault objectForKey:@"historySpendOfMonth"];
     
     self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [userDefault doubleForKey:@"budgetOnDay"]];
-
+    ////
+    NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
+    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
+    self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%@", mutableBudgetOnDayWithSpendNumberFromDict];
 }
 
 - (BOOL)recalculationEveryDay {
@@ -74,7 +77,6 @@
     if (firstResponder) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
     }
-    
 }
 
 #pragma mark - UIScrollViewDelegat -
@@ -118,7 +120,7 @@
             historySpendOfMonth = [NSMutableArray array];
             
         }
-        
+        //работа с таблицой (история)
         NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
         
         [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
@@ -130,6 +132,23 @@
         [userDefault synchronize];
         self.arrayForTable = historySpendOfMonth;
         [self.tableView reloadData];
+        
+        //---------------
+        
+        NSMutableDictionary *budgetOnCurrentDay = [[userDefault objectForKey:@"budgetOnCurrentDay"]mutableCopy];
+        NSNumber *mutableBudgetOnDay = [budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"];
+        
+        double mutableBudgetOnDayWithSpend = [mutableBudgetOnDay doubleValue] - fabs(currentSpend);
+        
+        NSNumber *mutableBudgetOnDayWithSpendNumber = [NSNumber numberWithDouble:mutableBudgetOnDayWithSpend];
+        [budgetOnCurrentDay setObject:mutableBudgetOnDayWithSpendNumber forKey:@"mutableBudgetOnDay"];
+        [userDefault setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
+        [userDefault synchronize];
+        
+        NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
+        NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
+        self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%@", mutableBudgetOnDayWithSpendNumberFromDict];
+        
         //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальные значения Альфы
         self.headerView.processOfSpendingMoneyTextField.text = @"";
         if ([self.headerView.processOfSpendingMoneyTextField.text  isEqual: @""]) {

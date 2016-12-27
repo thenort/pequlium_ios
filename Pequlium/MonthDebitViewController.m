@@ -33,7 +33,6 @@
 //вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
     [self checkTextField];
-    
 }
 
 #pragma mark - Work with UITextField -
