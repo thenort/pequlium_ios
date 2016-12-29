@@ -51,21 +51,24 @@
 - (void)resetData {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    double balanceOnCurrentMonth = [userDefaults doubleForKey:@"muttableMonthDebit"];
+    double balanceOnCurrentMonth = [userDefaults doubleForKey:@"mutableMonthDebit"];
     double balance = [userDefaults doubleForKey:@"balance"];
     [userDefaults setDouble:balanceOnCurrentMonth + balance forKey:@"balance"];
     double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
-    [userDefaults setDouble:monthDebit forKey:@"muttableMonthDebit"];
+    [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+    //сохраняем всю историю
+    NSDictionary *allHistoryOfSpendOfMonth = [userDefaults objectForKey:@"historySpendOfMonth"];
+    [userDefaults setObject:allHistoryOfSpendOfMonth forKey:@"allHistoryOfSpendOfAllMonth"];
+    //обнуляем историю
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     
     
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-    [dateComponents setMonth:1];
+    dateComponents.month = 1;
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:resetDateEveryMonth options:0];
     [userDefaults setObject:newDate forKey:@"resetDateEveryMonth"];
-    
     [userDefaults synchronize];
 }
 

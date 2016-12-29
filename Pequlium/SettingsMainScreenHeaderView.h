@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface SettingsMainScreenHeaderView : UIView
-
+@property (weak, nonatomic, readonly) IBOutlet UILabel *howMuchMoneyToNewMonthLabel;
+@property (weak, nonatomic, readonly) IBOutlet UILabel *summaToNewMonthLabel;
+- (instancetype)initWithDate:(NSDate*)timeForNextDate lastMoney:(double)money;
 @end

@@ -11,6 +11,9 @@
 #import "Manager.h"
 #import "MainScreenTableViewCell.h"
 #import "DayEndViewController.h"
+#import "MonthEndViewController.h"
+
+
 
 @interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
@@ -28,10 +31,11 @@
     [super viewDidLoad];
     
     self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
-    BOOL result = [self recalculationEveryDay];
-    [self xibInHeaderToTableView:result];
-    
+    [self recalculationEveryMonth];
+    [self xibInHeaderToTableView];
+
     self.headerView.processOfSpendingMoneyTextField.delegate = self;
+    [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     [self.headerView.iSpendTextLabel setAlpha:0];
     self.headerView.processOfSpendingMoneyTextField.tintColor = [UIColor clearColor];//убираем мигающий курсор
@@ -41,11 +45,12 @@
     self.arrayForTable = [userDefault objectForKey:@"historySpendOfMonth"];
     
     self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [userDefault doubleForKey:@"budgetOnDay"]];
-    ////
+    ////-------////
     NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
     NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
     self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%@", mutableBudgetOnDayWithSpendNumberFromDict];
 }
+
 
 - (BOOL)recalculationEveryDay {
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
@@ -54,9 +59,8 @@
     NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:dateFromDict toDate:[NSDate date] options:0];
-
+    
     if (difference.day != 0) {
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
         DayEndViewController *DayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
         [self.navigationController presentViewController:DayEndViewControllerVC animated:NO completion:nil];
@@ -67,16 +71,27 @@
         return false;
     }
     return true;
-    
+}
+
+- (void)recalculationEveryMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    if ([[NSDate date] compare:resetDateEveryMonth] == NSOrderedDescending) {
+        
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+        MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
+        [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
+        
+        [[Manager sharedInstance] resetData];
+    } else {
+        [self recalculationEveryDay];
+    }
 }
 
 //добавление xib в tableview header
-- (void)xibInHeaderToTableView: (BOOL)firstResponder {
+- (void)xibInHeaderToTableView {
     self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = self.headerView;
-    if (firstResponder) {
-        [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
-    }
 }
 
 #pragma mark - UIScrollViewDelegat -
@@ -114,13 +129,11 @@
         NSNumber *currentSpendNumber = [NSNumber numberWithDouble:currentSpend];
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
         NSMutableArray *historySpendOfMonth = [NSMutableArray arrayWithArray:[userDefault objectForKey:@"historySpendOfMonth"]];
-        
         if (historySpendOfMonth == nil) {
-
             historySpendOfMonth = [NSMutableArray array];
-            
         }
-        //работа с таблицой (история)
+        
+        //работа с таблицtй (история)
         NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
         
         [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
@@ -133,13 +146,10 @@
         self.arrayForTable = historySpendOfMonth;
         [self.tableView reloadData];
         
-        //---------------
-        
+        //работа с бюджетом на день
         NSMutableDictionary *budgetOnCurrentDay = [[userDefault objectForKey:@"budgetOnCurrentDay"]mutableCopy];
         NSNumber *mutableBudgetOnDay = [budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"];
-        
         double mutableBudgetOnDayWithSpend = [mutableBudgetOnDay doubleValue] - fabs(currentSpend);
-        
         NSNumber *mutableBudgetOnDayWithSpendNumber = [NSNumber numberWithDouble:mutableBudgetOnDayWithSpend];
         [budgetOnCurrentDay setObject:mutableBudgetOnDayWithSpendNumber forKey:@"mutableBudgetOnDay"];
         [userDefault setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
@@ -157,6 +167,8 @@
         }
     }
 }
+
+
 
 #pragma mark - UITextFieldDelegate -
 

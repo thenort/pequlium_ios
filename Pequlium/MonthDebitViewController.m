@@ -21,11 +21,15 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
     [self.monthDebitTextField becomeFirstResponder];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
-    [[Manager sharedInstance] resetData];
+    
+    
+    NSDate *resetDate = [NSDate date];
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    [userDefault setObject:resetDate forKey:@"resetDateEveryMonth"];
+    [userDefault synchronize];
 }
 
 #pragma mark - Custom Button Add -
@@ -61,14 +65,11 @@
         NSDate *currDate = [NSDate date];
         [userDefault setObject:currDate forKey:@"dateWhenCreateMonthDebit"];
         
-        [userDefault setDouble:[self.monthDebitTextField.text doubleValue] forKey:@"muttableMonthDebit"];
+        [userDefault setDouble:[self.monthDebitTextField.text doubleValue] forKey:@"mutableMonthDebit"];
         
-        
-        NSDate *resetDate = [NSDate date];
-        [userDefault setObject:resetDate forKey:@"resetDateEveryMonth"];
+        [[Manager sharedInstance] resetData];
         
         [userDefault synchronize];
-        
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
         CalculationViewController *calculationVC = [storyboard instantiateViewControllerWithIdentifier:@"CalculationViewController"];

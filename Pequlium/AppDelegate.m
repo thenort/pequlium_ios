@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+
 @interface AppDelegate ()
 
 @end
@@ -21,8 +22,6 @@
     NSLog(@"%@",paths);
     
     [self customNavigationBar];
-    
-    
     return YES;
 }
 

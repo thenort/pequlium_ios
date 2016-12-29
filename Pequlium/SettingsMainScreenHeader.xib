@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingsMainScreenHeaderView"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SettingsMainScreenHeader">
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SettingsMainScreenHeaderView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="283"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
@@ -45,6 +45,10 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="howMuchMoneyToNewMonthLabel" destination="Ad8-u4-bBe" id="aGF-PN-Iw5"/>
+                <outlet property="summaToNewMonthLabel" destination="Ggt-xA-k7t" id="qh1-eV-Lfg"/>
+            </connections>
             <point key="canvasLocation" x="-26.5" y="-107.5"/>
         </view>
     </objects>
