@@ -7,7 +7,7 @@
 //
 
 #import "NavViewController.h"
-#import "ViewController.h"
+#import "FirstViewController.h"
 #import "MainScreenTableViewController.h"
 
 @interface NavViewController ()
@@ -18,13 +18,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
     if (monthDebit == 0) {
-       ViewController  *viewVC = [storyboard instantiateViewControllerWithIdentifier:@"ViewController"];
-        self.viewControllers = @[viewVC];
+       FirstViewController  *firstViewVC = [storyboard instantiateViewControllerWithIdentifier:@"FirstViewController"];
+        self.viewControllers = @[firstViewVC];
     } else {
         MainScreenTableViewController *mainScreenTableVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
         self.viewControllers = @[mainScreenTableVC];
@@ -39,14 +39,5 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

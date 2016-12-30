@@ -48,6 +48,8 @@
     return valueFromData;
 }
 
+
+
 - (void)resetData {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -102,5 +104,13 @@
     nameOfTextField.inputAccessoryView = ViewForDoneButtonOnKeyboard;
 }
 
+#pragma mark - Work With balance in Label -
+
+- (NSString*)updateTextBalanceLabel {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
+    return [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
+}
 
 @end

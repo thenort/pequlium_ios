@@ -12,12 +12,15 @@
 #import "MainScreenTableViewCell.h"
 #import "DayEndViewController.h"
 #import "MonthEndViewController.h"
+#import "NegativeBalanceViewController.h"
 
 
 
 @interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
 @property (strong, nonatomic) NSArray *arrayForTable;
+@property (assign, nonatomic) BOOL callOneTimeDay;
+@property (assign, nonatomic) BOOL callOneTimeMonth;
 @end
 
 @implementation MainScreenTableViewController
@@ -30,61 +33,75 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
     [self recalculationEveryMonth];
     [self xibInHeaderToTableView];
-
-    self.headerView.processOfSpendingMoneyTextField.delegate = self;
-    [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+    [self customise];
+    
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
-    [self.headerView.iSpendTextLabel setAlpha:0];
-    self.headerView.processOfSpendingMoneyTextField.tintColor = [UIColor clearColor];//убираем мигающий курсор
     [self.headerView.processOfSpendingMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    self.arrayForTable = [userDefault objectForKey:@"historySpendOfMonth"];
-    
-    self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [userDefault doubleForKey:@"budgetOnDay"]];
-    ////-------////
-    NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
-    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-    self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%@", mutableBudgetOnDayWithSpendNumberFromDict];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.arrayForTable = [userDefaults objectForKey:@"historySpendOfMonth"];
+    self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel] ;
 }
 
+- (void)customise {
+    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
+    self.headerView.processOfSpendingMoneyTextField.delegate = self;
+    [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+    [self.headerView.iSpendTextLabel setAlpha:0];
+    self.headerView.processOfSpendingMoneyTextField.tintColor = [UIColor clearColor];//убираем мигающий курсор
+}
 
-- (BOOL)recalculationEveryDay {
+- (void)updateTextCurrentBudgetOnDayLabel {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
+    self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
+}
+
+- (void)recalculationEveryDay {
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
     
     NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:dateFromDict toDate:[NSDate date] options:0];
-    
+ 
     if (difference.day != 0) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-        DayEndViewController *DayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
-        [self.navigationController presentViewController:DayEndViewControllerVC animated:NO completion:nil];
-        
-        
+        if (self.callOneTimeDay == false) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+            DayEndViewController *DayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
+            [self.navigationController presentViewController:DayEndViewControllerVC animated:NO completion:nil];
+        }
         double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
         budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
-        return false;
     }
-    return true;
 }
 
 - (void)recalculationEveryMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
     if ([[NSDate date] compare:resetDateEveryMonth] == NSOrderedDescending) {
-        
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-        MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
-        [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
-        
+        if (self.callOneTimeMonth == false) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+            MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
+            [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
+        }
         [[Manager sharedInstance] resetData];
     } else {
         [self recalculationEveryDay];
+    }
+}
+
+- (void)negativeBalance {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
+    if ([mutableBudgetWithSpendNumber doubleValue] < 0) {
+        UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+        NegativeBalanceViewController *negativeBalanceViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"NegativeBalanceViewController"];
+        [self.navigationController pushViewController:negativeBalanceViewControllerVC animated:YES];
     }
 }
 
@@ -111,6 +128,7 @@
 //вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
     [self checkTextField];
+    [self negativeBalance];
 }
 
 - (void)checkTextField {
@@ -135,12 +153,9 @@
         
         //работа с таблицtй (история)
         NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
-        
         [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
         [dictWithDateAndSum setObject:[NSDate date] forKey:@"currentDateOfSpend"];
-        
         [historySpendOfMonth addObject:dictWithDateAndSum];
-        
         [userDefault setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
         [userDefault synchronize];
         self.arrayForTable = historySpendOfMonth;
@@ -155,10 +170,7 @@
         [userDefault setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
         [userDefault synchronize];
         
-        NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
-        NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-        self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%@", mutableBudgetOnDayWithSpendNumberFromDict];
-        
+        self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
         //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальные значения Альфы
         self.headerView.processOfSpendingMoneyTextField.text = @"";
         if ([self.headerView.processOfSpendingMoneyTextField.text  isEqual: @""]) {
@@ -172,10 +184,9 @@
 
 #pragma mark - UITextFieldDelegate -
 
-#define ACCEPTABLE_CHARECTERS @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-+=!№;%:?@#$^&*() "
-
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
-    NSCharacterSet *acceptedInput = [NSCharacterSet characterSetWithCharactersInString:ACCEPTABLE_CHARECTERS];
+    NSString *str = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-+=!№;%:?@#$^&*() ";
+    NSCharacterSet *acceptedInput = [NSCharacterSet characterSetWithCharactersInString:str];
     if ([[string componentsSeparatedByCharactersInSet:acceptedInput] count] > 1){
         return NO;
     }

@@ -7,16 +7,20 @@
 //
 
 #import "NegativeBalanceViewController.h"
+#import "Manager.h"
 
 @interface NegativeBalanceViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *negativeBalanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dailyBudgetWillBeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dailyBudgetWillBeTomorrowLabel;
 @end
 
 @implementation NegativeBalanceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    //self.navigationItem.hidesBackButton = YES;
+    self.negativeBalanceLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -24,14 +28,20 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)dailyBudgetCounted:(id)sender {
+    
+    
 }
-*/
+
+- (IBAction)dailyBudgetTomorrowCounted:(id)sender {
+    
+    
+}
+
+- (IBAction)mistakeEnterDifferentAmount:(id)sender {
+    
+    
+}
+
 
 @end

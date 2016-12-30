@@ -7,10 +7,12 @@
 //
 
 #import "SettingsMainScreenHeaderView.h"
+
 @interface SettingsMainScreenHeaderView ()
 @property (weak, nonatomic) IBOutlet UILabel *howMuchMoneyToNewMonthLabel;
 @property (weak, nonatomic) IBOutlet UILabel *summaToNewMonthLabel;
 @end
+
 @implementation SettingsMainScreenHeaderView
 
 - (instancetype)initWithDate:(NSDate*)timeForNextDate lastMoney:(double)money
