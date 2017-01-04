@@ -27,6 +27,7 @@
 - (void)xibInHeaderToTableView {
     //добавление xib в tableview header
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
     SettingsMainScreenHeaderView *headerView = [[SettingsMainScreenHeaderView alloc]initWithDate:[userDefaults objectForKey:@"resetDateEveryMonth"] lastMoney:[userDefaults doubleForKey:@"mutableMonthDebit"]];
     self.tableView.tableHeaderView = headerView;
 }

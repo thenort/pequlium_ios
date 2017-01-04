@@ -19,8 +19,6 @@
 @interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
 @property (strong, nonatomic) NSArray *arrayForTable;
-@property (assign, nonatomic) BOOL callOneTimeDay;
-@property (assign, nonatomic) BOOL callOneTimeMonth;
 @end
 
 @implementation MainScreenTableViewController
@@ -67,23 +65,56 @@
     NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:dateFromDict toDate:[NSDate date] options:0];
- 
+    
     if (difference.day != 0) {
-        if (self.callOneTimeDay == false) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-            DayEndViewController *DayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
-            [self.navigationController presentViewController:DayEndViewControllerVC animated:NO completion:nil];
+        NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
+        NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
+        
+        //обнуление bool для negativebalance
+        BOOL callOneTime = NO;
+        [userDefault setBool:callOneTime forKey:@"callOneTime"];
+        //обнуление bool для negativebalance dailyBudgetWillBeLabel
+        BOOL callOneTimeToLabel = NO;
+        [userDefault setBool:callOneTimeToLabel forKey:@"callOneTimeToLable"];
+        
+        BOOL callOneTimeDay = [userDefault boolForKey:@"callOneTimeDay"];
+        if (!callOneTimeDay) {
+            if ([mutableBudgetWithSpendNumber doubleValue] > 0) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+                DayEndViewController *DayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
+                [self.navigationController presentViewController:DayEndViewControllerVC animated:NO completion:nil];
+            }
         }
-        double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
-        budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+        if ([userDefault boolForKey:@"dailyBudgetTomorrowCountedBool"]) {
+            double budgetOnDay = [userDefault doubleForKey:@"dailyBudgetTomorrowCounted"];
+            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+            
+            double budgetOnDayInDailyBudgetTomorrowCounted = [userDefault doubleForKey:@"budgetOnDay"];
+            [userDefault setDouble:budgetOnDayInDailyBudgetTomorrowCounted forKey:@"dailyBudgetTomorrowCounted"];
+            
+            BOOL dailyBudgetTomorrowCountedBool = NO;
+            [userDefault setBool:dailyBudgetTomorrowCountedBool forKey:@"dailyBudgetTomorrowCountedBool"];
+            
+            BOOL dailyBudgetTomorrowBool = NO;
+            [userDefault setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
+        } else {
+            //обнуление budgetOnCurrentDay
+            double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
+            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+        }
+        [userDefault synchronize];
     }
 }
 
 - (void)recalculationEveryMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    
     if ([[NSDate date] compare:resetDateEveryMonth] == NSOrderedDescending) {
-        if (self.callOneTimeMonth == false) {
+        BOOL callOneTimeMonth = [userDefaults boolForKey:@"callOneTimeMonth"];
+        if (!callOneTimeMonth) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
             MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
             [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
@@ -151,7 +182,7 @@
             historySpendOfMonth = [NSMutableArray array];
         }
         
-        //работа с таблицtй (история)
+        //работа с таблицей (история)
         NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
         [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
         [dictWithDateAndSum setObject:[NSDate date] forKey:@"currentDateOfSpend"];
@@ -169,6 +200,11 @@
         [budgetOnCurrentDay setObject:mutableBudgetOnDayWithSpendNumber forKey:@"mutableBudgetOnDay"];
         [userDefault setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
         [userDefault synchronize];
+        
+        double mutableMonthDebitWithSpend = [userDefault doubleForKey:@"mutableMonthDebit"] - fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]);
+        [userDefault setDouble:mutableMonthDebitWithSpend forKey:@"mutableMonthDebit"];
+        
+        [userDefault setDouble:fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]) forKey:@"processOfSpendingMoneyTextField"];
         
         self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
         //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальные значения Альфы

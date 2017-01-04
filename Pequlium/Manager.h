@@ -22,4 +22,5 @@
 - (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action;
 - (NSString*)formatDate:(NSDate*)date;
 - (void)resetData;
+- (NSInteger)daysToStartNewMonth;
 @end

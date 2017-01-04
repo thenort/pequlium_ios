@@ -9,13 +9,22 @@
 #import "DayEndViewController.h"
 
 @interface DayEndViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *balanceEndDay;
 @end
 
 @implementation DayEndViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
+    
+    BOOL callOneTimeDay = YES;
+    [userDefaults setBool:callOneTimeDay forKey:@"callOneTimeDay"];
+    [userDefaults synchronize];
+    
+    self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
     // Do any additional setup after loading the view.
 }
 
@@ -24,14 +33,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)moveBalanceOnToday:(id)sender {
+    
+    
 }
-*/
+
+- (IBAction)amountOnDailyBudget:(id)sender {
+    
+    
+}
 
 @end

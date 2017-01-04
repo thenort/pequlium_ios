@@ -53,14 +53,20 @@
 - (void)resetData {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    /*
     double balanceOnCurrentMonth = [userDefaults doubleForKey:@"mutableMonthDebit"];
     double balance = [userDefaults doubleForKey:@"balance"];
     [userDefaults setDouble:balanceOnCurrentMonth + balance forKey:@"balance"];
+    */
     double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
     [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+    
+    NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
+    [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
+    
     //сохраняем всю историю
-    NSDictionary *allHistoryOfSpendOfMonth = [userDefaults objectForKey:@"historySpendOfMonth"];
-    [userDefaults setObject:allHistoryOfSpendOfMonth forKey:@"allHistoryOfSpendOfAllMonth"];
+    NSArray *allHistoryOfSpendOfMonthArr = [userDefaults objectForKey:@"historySpendOfMonth"];
+    [userDefaults setObject:allHistoryOfSpendOfMonthArr forKey:@"allHistoryOfSpendOfAllMonth"];
     //обнуляем историю
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     
@@ -88,6 +94,15 @@
     [dateFormatter setDateFormat:@"dd.MM.YY HH:mm:ss"];
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
+}
+
+- (NSInteger)daysToStartNewMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDate *dateStartNewMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *days = [calendar components:NSCalendarUnitDay fromDate:[NSDate new] toDate:dateStartNewMonth options:0];
+    NSInteger daysToStartNewMonth = days.day;
+    return daysToStartNewMonth;
 }
 
 #pragma mark - Button on keyboard -

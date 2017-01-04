@@ -60,8 +60,11 @@
     NSDictionary *budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", budgetOnDayNumber, @"mutableBudgetOnDay", nil];
     [userDefaults setObject:budgetOnDayNumber forKey:@"budgetOnDay"];
     [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-    [userDefaults synchronize];
     
+    [userDefaults setObject:budgetOnDayNumber forKey:@"stableBudgetOnDay"];
+    
+    
+    [userDefaults synchronize];
 }
 
 /*
