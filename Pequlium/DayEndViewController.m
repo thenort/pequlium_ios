@@ -19,13 +19,15 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
     NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-    
+    self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
+    // Do any additional setup after loading the view.
+}
+
+- (void)callOneTimeDayBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL callOneTimeDay = YES;
     [userDefaults setBool:callOneTimeDay forKey:@"callOneTimeDay"];
     [userDefaults synchronize];
-    
-    self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
@@ -34,12 +36,12 @@
 }
 
 - (IBAction)moveBalanceOnToday:(id)sender {
-    
+    [self callOneTimeDayBool];
     
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
-    
+    [self callOneTimeDayBool];
     
 }
 

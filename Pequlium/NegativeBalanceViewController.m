@@ -23,6 +23,7 @@
     self.navigationItem.hidesBackButton = YES;
     self.negativeBalanceLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
     [self infoToDailyBudgetWillBeLabel];
+    [self infoToDailyBudgetWillBeTomorrowLabel];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,14 +39,14 @@
     if (!callOneTimeBool) {
         double divided = [[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue] / [[Manager sharedInstance] daysToStartNewMonth] ;
         double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
-        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"Дневной бюджет будет %.2f", recalculationBudgetOnDay];
+        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnDay];
         
         BOOL callOneTime = YES;
         [userDefaults setBool:callOneTime forKey:@"callOneTimeToLable"];
     } else {
         double divided = [userDefaults doubleForKey:@"processOfSpendingMoneyTextField"] / [[Manager sharedInstance] daysToStartNewMonth];
         double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
-        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"Дневной бюджет будет %.2f", recalculationBudgetOnDay];
+        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnDay];
     }
 }
 
@@ -61,6 +62,7 @@
         double divided = [[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue] / [[Manager sharedInstance] daysToStartNewMonth] ;
         double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
         [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
+        
         BOOL callOneTime = YES;
         [userDefaults setBool:callOneTime forKey:@"callOneTime"];
     } else {
@@ -73,42 +75,68 @@
 }
 
 - (void)infoToDailyBudgetWillBeTomorrowLabel {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
+    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    BOOL dailyBudgetTomorrowBoolLabel = [userDefaults boolForKey:@"dailyBudgetTomorrowBoolLabel"];
+    if (!dailyBudgetTomorrowBoolLabel) {
+        
+        double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] - fabs([[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue]) ;
+        
+        self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+        
+        BOOL callOneTimeTomorrowBool = YES;
+        [userDefaults setBool:callOneTimeTomorrowBool forKey:@"dailyBudgetTomorrowBoolLabel"];
+    } else {
+        if (![userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
+            double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"]  doubleValue] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
+            self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+        } else {
+            double recalculationBudgetOnTomorrow = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
+            self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+        }
+    }
 }
 
 
 - (IBAction)dailyBudgetTomorrowCounted:(id)sender {
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL callOneTime = YES;
-    [userDefaults setBool:callOneTime forKey:@"callOneTime"];
-    
-    //если да то бюджет на завтра будет...
-    BOOL dailyBudgetTomorrowCountedBool = YES;
-    [userDefaults setBool:dailyBudgetTomorrowCountedBool forKey:@"dailyBudgetTomorrowCountedBool"];
-    
-    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    BOOL dailyBudgetTomorrowBool = [userDefaults boolForKey:@"dailyBudgetTomorrowBool"];
-    if (!dailyBudgetTomorrowBool) {
+    if ([self.dailyBudgetWillBeTomorrowLabel.text doubleValue] > 0) {
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        BOOL callOneTime = YES;
+        [userDefaults setBool:callOneTime forKey:@"callOneTime"];
         
-        double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] - fabs([[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue]) ;
+        //если да то бюджет на завтра будет...
+        BOOL dailyBudgetTomorrowCountedBool = YES;
+        [userDefaults setBool:dailyBudgetTomorrowCountedBool forKey:@"dailyBudgetTomorrowCountedBool"];
         
-        [userDefaults setDouble:recalculationBudgetOnTomorrow forKey:@"dailyBudgetTomorrowCounted"];
-        NSLog(@"callback 1.1");
-        BOOL callOneTimeTomorrowBool = YES;
-        [userDefaults setBool:callOneTimeTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
-    } else {
-        if (![userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
-            double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"]  doubleValue] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
+        NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+        BOOL dailyBudgetTomorrowBool = [userDefaults boolForKey:@"dailyBudgetTomorrowBool"];
+        if (!dailyBudgetTomorrowBool) {
+            
+            double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] - fabs([[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue]) ;
+            
             [userDefaults setDouble:recalculationBudgetOnTomorrow forKey:@"dailyBudgetTomorrowCounted"];
+            BOOL callOneTimeTomorrowBool = YES;
+            [userDefaults setBool:callOneTimeTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
         } else {
-            double recalculationBudgetOnTomorrow = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
-            NSLog(@"callback 2.1");
-            [userDefaults setDouble:recalculationBudgetOnTomorrow forKey:@"dailyBudgetTomorrowCounted"];
+            if (![userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
+                double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"]  doubleValue] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
+                [userDefaults setDouble:recalculationBudgetOnTomorrow forKey:@"dailyBudgetTomorrowCounted"];
+            } else {
+                double recalculationBudgetOnTomorrow = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
+                [userDefaults setDouble:recalculationBudgetOnTomorrow forKey:@"dailyBudgetTomorrowCounted"];
+            }
         }
+        [userDefaults synchronize];
+        [self pushVC];
+    } else {
+        NSString *error = @"Введенная вами сумма привышает ваш бюджет на завтра. Нажмите: Пересчитать дневной бюджет. Или введите меньшую сумму.";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
     }
-    [userDefaults synchronize];
-    [self pushVC];
+
 }
 
 - (IBAction)mistakeEnterDifferentAmount:(id)sender {
@@ -132,6 +160,8 @@
     if ([[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue] > 0) {
         BOOL callOneTime = NO;
         [userDefaults setBool:callOneTime forKey:@"callOneTimeToLable"];
+        BOOL dailyBudgetTomorrowBoolLabel = NO;
+        [userDefaults setBool:dailyBudgetTomorrowBoolLabel forKey:@"dailyBudgetTomorrowBoolLabel"];
     }
     
     [historySpendOfMonth removeLastObject];

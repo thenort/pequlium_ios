@@ -9,6 +9,9 @@
 #import "SettingsMainScreenTableViewController.h"
 #import "SettingsMainScreenHeaderView.h"
 #import "SettingsMainScreenTableViewCell.h"
+#import "SettingsDayBalanceTableViewController.h"
+#import "SettingsMonthBalanceTableViewController.h"
+#import "ResolutionTableViewController.h"
 
 @interface SettingsMainScreenTableViewController ()
 @property (strong, nonatomic) NSArray *textForCell;
@@ -50,8 +53,37 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    switch (indexPath.row) {
+        case 0:
+            [self settingsDayBalanceVC];
+            break;
+        case 1:
+            [self settingsMonthBalanceVC];
+            break;
+        case 2:
+            [self resolutonVC];
+            break;
+        default:
+            break;
+    }
 }
 
+- (void)settingsDayBalanceVC {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    SettingsDayBalanceTableViewController *settingsDayBalanceVC = [storyboard instantiateViewControllerWithIdentifier:@"SettingsDayBalanceTableViewController"];
+    [self.navigationController pushViewController:settingsDayBalanceVC animated:YES];
+}
+
+- (void)settingsMonthBalanceVC {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    SettingsMonthBalanceTableViewController *settingsMonthBalanceVC = [storyboard instantiateViewControllerWithIdentifier:@"SettingsMonthBalanceTableViewController"];
+    [self.navigationController pushViewController:settingsMonthBalanceVC animated:YES];
+}
+
+- (void)resolutonVC {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    ResolutionTableViewController *resolutionVC = [storyboard instantiateViewControllerWithIdentifier:@"ResolutionTableViewController"];
+    [self.navigationController pushViewController:resolutionVC animated:YES];
+}
 
 @end

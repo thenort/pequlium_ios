@@ -22,6 +22,7 @@
     return _singleton;
 }
 
+
 #pragma mark - Work with NSUserDefaults -
 
 - (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key {

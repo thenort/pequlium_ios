@@ -18,11 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationItem.hidesBackButton = YES;
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL callOneTimeMonth = YES;
-    [userDefaults setBool:callOneTimeMonth forKey:@"callOneTimeMonth"];
-    [userDefaults synchronize];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,18 +26,25 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)callOneTimeMonthBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL callOneTimeMonth = YES;
+    [userDefaults setBool:callOneTimeMonth forKey:@"callOneTimeMonth"];
+    [userDefaults synchronize];
+}
+
 - (IBAction)moveBalanceOnToday:(id)sender {
-    
+    [self callOneTimeMonthBool];
     
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
-    
+    [self callOneTimeMonthBool];
     
 }
 
 - (IBAction)saveMoney:(id)sender {
-    
+    [self callOneTimeMonthBool];
     
 }
 

@@ -77,6 +77,9 @@
         BOOL callOneTimeToLabel = NO;
         [userDefault setBool:callOneTimeToLabel forKey:@"callOneTimeToLable"];
         
+        BOOL dailyBudgetTomorrowBoolLabel = NO;
+        [userDefault setBool:dailyBudgetTomorrowBoolLabel forKey:@"dailyBudgetTomorrowBoolLabel"];
+        
         BOOL callOneTimeDay = [userDefault boolForKey:@"callOneTimeDay"];
         if (!callOneTimeDay) {
             if ([mutableBudgetWithSpendNumber doubleValue] > 0) {
