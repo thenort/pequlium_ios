@@ -30,17 +30,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self recalculationEveryMonth];
     [self xibInHeaderToTableView];
     [self customise];
-    
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     [self.headerView.processOfSpendingMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     self.arrayForTable = [userDefaults objectForKey:@"historySpendOfMonth"];
-    self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel] ;
+    self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
 }
 
 - (void)customise {
@@ -61,12 +59,8 @@
 - (void)recalculationEveryDay {
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
-    
-    NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:dateFromDict toDate:[NSDate date] options:0];
-    
-    if (difference.day != 0) {
+
+    if ([[Manager sharedInstance] differenceDay] != 0) {
         NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
         NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
         
@@ -80,15 +74,8 @@
         BOOL dailyBudgetTomorrowBoolLabel = NO;
         [userDefault setBool:dailyBudgetTomorrowBoolLabel forKey:@"dailyBudgetTomorrowBoolLabel"];
         
-        BOOL callOneTimeDay = [userDefault boolForKey:@"callOneTimeDay"];
-        if (!callOneTimeDay) {
-            if ([mutableBudgetWithSpendNumber doubleValue] > 0) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-                DayEndViewController *DayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
-                [self.navigationController presentViewController:DayEndViewControllerVC animated:NO completion:nil];
-            }
-        }
         if ([userDefault boolForKey:@"dailyBudgetTomorrowCountedBool"]) {
+            
             double budgetOnDay = [userDefault doubleForKey:@"dailyBudgetTomorrowCounted"];
             budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
             [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
@@ -101,12 +88,25 @@
             
             BOOL dailyBudgetTomorrowBool = NO;
             [userDefault setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
+            
         } else {
-            //обнуление budgetOnCurrentDay
             double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
             budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
             [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
         }
+        
+        if ([mutableBudgetWithSpendNumber doubleValue] == 0) {
+            //обнуление budgetOnCurrentDay
+            double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
+            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+            
+        } else if ([mutableBudgetWithSpendNumber doubleValue] > 0 && [userDefault boolForKey:@"callOneTimeDay"]) {
+            double mutableBudgetOnDay = [userDefault doubleForKey:@"budgetOnDay"] + [mutableBudgetWithSpendNumber doubleValue];
+            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
+            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+        }
+        
         [userDefault synchronize];
     }
 }
@@ -148,11 +148,11 @@
 #pragma mark - UIScrollViewDelegat -
 
 //когда клавиатура выезжает
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < -80) {
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {//-80
+    if (scrollView.contentOffset.y < - 57 ) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
-    }
-    else if (scrollView.contentOffset.y > -60) {
+    }//-60
+    else if (scrollView.contentOffset.y > - 57 ) {
         [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
     }
 }
@@ -219,8 +219,6 @@
     }
 }
 
-
-
 #pragma mark - UITextFieldDelegate -
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -228,8 +226,7 @@
     NSCharacterSet *acceptedInput = [NSCharacterSet characterSetWithCharactersInString:str];
     if ([[string componentsSeparatedByCharactersInSet:acceptedInput] count] > 1){
         return NO;
-    }
-    else{
+    } else {
         return YES;
     }
 }

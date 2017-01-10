@@ -23,4 +23,5 @@
 - (NSString*)formatDate:(NSDate*)date;
 - (void)resetData;
 - (NSInteger)daysToStartNewMonth;
+- (NSInteger)differenceDay;
 @end

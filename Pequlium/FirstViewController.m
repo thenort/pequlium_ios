@@ -2,8 +2,8 @@
 //  FirstViewController.m
 //  Pequlium
 //
-//  Created by Kyrylo Matvieiev on 30.12.16.
-//  Copyright © 2016 Kyrylo Matvieiev. All rights reserved.
+//  Created by Kyrylo Matvieiev on 10.01.17.
+//  Copyright © 2017 Kyrylo Matvieiev. All rights reserved.
 //
 
 #import "FirstViewController.h"

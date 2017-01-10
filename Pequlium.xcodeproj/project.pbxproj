@@ -12,33 +12,12 @@
 		130E61451E1E75F800F333B4 /* ResolutionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130E61441E1E75F800F333B4 /* ResolutionTableViewController.m */; };
 		137964B51E093DA10042BF27 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964B41E093DA10042BF27 /* Manager.m */; };
 		137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964BA1E095A4B0042BF27 /* CalculationViewController.m */; };
-		137BAB731E16DA59002B2991 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137BAB721E16DA59002B2991 /* FirstViewController.m */; };
 		13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */; };
 		13C35BB21E0C189100DD497B /* MainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */; };
-		13C6693B1E11820D00852945 /* NavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C6693A1E11820D00852945 /* NavViewController.m */; };
+		13FE06A51E25150200E9C313 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FE06A41E25150200E9C313 /* FirstViewController.m */; };
+		13FE06A81E25154D00E9C313 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FE06A71E25154D00E9C313 /* NavigationViewController.m */; };
 		4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */; };
 		449917A01DFAFB800099800E /* MainScreenHeaderXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */; };
-		44A7A7911DFFFF2C00AB7BDD /* Qanelas-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A77D1DFFFF2C00AB7BDD /* Qanelas-Black.otf */; };
-		44A7A7921DFFFF2C00AB7BDD /* Qanelas-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A77E1DFFFF2C00AB7BDD /* Qanelas-BlackItalic.otf */; };
-		44A7A7931DFFFF2C00AB7BDD /* Qanelas-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A77F1DFFFF2C00AB7BDD /* Qanelas-Bold.otf */; };
-		44A7A7941DFFFF2C00AB7BDD /* Qanelas-BoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7801DFFFF2C00AB7BDD /* Qanelas-BoldItalic.otf */; };
-		44A7A7951DFFFF2C00AB7BDD /* Qanelas-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7811DFFFF2C00AB7BDD /* Qanelas-ExtraBold.otf */; };
-		44A7A7961DFFFF2C00AB7BDD /* Qanelas-ExtraBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7821DFFFF2C00AB7BDD /* Qanelas-ExtraBoldItalic.otf */; };
-		44A7A7971DFFFF2C00AB7BDD /* Qanelas-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7831DFFFF2C00AB7BDD /* Qanelas-Heavy.otf */; };
-		44A7A7981DFFFF2C00AB7BDD /* Qanelas-HeavyItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7841DFFFF2C00AB7BDD /* Qanelas-HeavyItalic.otf */; };
-		44A7A7991DFFFF2C00AB7BDD /* Qanelas-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7851DFFFF2C00AB7BDD /* Qanelas-Light.otf */; };
-		44A7A79A1DFFFF2C00AB7BDD /* Qanelas-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7861DFFFF2C00AB7BDD /* Qanelas-LightItalic.otf */; };
-		44A7A79B1DFFFF2C00AB7BDD /* Qanelas-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7871DFFFF2C00AB7BDD /* Qanelas-Medium.otf */; };
-		44A7A79C1DFFFF2C00AB7BDD /* Qanelas-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7881DFFFF2C00AB7BDD /* Qanelas-MediumItalic.otf */; };
-		44A7A79D1DFFFF2C00AB7BDD /* Qanelas-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7891DFFFF2C00AB7BDD /* Qanelas-Regular.otf */; };
-		44A7A79E1DFFFF2C00AB7BDD /* Qanelas-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78A1DFFFF2C00AB7BDD /* Qanelas-RegularItalic.otf */; };
-		44A7A79F1DFFFF2C00AB7BDD /* Qanelas-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78B1DFFFF2C00AB7BDD /* Qanelas-SemiBold.otf */; };
-		44A7A7A01DFFFF2C00AB7BDD /* Qanelas-SemiBoldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78C1DFFFF2C00AB7BDD /* Qanelas-SemiBoldItalic.otf */; };
-		44A7A7A11DFFFF2C00AB7BDD /* Qanelas-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78D1DFFFF2C00AB7BDD /* Qanelas-Thin.otf */; };
-		44A7A7A21DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78E1DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf */; };
-		44A7A7A31DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A78F1DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf */; };
-		44A7A7A41DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7901DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf */; };
-		44A7A7A61E00072200AB7BDD /* CustomFont.plist in Resources */ = {isa = PBXBuildFile; fileRef = 44A7A7A51E00072200AB7BDD /* CustomFont.plist */; };
 		44C0D9111DFAB6C300E3D413 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C0D9101DFAB6C300E3D413 /* main.m */; };
 		44C0D9141DFAB6C300E3D413 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C0D9131DFAB6C300E3D413 /* AppDelegate.m */; };
 		44C0D91A1DFAB6C300E3D413 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44C0D9181DFAB6C300E3D413 /* Main.storyboard */; };
@@ -65,38 +44,17 @@
 		137964B41E093DA10042BF27 /* Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
 		137964B91E095A4B0042BF27 /* CalculationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculationViewController.h; sourceTree = "<group>"; };
 		137964BA1E095A4B0042BF27 /* CalculationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculationViewController.m; sourceTree = "<group>"; };
-		137BAB711E16DA59002B2991 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		137BAB721E16DA59002B2991 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		13C35BAD1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenTableViewCell.h; sourceTree = "<group>"; };
 		13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenTableViewCell.m; sourceTree = "<group>"; };
 		13C35BB01E0C189100DD497B /* MainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTableViewCell.h; sourceTree = "<group>"; };
 		13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenTableViewCell.m; sourceTree = "<group>"; };
-		13C669391E11820D00852945 /* NavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavViewController.h; sourceTree = "<group>"; };
-		13C6693A1E11820D00852945 /* NavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavViewController.m; sourceTree = "<group>"; };
+		13FE06A31E25150200E9C313 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
+		13FE06A41E25150200E9C313 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
+		13FE06A61E25154D00E9C313 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
+		13FE06A71E25154D00E9C313 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
 		4499179C1DFAFAF90099800E /* MainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenHeaderView.h; sourceTree = "<group>"; };
 		4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenHeaderView.m; sourceTree = "<group>"; };
 		4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreenHeaderXib.xib; sourceTree = "<group>"; };
-		44A7A77D1DFFFF2C00AB7BDD /* Qanelas-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-Black.otf"; sourceTree = "<group>"; };
-		44A7A77E1DFFFF2C00AB7BDD /* Qanelas-BlackItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-BlackItalic.otf"; sourceTree = "<group>"; };
-		44A7A77F1DFFFF2C00AB7BDD /* Qanelas-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-Bold.otf"; sourceTree = "<group>"; };
-		44A7A7801DFFFF2C00AB7BDD /* Qanelas-BoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-BoldItalic.otf"; sourceTree = "<group>"; };
-		44A7A7811DFFFF2C00AB7BDD /* Qanelas-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-ExtraBold.otf"; sourceTree = "<group>"; };
-		44A7A7821DFFFF2C00AB7BDD /* Qanelas-ExtraBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-ExtraBoldItalic.otf"; sourceTree = "<group>"; };
-		44A7A7831DFFFF2C00AB7BDD /* Qanelas-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-Heavy.otf"; sourceTree = "<group>"; };
-		44A7A7841DFFFF2C00AB7BDD /* Qanelas-HeavyItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-HeavyItalic.otf"; sourceTree = "<group>"; };
-		44A7A7851DFFFF2C00AB7BDD /* Qanelas-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-Light.otf"; sourceTree = "<group>"; };
-		44A7A7861DFFFF2C00AB7BDD /* Qanelas-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-LightItalic.otf"; sourceTree = "<group>"; };
-		44A7A7871DFFFF2C00AB7BDD /* Qanelas-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-Medium.otf"; sourceTree = "<group>"; };
-		44A7A7881DFFFF2C00AB7BDD /* Qanelas-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-MediumItalic.otf"; sourceTree = "<group>"; };
-		44A7A7891DFFFF2C00AB7BDD /* Qanelas-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-Regular.otf"; sourceTree = "<group>"; };
-		44A7A78A1DFFFF2C00AB7BDD /* Qanelas-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-RegularItalic.otf"; sourceTree = "<group>"; };
-		44A7A78B1DFFFF2C00AB7BDD /* Qanelas-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-SemiBold.otf"; sourceTree = "<group>"; };
-		44A7A78C1DFFFF2C00AB7BDD /* Qanelas-SemiBoldItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-SemiBoldItalic.otf"; sourceTree = "<group>"; };
-		44A7A78D1DFFFF2C00AB7BDD /* Qanelas-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-Thin.otf"; sourceTree = "<group>"; };
-		44A7A78E1DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-ThinItalic.otf"; sourceTree = "<group>"; };
-		44A7A78F1DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-UltraLight.otf"; sourceTree = "<group>"; };
-		44A7A7901DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Qanelas-UltraLightItalic.otf"; sourceTree = "<group>"; };
-		44A7A7A51E00072200AB7BDD /* CustomFont.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CustomFont.plist; sourceTree = "<group>"; };
 		44C0D90C1DFAB6C300E3D413 /* Pequlium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pequlium.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44C0D9101DFAB6C300E3D413 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		44C0D9121DFAB6C300E3D413 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -166,10 +124,10 @@
 		4499179A1DFAFA800099800E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				13C669391E11820D00852945 /* NavViewController.h */,
-				13C6693A1E11820D00852945 /* NavViewController.m */,
-				137BAB711E16DA59002B2991 /* FirstViewController.h */,
-				137BAB721E16DA59002B2991 /* FirstViewController.m */,
+				13FE06A61E25154D00E9C313 /* NavigationViewController.h */,
+				13FE06A71E25154D00E9C313 /* NavigationViewController.m */,
+				13FE06A31E25150200E9C313 /* FirstViewController.h */,
+				13FE06A41E25150200E9C313 /* FirstViewController.m */,
 				44C921431E0170B300F3D004 /* MonthDebitViewController.h */,
 				44C921441E0170B300F3D004 /* MonthDebitViewController.m */,
 				137964B91E095A4B0042BF27 /* CalculationViewController.h */,
@@ -201,33 +159,6 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		44A7A77C1DFFFF2C00AB7BDD /* Qanelas-fonts */ = {
-			isa = PBXGroup;
-			children = (
-				44A7A77D1DFFFF2C00AB7BDD /* Qanelas-Black.otf */,
-				44A7A77E1DFFFF2C00AB7BDD /* Qanelas-BlackItalic.otf */,
-				44A7A77F1DFFFF2C00AB7BDD /* Qanelas-Bold.otf */,
-				44A7A7801DFFFF2C00AB7BDD /* Qanelas-BoldItalic.otf */,
-				44A7A7811DFFFF2C00AB7BDD /* Qanelas-ExtraBold.otf */,
-				44A7A7821DFFFF2C00AB7BDD /* Qanelas-ExtraBoldItalic.otf */,
-				44A7A7831DFFFF2C00AB7BDD /* Qanelas-Heavy.otf */,
-				44A7A7841DFFFF2C00AB7BDD /* Qanelas-HeavyItalic.otf */,
-				44A7A7851DFFFF2C00AB7BDD /* Qanelas-Light.otf */,
-				44A7A7861DFFFF2C00AB7BDD /* Qanelas-LightItalic.otf */,
-				44A7A7871DFFFF2C00AB7BDD /* Qanelas-Medium.otf */,
-				44A7A7881DFFFF2C00AB7BDD /* Qanelas-MediumItalic.otf */,
-				44A7A7891DFFFF2C00AB7BDD /* Qanelas-Regular.otf */,
-				44A7A78A1DFFFF2C00AB7BDD /* Qanelas-RegularItalic.otf */,
-				44A7A78B1DFFFF2C00AB7BDD /* Qanelas-SemiBold.otf */,
-				44A7A78C1DFFFF2C00AB7BDD /* Qanelas-SemiBoldItalic.otf */,
-				44A7A78D1DFFFF2C00AB7BDD /* Qanelas-Thin.otf */,
-				44A7A78E1DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf */,
-				44A7A78F1DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf */,
-				44A7A7901DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf */,
-			);
-			path = "Qanelas-fonts";
-			sourceTree = "<group>";
-		};
 		44C0D9031DFAB6C300E3D413 = {
 			isa = PBXGroup;
 			children = (
@@ -253,8 +184,6 @@
 				4499179A1DFAFA800099800E /* Controller */,
 				44C0D91B1DFAB6C300E3D413 /* Assets.xcassets */,
 				44C0D9201DFAB6C300E3D413 /* Info.plist */,
-				44A7A7A51E00072200AB7BDD /* CustomFont.plist */,
-				44A7A77C1DFFFF2C00AB7BDD /* Qanelas-fonts */,
 				44C0D90F1DFAB6C300E3D413 /* Supporting Files */,
 			);
 			path = Pequlium;
@@ -327,31 +256,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				44C0D91F1DFAB6C300E3D413 /* LaunchScreen.storyboard in Resources */,
-				44A7A7961DFFFF2C00AB7BDD /* Qanelas-ExtraBoldItalic.otf in Resources */,
-				44A7A79E1DFFFF2C00AB7BDD /* Qanelas-RegularItalic.otf in Resources */,
-				44A7A79C1DFFFF2C00AB7BDD /* Qanelas-MediumItalic.otf in Resources */,
-				44A7A7981DFFFF2C00AB7BDD /* Qanelas-HeavyItalic.otf in Resources */,
-				44A7A7911DFFFF2C00AB7BDD /* Qanelas-Black.otf in Resources */,
-				44A7A7931DFFFF2C00AB7BDD /* Qanelas-Bold.otf in Resources */,
 				449917A01DFAFB800099800E /* MainScreenHeaderXib.xib in Resources */,
-				44A7A79F1DFFFF2C00AB7BDD /* Qanelas-SemiBold.otf in Resources */,
-				44A7A7991DFFFF2C00AB7BDD /* Qanelas-Light.otf in Resources */,
-				44A7A79A1DFFFF2C00AB7BDD /* Qanelas-LightItalic.otf in Resources */,
-				44A7A7941DFFFF2C00AB7BDD /* Qanelas-BoldItalic.otf in Resources */,
 				44E28D7D1DFEB7B10033514F /* SettingsMainScreenHeader.xib in Resources */,
-				44A7A7A21DFFFF2C00AB7BDD /* Qanelas-ThinItalic.otf in Resources */,
-				44A7A7A61E00072200AB7BDD /* CustomFont.plist in Resources */,
 				44C0D91C1DFAB6C300E3D413 /* Assets.xcassets in Resources */,
-				44A7A7A31DFFFF2C00AB7BDD /* Qanelas-UltraLight.otf in Resources */,
-				44A7A7A11DFFFF2C00AB7BDD /* Qanelas-Thin.otf in Resources */,
-				44A7A7A01DFFFF2C00AB7BDD /* Qanelas-SemiBoldItalic.otf in Resources */,
-				44A7A7951DFFFF2C00AB7BDD /* Qanelas-ExtraBold.otf in Resources */,
-				44A7A79B1DFFFF2C00AB7BDD /* Qanelas-Medium.otf in Resources */,
-				44A7A79D1DFFFF2C00AB7BDD /* Qanelas-Regular.otf in Resources */,
 				44C0D91A1DFAB6C300E3D413 /* Main.storyboard in Resources */,
-				44A7A7921DFFFF2C00AB7BDD /* Qanelas-BlackItalic.otf in Resources */,
-				44A7A7A41DFFFF2C00AB7BDD /* Qanelas-UltraLightItalic.otf in Resources */,
-				44A7A7971DFFFF2C00AB7BDD /* Qanelas-Heavy.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,15 +271,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeaderView.m in Sources */,
-				13C6693B1E11820D00852945 /* NavViewController.m in Sources */,
 				130E613F1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.m in Sources */,
 				44C921341E014B2300F3D004 /* SettingsMainScreenTableViewController.m in Sources */,
+				13FE06A51E25150200E9C313 /* FirstViewController.m in Sources */,
 				13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */,
 				44C0D9141DFAB6C300E3D413 /* AppDelegate.m in Sources */,
 				130E61421E1E759B00F333B4 /* SettingsMonthBalanceTableViewController.m in Sources */,
+				13FE06A81E25154D00E9C313 /* NavigationViewController.m in Sources */,
 				44C921421E0164DB00F3D004 /* NegativeBalanceViewController.m in Sources */,
 				4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */,
-				137BAB731E16DA59002B2991 /* FirstViewController.m in Sources */,
 				130E61451E1E75F800F333B4 /* ResolutionTableViewController.m in Sources */,
 				44C9213F1E0164AC00F3D004 /* MonthEndViewController.m in Sources */,
 				137964B51E093DA10042BF27 /* Manager.m in Sources */,

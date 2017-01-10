@@ -8,6 +8,7 @@
 
 #import "SettingsDayBalanceTableViewController.h"
 
+
 @interface SettingsDayBalanceTableViewController ()
 
 @end
@@ -16,19 +17,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.tableView.tableFooterView = [UIView new];
     UIBarButtonItem *btnBack = [[UIBarButtonItem alloc]
-                                initWithTitle:@"Назад"
+                                initWithTitle:@""
                                 style:UIBarButtonItemStylePlain
                                 target:self
                                 action:nil];
-    self.navigationController.navigationBar.topItem.backBarButtonItem = btnBack;
-   
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
     
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationController.navigationBar.topItem.backBarButtonItem = btnBack;
+    
+    /*style for button
+     [btnBack setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+     [UIFont fontWithName:@"Helvetica" size:15], NSFontAttributeName,
+     [UIColor blueColor], NSForegroundColorAttributeName,
+     nil]
+     forState:UIControlStateNormal];*/
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,25 +42,18 @@
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
-    return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
     return 2;
 }
 
-
+/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellId" forIndexPath:indexPath];
-    
-    
-    
     return cell;
 }
-
+*/
 
 /*
 // Override to support conditional editing of the table view.

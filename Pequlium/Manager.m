@@ -66,6 +66,7 @@
     [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
     
     //сохраняем всю историю
+    //СОХРАНЕНИЕ ИСТОРИИ ПО ИСТЕЧЕНИЯ МЕС
     NSArray *allHistoryOfSpendOfMonthArr = [userDefaults objectForKey:@"historySpendOfMonth"];
     [userDefaults setObject:allHistoryOfSpendOfMonthArr forKey:@"allHistoryOfSpendOfAllMonth"];
     //обнуляем историю
@@ -82,6 +83,16 @@
 }
 
 #pragma mark - Work with Date -
+
+- (NSInteger)differenceDay {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
+    
+    NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:dateFromDict toDate:[NSDate date] options:0];
+    return difference.day;
+}
 
 - (NSUInteger)daysInCurrentMonth {
     NSDate *currentDate = [NSDate new];

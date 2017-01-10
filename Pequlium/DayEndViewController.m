@@ -7,9 +7,12 @@
 //
 
 #import "DayEndViewController.h"
+#import "MainScreenTableViewController.h"
+#import "Manager.h"
 
 @interface DayEndViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *balanceEndDay;
+@property (strong, nonatomic) NSNumber *mutableBudgetOnDayWithSpendNumberFromDict;
 @end
 
 @implementation DayEndViewController
@@ -18,9 +21,8 @@
     [super viewDidLoad];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-    self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
-    // Do any additional setup after loading the view.
+    self.mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
+    self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
 }
 
 - (void)callOneTimeDayBool {
@@ -30,19 +32,44 @@
     [userDefaults synchronize];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)goToVC {
+    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [nav pushViewController:mainScreenTableViewVC animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)moveBalanceOnToday:(id)sender {
-    [self callOneTimeDayBool];
+    //[self callOneTimeDayBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
+    double mutableBalanceOnToday = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue];
+    
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+
+    dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: mutableBalanceOnToday], @"mutableBudgetOnDay", nil];
+    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
+
+    [userDefaults synchronize];
+    [self goToVC];
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
-    [self callOneTimeDayBool];
+    //[self callOneTimeDayBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    double divided = [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
+    double recalculationBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + divided;
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
     
+    dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: recalculationBudgetOnDay], @"mutableBudgetOnDay", nil];
+    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
+    
+    [userDefaults synchronize];
+    [self goToVC];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
 @end

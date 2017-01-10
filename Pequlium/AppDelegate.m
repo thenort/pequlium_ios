@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "Manager.h"
+#import "MainScreenTableViewController.h"
 
 
 @interface AppDelegate ()
@@ -18,20 +20,39 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSLog(@"%@",paths);
-    
+    [self puthNSUserDefaultsPlist];
     [self customNavigationBar];
     
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UINavigationController* rootNC = [storyboard instantiateInitialViewController];
+    self.window.rootViewController = rootNC;
+    [self.window makeKeyAndVisible];
+    
+    [self callDayEndViewController];
+    
     return YES;
-    
-    
+}
+
+- (void)callDayEndViewController {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([[Manager sharedInstance]differenceDay] != 0) {
+        NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+        NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
+        BOOL callOneTimeDay = [userDefaults boolForKey:@"callOneTimeDay"];
+        if (!callOneTimeDay) {
+            if ([mutableBudgetWithSpendNumber doubleValue] > 0) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+                UINavigationController *dayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
+                self.window.rootViewController = dayEndViewControllerVC;
+            }
+        }
+    }
 }
 
 - (void)customNavigationBar {
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new]
-                                       forBarMetrics:UIBarMetricsDefault];
+                                  forBarMetrics:UIBarMetricsDefault];
     [[UINavigationBar appearance]setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setTranslucent:YES];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
@@ -63,5 +84,10 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
+- (void)puthNSUserDefaultsPlist {
+    // puth of NSUserDefaults plist
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSLog(@"%@",paths);
+}
 
 @end
