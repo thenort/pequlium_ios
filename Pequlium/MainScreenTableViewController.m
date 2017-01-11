@@ -93,6 +93,8 @@
             double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
             budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
             [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+            BOOL dailyBudgetTomorrowBool = NO;
+            [userDefault setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
         }
         
         if ([mutableBudgetWithSpendNumber doubleValue] == 0) {
@@ -102,11 +104,15 @@
             [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
             
         } else if ([mutableBudgetWithSpendNumber doubleValue] > 0 && [userDefault boolForKey:@"callOneTimeDay"]) {
-            double mutableBudgetOnDay = [userDefault doubleForKey:@"budgetOnDay"] + [mutableBudgetWithSpendNumber doubleValue];
-            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
-            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+            if ([userDefault boolForKey:@"transferMoneyToNextDaySettingsDay"]) {
+                double mutableBudgetOnDay = [userDefault doubleForKey:@"budgetOnDay"] + [mutableBudgetWithSpendNumber doubleValue];
+                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
+                [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+            } else if ([userDefault boolForKey:@"amountOnDailyBudgetSettingsDay"]) {
+                
+            }
+
         }
-        
         [userDefault synchronize];
     }
 }

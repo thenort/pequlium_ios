@@ -46,10 +46,10 @@
     double mutableBalanceOnToday = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue];
     
     NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-
     dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: mutableBalanceOnToday], @"mutableBudgetOnDay", nil];
     [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
-
+    //значение для switch в настройках дня 1пункта
+    [userDefaults setBool:YES forKey:@"transferMoneyToNextDaySettingsDay"];
     [userDefaults synchronize];
     [self goToVC];
 }
@@ -59,11 +59,12 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     double divided = [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
     double recalculationBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + divided;
-    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
     
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
     dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: recalculationBudgetOnDay], @"mutableBudgetOnDay", nil];
     [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
-    
+    //значение для switch в настройках дня 2пункта
+    [userDefaults setBool:YES forKey:@"amountOnDailyBudgetSettingsDay"];
     [userDefaults synchronize];
     [self goToVC];
 }

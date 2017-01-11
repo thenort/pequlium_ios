@@ -7,6 +7,7 @@
 //
 
 #import "MonthEndViewController.h"
+#import "MainScreenTableViewController.h"
 
 @interface MonthEndViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *balanceEndMonth;
@@ -16,14 +17,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.navigationItem.hidesBackButton = YES;
 
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)goToVC {
+    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [nav pushViewController:mainScreenTableViewVC animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)callOneTimeMonthBool {
@@ -34,18 +37,37 @@
 }
 
 - (IBAction)moveBalanceOnToday:(id)sender {
-    [self callOneTimeMonthBool];
+    //[self callOneTimeMonthBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
+    
+    //значение для switch в настройках дня 1 пункта
+    [userDefaults setBool:YES forKey:@"transferMoneyNextDaySettingsMonth"];
+    [userDefaults synchronize];
+    [self goToVC];
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
-    [self callOneTimeMonthBool];
+    //[self callOneTimeMonthBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
+    
+    
+    //значение для switch в настройках дня 2 пункта
+    [userDefaults setBool:YES forKey:@"amountDailyBudgetSettingsMonth"];
+    [userDefaults synchronize];
+    [self goToVC];
 }
 
 - (IBAction)saveMoney:(id)sender {
-    [self callOneTimeMonthBool];
+    //[self callOneTimeMonthBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
+    
+    //значение для switch в настройках дня 3 пункта
+    [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
+    [userDefaults synchronize];
+    [self goToVC];
 }
 
 
