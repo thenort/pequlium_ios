@@ -11,6 +11,7 @@
 
 @interface MonthEndViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *balanceEndMonth;
+@property (strong, nonatomic) NSNumber *mutableMonthDebit;
 @end
 
 @implementation MonthEndViewController
@@ -18,8 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.navigationItem.hidesBackButton = YES;
-
-    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
+    self.balanceEndMonth.text = [NSString stringWithFormat:@"%.2f", [self.mutableMonthDebit doubleValue]];
 }
 
 - (void)goToVC {
@@ -62,7 +64,8 @@
 - (IBAction)saveMoney:(id)sender {
     //[self callOneTimeMonthBool];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
+    double moneyBox = [[userDefaults objectForKey:@"moneyBox"] doubleValue] + [self.mutableMonthDebit doubleValue];
+    [userDefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
     
     //значение для switch в настройках дня 3 пункта
     [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];

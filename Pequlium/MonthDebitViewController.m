@@ -62,6 +62,8 @@
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
         [userDefault setDouble:monthDebit forKey:@"monthDebit"];
         
+        [userDefault setObject:[NSNumber numberWithDouble:monthDebitWithEightPercent] forKey:@"monthPercent"];
+        
         NSDate *currDate = [NSDate date];
         [userDefault setObject:currDate forKey:@"dateWhenCreateMonthDebit"];
         

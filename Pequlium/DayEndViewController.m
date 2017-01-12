@@ -40,7 +40,7 @@
 }
 
 - (IBAction)moveBalanceOnToday:(id)sender {
-    //[self callOneTimeDayBool];
+    [self callOneTimeDayBool];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     double mutableBalanceOnToday = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue];
@@ -55,10 +55,12 @@
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
-    //[self callOneTimeDayBool];
+    [self callOneTimeDayBool];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     double divided = [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
-    double recalculationBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + divided;
+    double amountBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + divided;
+    [userDefaults setObject:[NSNumber numberWithDouble:amountBudgetOnDay] forKey:@"budgetOnDay"];
+    double recalculationBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
     
     NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
     dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: recalculationBudgetOnDay], @"mutableBudgetOnDay", nil];

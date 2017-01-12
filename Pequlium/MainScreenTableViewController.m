@@ -18,7 +18,7 @@
 
 @interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
-@property (strong, nonatomic) NSArray *arrayForTable;
+@property (strong, nonatomic) NSMutableArray *arrayForTable;
 @end
 
 @implementation MainScreenTableViewController
@@ -37,8 +37,10 @@
     [self.headerView.processOfSpendingMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.arrayForTable = [userDefaults objectForKey:@"historySpendOfMonth"];
+    self.arrayForTable = [[userDefaults objectForKey:@"historySpendOfMonth"]mutableCopy];
     self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
+    [self updateSwitchViewDay];
+    [self updateSwitchViewMonth];
 }
 
 - (void)customise {
@@ -58,60 +60,54 @@
 
 - (void)recalculationEveryDay {
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
 
     if ([[Manager sharedInstance] differenceDay] != 0) {
         NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
         NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
         
         //обнуление bool для negativebalance
-        BOOL callOneTime = NO;
-        [userDefault setBool:callOneTime forKey:@"callOneTime"];
+        [userDefault setBool:NO forKey:@"callOneTime"];
         //обнуление bool для negativebalance dailyBudgetWillBeLabel
-        BOOL callOneTimeToLabel = NO;
-        [userDefault setBool:callOneTimeToLabel forKey:@"callOneTimeToLable"];
+        [userDefault setBool:NO forKey:@"callOneTimeToLable"];
+        [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
         
-        BOOL dailyBudgetTomorrowBoolLabel = NO;
-        [userDefault setBool:dailyBudgetTomorrowBoolLabel forKey:@"dailyBudgetTomorrowBoolLabel"];
-        
-        if ([userDefault boolForKey:@"dailyBudgetTomorrowCountedBool"]) {
-            
-            double budgetOnDay = [userDefault doubleForKey:@"dailyBudgetTomorrowCounted"];
-            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
-            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-            
-            double budgetOnDayInDailyBudgetTomorrowCounted = [userDefault doubleForKey:@"budgetOnDay"];
-            [userDefault setDouble:budgetOnDayInDailyBudgetTomorrowCounted forKey:@"dailyBudgetTomorrowCounted"];
-            
-            BOOL dailyBudgetTomorrowCountedBool = NO;
-            [userDefault setBool:dailyBudgetTomorrowCountedBool forKey:@"dailyBudgetTomorrowCountedBool"];
-            
-            BOOL dailyBudgetTomorrowBool = NO;
-            [userDefault setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
-            
-        } else {
-            double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
-            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
-            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-            BOOL dailyBudgetTomorrowBool = NO;
-            [userDefault setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
-        }
-        
-        if ([mutableBudgetWithSpendNumber doubleValue] == 0) {
-            //обнуление budgetOnCurrentDay
-            double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
-            budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
-            [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-            
-        } else if ([mutableBudgetWithSpendNumber doubleValue] > 0 && [userDefault boolForKey:@"callOneTimeDay"]) {
+        if ([mutableBudgetWithSpendNumber doubleValue] > 0 && [userDefault boolForKey:@"callOneTimeDay"]) {
             if ([userDefault boolForKey:@"transferMoneyToNextDaySettingsDay"]) {
+                NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
                 double mutableBudgetOnDay = [userDefault doubleForKey:@"budgetOnDay"] + [mutableBudgetWithSpendNumber doubleValue];
                 budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
                 [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
             } else if ([userDefault boolForKey:@"amountOnDailyBudgetSettingsDay"]) {
-                
+                NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
+                double divided = [mutableBudgetWithSpendNumber doubleValue] / [[Manager sharedInstance] daysInCurrentMonth];
+                double amountBudgetOnDay = [userDefault doubleForKey:@"budgetOnDay"] + divided;
+                [userDefault setObject:[NSNumber numberWithDouble:amountBudgetOnDay] forKey:@"budgetOnDay"];
+                double recalculationBudgetOnDay = [[userDefault objectForKey:@"budgetOnDay"] doubleValue];
+                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate new], @"dayWhenSpend", [NSNumber numberWithDouble:recalculationBudgetOnDay], @"mutableBudgetOnDay",  nil];
+                [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
             }
+        }
+        
+        if ([mutableBudgetWithSpendNumber doubleValue] < 0) {
+            if ([userDefault boolForKey:@"dailyBudgetTomorrowCountedBool"]) {
+                NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
+                double budgetOnDay = [userDefault doubleForKey:@"dailyBudgetTomorrowCounted"];
+                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+                [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+                
+                double budgetOnDayInDailyBudgetTomorrowCounted = [userDefault doubleForKey:@"budgetOnDay"];
+                [userDefault setDouble:budgetOnDayInDailyBudgetTomorrowCounted forKey:@"dailyBudgetTomorrowCounted"];
 
+                [userDefault setBool:NO forKey:@"dailyBudgetTomorrowCountedBool"];
+                [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBool"];
+                
+            } else {
+                NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
+                double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
+                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+                [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+                [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBool"];
+            }
         }
         [userDefault synchronize];
     }
@@ -190,7 +186,6 @@
         if (historySpendOfMonth == nil) {
             historySpendOfMonth = [NSMutableArray array];
         }
-        
         //работа с таблицей (история)
         NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
         [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
@@ -276,16 +271,50 @@
 }
 
 
-// Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
+        [self.arrayForTable removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView reloadData];
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:self.arrayForTable forKey:@"historySpendOfMonth"];
+        [userDefaults synchronize];
     }
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return @"Удалить";
+}
+
+- (void)updateSwitchViewDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults boolForKey:@"transferMoneyToNextDaySettingsDay"]) {
+        [userDefaults setBool:YES forKey:@"transferMoneyToNextDaySettingsDay"];
+        [userDefaults setBool:NO forKey:@"amountOnDailyBudgetSettingsDay"];
+    } else if ([userDefaults boolForKey:@"amountOnDailyBudgetSettingsDay"]) {
+        [userDefaults setBool:YES forKey:@"amountOnDailyBudgetSettingsDay"];
+        [userDefaults setBool:NO forKey:@"transferMoneyToNextDaySettingsDay"];
+    }
+    [userDefaults synchronize];
+}
+
+- (void)updateSwitchViewMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if ([userDefaults boolForKey:@"transferMoneyNextDaySettingsMonth"]) {
+        [userDefaults setBool:YES forKey:@"transferMoneyNextDaySettingsMonth"];
+        [userDefaults setBool:NO forKey:@"amountDailyBudgetSettingsMonth"];
+        [userDefaults setBool:NO forKey:@"moneyBoxSettingsMonth"];
+    } else if ([userDefaults boolForKey:@"amountDailyBudgetSettingsMonth"]) {
+        [userDefaults setBool:YES forKey:@"amountDailyBudgetSettingsMonth"];
+        [userDefaults setBool:NO forKey:@"transferMoneyNextDaySettingsMonth"];
+        [userDefaults setBool:NO forKey:@"moneyBoxSettingsMonth"];
+    } else if ([userDefaults boolForKey:@"moneyBoxSettingsMonth"]) {
+        [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
+        [userDefaults setBool:NO forKey:@"transferMoneyNextDaySettingsMonth"];
+        [userDefaults setBool:NO forKey:@"amountDailyBudgetSettingsMonth"];
+    }
+    [userDefaults synchronize];
+}
 
 /*
 // Override to support conditional editing of the table view.

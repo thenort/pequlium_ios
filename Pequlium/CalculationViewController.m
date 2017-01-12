@@ -39,10 +39,15 @@
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
     MainScreenTableViewController *mainScreenTableViewVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
     [self.navigationController pushViewController:mainScreenTableViewVC animated:YES];
-    
     [self writeInDict:self.budgetOnDayWithSavingLabel.text];
     
+    NSUserDefaults *userdefaults = [NSUserDefaults standardUserDefaults];
     
+    double moneyBox = [[userdefaults objectForKey:@"monthPercent"] doubleValue];
+    [userdefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
+    
+    [userdefaults setBool:YES forKey:@"withPercent"];
+    [userdefaults synchronize];
 }
 
 - (IBAction)budgetWithNonSavingMoney:(id)sender {

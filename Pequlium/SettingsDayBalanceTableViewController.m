@@ -37,6 +37,7 @@
     } else if ([userDefaults boolForKey:@"amountOnDailyBudgetSettingsDay"]) {
         self.amountOnDailyBudgetSwitch.on = YES;
     }
+    [userDefaults synchronize];
 }
 
 - (IBAction)pressedTransferMoneyToNextDaySwitch:(id)sender {
@@ -46,9 +47,9 @@
         [userDefaults setBool:YES forKey:@"transferMoneyToNextDaySettingsDay"];
         [userDefaults setBool:NO forKey:@"amountOnDailyBudgetSettingsDay"];
     } else {
-        [self.amountOnDailyBudgetSwitch setOn:YES animated:YES];
-        [userDefaults setBool:NO forKey:@"transferMoneyToNextDaySettingsDay"];
-        [userDefaults setBool:YES forKey:@"amountOnDailyBudgetSettingsDay"];
+        if (![userDefaults boolForKey:@"amountOnDailyBudgetSettingsDay"]) {
+            self.transferMoneyToNextDaySwitch.on = YES;
+        }
     }
     [userDefaults synchronize];
 }
@@ -60,9 +61,9 @@
         [userDefaults setBool:YES forKey:@"amountOnDailyBudgetSettingsDay"];
         [userDefaults setBool:NO forKey:@"transferMoneyToNextDaySettingsDay"];
     } else {
-        [self.transferMoneyToNextDaySwitch setOn:YES animated:YES];
-        [userDefaults setBool:NO forKey:@"amountOnDailyBudgetSettingsDay"];
-        [userDefaults setBool:YES forKey:@"transferMoneyToNextDaySettingsDay"];
+        if (![userDefaults boolForKey:@"transferMoneyToNextDaySettingsDay"]) {
+            self.amountOnDailyBudgetSwitch.on = YES;
+        }
     }
     [userDefaults synchronize];
 }
