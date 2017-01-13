@@ -12,8 +12,9 @@
 #import "SettingsDayBalanceTableViewController.h"
 #import "SettingsMonthBalanceTableViewController.h"
 #import "ResolutionTableViewController.h"
+#import "MoneyBoxHistoryTableViewController.h"
 
-@interface SettingsMainScreenTableViewController ()
+@interface SettingsMainScreenTableViewController () <SettingsMainScreenHeaderViewDelegate>
 @property (strong, nonatomic) NSArray *textForCell;
 @end
 
@@ -31,13 +32,20 @@
     //добавление xib в tableview header
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    SettingsMainScreenHeaderView *headerView = [[SettingsMainScreenHeaderView alloc]initWithDate:[userDefaults objectForKey:@"resetDateEveryMonth"] lastMoney:[userDefaults doubleForKey:@"mutableMonthDebit"]];
+    SettingsMainScreenHeaderView *headerView = [[SettingsMainScreenHeaderView alloc] initWithDate:[userDefaults objectForKey:@"resetDateEveryMonth"] lastMoney:[userDefaults doubleForKey:@"mutableMonthDebit"] moneyBox:[[userDefaults objectForKey:@"moneyBox"] doubleValue]];
+    headerView.delegate = self;
     self.tableView.tableHeaderView = headerView;
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+#pragma mark - Header view delegate -
+
+- (void)tappedMoneyBox {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    MoneyBoxHistoryTableViewController *moneyBoxHistoryTableViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MoneyBoxHistoryTableViewController"];
+    [self.navigationController pushViewController:moneyBoxHistoryTableViewControllerVC animated:YES];
 }
+
 
 #pragma mark - Table view data source
 

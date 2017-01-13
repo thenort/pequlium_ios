@@ -54,21 +54,12 @@
 - (void)resetData {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    /*
-    double balanceOnCurrentMonth = [userDefaults doubleForKey:@"mutableMonthDebit"];
-    double balance = [userDefaults doubleForKey:@"balance"];
-    [userDefaults setDouble:balanceOnCurrentMonth + balance forKey:@"balance"];
-    */
     double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
     [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
     
     NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
     [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
-    
-    //сохраняем всю историю
-    //СОХРАНЕНИЕ ИСТОРИИ ПО ИСТЕЧЕНИЯ МЕС
-    NSArray *allHistoryOfSpendOfMonthArr = [userDefaults objectForKey:@"historySpendOfMonth"];
-    [userDefaults setObject:allHistoryOfSpendOfMonthArr forKey:@"allHistoryOfSpendOfAllMonth"];
+
     //обнуляем историю
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     

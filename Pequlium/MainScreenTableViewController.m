@@ -124,7 +124,44 @@
             MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
             [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
         }
+        /*
+        //прошлый месяц
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDateComponents *comps = [NSDateComponents new];
+        comps.month = -1;
+        NSDate *date = [calendar dateByAddingComponents:comps toDate:[NSDate date] options:0];
+        NSDateComponents *components = [calendar components:NSCalendarUnitMonth fromDate:date];
+        
+        NSInteger monthNumber = [components month];
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
+        NSString *monthName = [[df standaloneMonthSymbols] objectAtIndex:(monthNumber - 1)];
+        NSString *monthNameBig = [NSString stringWithFormat:@"%@%@",[[monthName substringToIndex:1] uppercaseString],[monthName substringFromIndex:1]];
+        */
+        
+        /*
+        //работа с таблицей (история)
+        NSMutableArray *historySaveOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]];
+        if (historySaveOfMonth == nil) {
+            historySaveOfMonth = [NSMutableArray array];
+        }
+        NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
+        if ([userDefaults boolForKey:@"withPercent"]) {
+            double mutableMonthDebit = [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue] + [[userDefaults objectForKey:@"monthPercent"] doubleValue];
+            [dictWithDateAndSum setObject:[NSNumber numberWithDouble:mutableMonthDebit] forKey: @"currentMutableMonthDebit"];
+        } else {
+            NSNumber *mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
+            [dictWithDateAndSum setObject:mutableMonthDebit forKey: @"currentMutableMonthDebit"];
+        }
+        [dictWithDateAndSum setObject:monthNameBig forKey:@"currentMonthOfSave"];
+        [historySaveOfMonth addObject:dictWithDateAndSum];
+        [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
+        [userDefaults synchronize];
+        */
+        
         [[Manager sharedInstance] resetData];
+
+        
     } else {
         [self recalculationEveryDay];
     }
@@ -150,10 +187,10 @@
 #pragma mark - UIScrollViewDelegat -
 
 //когда клавиатура выезжает
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {//-80
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < - 57 ) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
-    }//-60
+    }
     else if (scrollView.contentOffset.y > - 57 ) {
         [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
     }

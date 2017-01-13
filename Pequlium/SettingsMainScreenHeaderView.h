@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SettingsMainScreenHeaderViewDelegate <NSObject>
+@required
+- (void)tappedMoneyBox;
+@end
+
 @interface SettingsMainScreenHeaderView : UIView
-@property (weak, nonatomic, readonly) IBOutlet UILabel *howMuchMoneyToNewMonthLabel;
-@property (weak, nonatomic, readonly) IBOutlet UILabel *summaToNewMonthLabel;
-- (instancetype)initWithDate:(NSDate*)timeForNextDate lastMoney:(double)money;
+@property (weak, nonatomic) id <SettingsMainScreenHeaderViewDelegate> delegate;
+- (instancetype)initWithDate:(NSDate*)timeForNextDate lastMoney:(double)money moneyBox:(double)moneyBoxText;
+
 @end

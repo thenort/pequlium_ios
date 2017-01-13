@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		13086D491E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13086D481E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m */; };
+		13086D4D1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13086D4C1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m */; };
 		130E613F1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130E613E1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.m */; };
 		130E61421E1E759B00F333B4 /* SettingsMonthBalanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130E61411E1E759B00F333B4 /* SettingsMonthBalanceTableViewController.m */; };
 		130E61451E1E75F800F333B4 /* ResolutionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130E61441E1E75F800F333B4 /* ResolutionTableViewController.m */; };
@@ -34,6 +36,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		13086D471E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyBoxHistoryTableViewController.h; sourceTree = "<group>"; };
+		13086D481E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyBoxHistoryTableViewController.m; sourceTree = "<group>"; };
+		13086D4B1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyBoxHistoryTableViewCell.h; sourceTree = "<group>"; };
+		13086D4C1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyBoxHistoryTableViewCell.m; sourceTree = "<group>"; };
 		130E613D1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsDayBalanceTableViewController.h; sourceTree = "<group>"; };
 		130E613E1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsDayBalanceTableViewController.m; sourceTree = "<group>"; };
 		130E61401E1E759B00F333B4 /* SettingsMonthBalanceTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMonthBalanceTableViewController.h; sourceTree = "<group>"; };
@@ -115,6 +121,8 @@
 				44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */,
 				13C35BAD1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.h */,
 				13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */,
+				13086D4B1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.h */,
+				13086D4C1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m */,
 				44C0D9181DFAB6C300E3D413 /* Main.storyboard */,
 				44C0D91D1DFAB6C300E3D413 /* LaunchScreen.storyboard */,
 			);
@@ -142,6 +150,8 @@
 				44C921411E0164DB00F3D004 /* NegativeBalanceViewController.m */,
 				44C921321E014B2300F3D004 /* SettingsMainScreenTableViewController.h */,
 				44C921331E014B2300F3D004 /* SettingsMainScreenTableViewController.m */,
+				13086D471E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.h */,
+				13086D481E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m */,
 				130E613D1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.h */,
 				130E613E1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.m */,
 				130E61401E1E759B00F333B4 /* SettingsMonthBalanceTableViewController.h */,
@@ -275,6 +285,7 @@
 				44C921341E014B2300F3D004 /* SettingsMainScreenTableViewController.m in Sources */,
 				13FE06A51E25150200E9C313 /* FirstViewController.m in Sources */,
 				13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */,
+				13086D491E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m in Sources */,
 				44C0D9141DFAB6C300E3D413 /* AppDelegate.m in Sources */,
 				130E61421E1E759B00F333B4 /* SettingsMonthBalanceTableViewController.m in Sources */,
 				13FE06A81E25154D00E9C313 /* NavigationViewController.m in Sources */,
@@ -285,6 +296,7 @@
 				137964B51E093DA10042BF27 /* Manager.m in Sources */,
 				137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */,
 				44C9213C1E01648800F3D004 /* DayEndViewController.m in Sources */,
+				13086D4D1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m in Sources */,
 				44C921451E0170B300F3D004 /* MonthDebitViewController.m in Sources */,
 				13C35BB21E0C189100DD497B /* MainScreenTableViewCell.m in Sources */,
 				44C921311E0149FA00F3D004 /* MainScreenTableViewController.m in Sources */,
