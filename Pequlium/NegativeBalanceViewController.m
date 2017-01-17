@@ -130,7 +130,7 @@
         [userDefaults synchronize];
         [self pushVC];
     } else {
-        NSString *error = @"Введенная вами сумма привышает ваш бюджет на завтра. Нажмите: Пересчитать дневной бюджет. Или введите меньшую сумму.";
+        NSString *error = @"Введенная вами сумма превышает ваш бюджет на завтра. Нажмите: Пересчитать дневной бюджет. Или введите меньшую сумму.";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:okAction];

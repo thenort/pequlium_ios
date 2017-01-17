@@ -8,6 +8,7 @@
 
 #import "MonthEndViewController.h"
 #import "MainScreenTableViewController.h"
+#import "Manager.h"
 
 @interface MonthEndViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *balanceEndMonth;
@@ -64,9 +65,24 @@
 - (IBAction)saveMoney:(id)sender {
     //[self callOneTimeMonthBool];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
     double moneyBox = [[userDefaults objectForKey:@"moneyBox"] doubleValue] + [self.mutableMonthDebit doubleValue];
     [userDefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
+
+    NSMutableArray *historySaveOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]];
+    if (historySaveOfMonth == nil) {
+        historySaveOfMonth = [NSMutableArray array];
+    }
+    NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
     
+    NSNumber *mutableMonthDebit = self.mutableMonthDebit;
+    [dictWithDateAndSum setObject:mutableMonthDebit forKey: @"currentMutableMonthDebit"];
+    [dictWithDateAndSum setObject:[[Manager sharedInstance] stringForHistorySaveOfMonthDict] forKey:@"currentMonthPeriod"];
+    
+    [historySaveOfMonth addObject:dictWithDateAndSum];
+    [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
+    [userDefaults synchronize];
+
     //значение для switch в настройках дня 3 пункта
     [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
     [userDefaults synchronize];

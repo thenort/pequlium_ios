@@ -63,26 +63,62 @@
     //обнуляем историю
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    
+    NSDateComponents *componentsCurrentDate = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:resetDateEveryMonth];
+    [componentsCurrentDate setTimeZone:[NSTimeZone systemTimeZone]];
+    
+    NSDate *newCurrentDate = [calendar dateFromComponents:componentsCurrentDate];
+    [userDefaults setObject:newCurrentDate forKey:@"oldResetDateEveryMonth"];
+    
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = 1;
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:resetDateEveryMonth options:0];
+    
+    NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:newCurrentDate options:0];
     [userDefaults setObject:newDate forKey:@"resetDateEveryMonth"];
     [userDefaults synchronize];
+    
 }
 
 #pragma mark - Work with Date -
 
 - (NSInteger)differenceDay {
+    
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
-    
     NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:dateFromDict toDate:[NSDate date] options:0];
+    [calendar setTimeZone:[NSTimeZone systemTimeZone]];
+    [calendar setLocale:[NSLocale systemLocale]];
+    
+    //разница в time zone
+    NSDate* currentDate = [NSDate date];
+    NSTimeZone* CurrentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
+    NSTimeZone* SystemTimeZone = [NSTimeZone systemTimeZone];
+    NSInteger currentGMTOffset = [CurrentTimeZone secondsFromGMTForDate:currentDate];
+    NSInteger SystemGMTOffset = [SystemTimeZone secondsFromGMTForDate:currentDate];
+    NSTimeInterval interval = SystemGMTOffset - currentGMTOffset;
+    CGFloat intervalInHour = interval / 3600;
+    //
+    
+    NSDateComponents *componentsDateFromDict = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:dateFromDict];
+    [componentsDateFromDict setTimeZone:[NSTimeZone systemTimeZone]];
+    componentsDateFromDict.hour = +intervalInHour;
+    
+    NSDate *newDateFromDict = [calendar dateFromComponents:componentsDateFromDict];
+    
+    NSDateComponents *componentsCurrentDate = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[NSDate new]];
+    [componentsCurrentDate setTimeZone:[NSTimeZone systemTimeZone]];
+    componentsCurrentDate.hour = +intervalInHour;
+    
+    NSDate *newCurrentDate = [calendar dateFromComponents:componentsCurrentDate];
+    
+    NSDateComponents *difference = [calendar components:NSCalendarUnitDay fromDate:newDateFromDict toDate:newCurrentDate options:0];
     return difference.day;
+    
 }
 
 - (NSUInteger)daysInCurrentMonth {
@@ -106,6 +142,47 @@
     NSDateComponents *days = [calendar components:NSCalendarUnitDay fromDate:[NSDate new] toDate:dateStartNewMonth options:0];
     NSInteger daysToStartNewMonth = days.day;
     return daysToStartNewMonth;
+}
+
+- (NSString*)nameOfPreviousMonth {
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *date = [calendar components:NSCalendarUnitMonth fromDate:[NSDate date]];
+    NSUInteger numberOfMonth = date.month - 1;
+    if (numberOfMonth == 0) {
+        numberOfMonth = 12;
+    }
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
+    NSString *monthName = [[df monthSymbols] objectAtIndex:(numberOfMonth)];
+    return monthName;
+
+}
+
+- (NSString*)stringForHistorySaveOfMonthDict {
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
+    [dateFormatter setDateFormat:@"dd LLL"];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *dateComp = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth fromDate:[userDefaults objectForKey:@"oldResetDateEveryMonth"]];
+    
+    dateComp.month = dateComp.month - 1;
+    if (dateComp.month == 0) {
+        dateComp.month = 12;
+    }
+    
+    NSDate *dayAndMonthOldResetDateEveryMonth = [calendar dateFromComponents:dateComp];
+    [userDefaults setObject:dayAndMonthOldResetDateEveryMonth forKey:@"dayAndMonthOldResetDateEveryMonth"];
+    
+    NSString *datedayAndMonthOldResetDateEveryMonth = [dateFormatter stringFromDate:[userDefaults objectForKey:@"dayAndMonthOldResetDateEveryMonth"]];
+    NSString *dateFromOldResetDateEveryMonth = [dateFormatter stringFromDate:[userDefaults objectForKey:@"oldResetDateEveryMonth"]];
+    
+    NSString *strWithOldResetDateEveryMonthAndResetDateEveryMonth = [NSString stringWithFormat:@"%@ - %@", datedayAndMonthOldResetDateEveryMonth, dateFromOldResetDateEveryMonth];
+    
+    return strWithOldResetDateEveryMonthAndResetDateEveryMonth;
 }
 
 #pragma mark - Button on keyboard -

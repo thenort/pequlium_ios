@@ -11,6 +11,7 @@
 
 @interface MoneyBoxHistoryTableViewController ()
 @property (strong, nonatomic) NSArray *arrayForTable;
+@property (strong, nonatomic) NSArray *reverseArrayForTable;
 @end
 
 @implementation MoneyBoxHistoryTableViewController
@@ -24,30 +25,29 @@
                                 action:nil];
     self.navigationController.navigationBar.topItem.backBarButtonItem = btnBack;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.arrayForTable = [[userDefaults objectForKey:@""] mutableCopy];
+    self.arrayForTable = [[userDefaults objectForKey:@"historySaveOfMonth"] mutableCopy];
+    self.reverseArrayForTable = [[self.arrayForTable reverseObjectEnumerator] allObjects];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
     return [self.arrayForTable count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MoneyBoxHistoryTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"moneyCell" forIndexPath:indexPath];
-    NSDictionary *tempDataOfSave = [self.arrayForTable objectAtIndex:indexPath.row];
+    NSDictionary *tempDataOfSave = [self.reverseArrayForTable objectAtIndex:indexPath.row];
     
-    NSString *stringDate = [tempDataOfSave objectForKey:@""];
-    
-    
-    NSNumber *save = [tempDataOfSave objectForKey:@""];
+    NSString *stringPeriod = [tempDataOfSave objectForKey:@"currentMonthPeriod"];
+    cell.nameOfMonth.text = [NSString stringWithFormat:@"%@", stringPeriod];
+    NSNumber *saveMoney = [tempDataOfSave objectForKey:@"currentMutableMonthDebit"];
+    cell.moneySave.text = [NSString stringWithFormat:@"%.2f", [saveMoney doubleValue]];
     
     return cell;
 }

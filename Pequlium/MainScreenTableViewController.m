@@ -75,7 +75,7 @@
             if ([userDefault boolForKey:@"transferMoneyToNextDaySettingsDay"]) {
                 NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
                 double mutableBudgetOnDay = [userDefault doubleForKey:@"budgetOnDay"] + [mutableBudgetWithSpendNumber doubleValue];
-                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
+                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate new], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
                 [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
             } else if ([userDefault boolForKey:@"amountOnDailyBudgetSettingsDay"]) {
                 NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
@@ -92,7 +92,7 @@
             if ([userDefault boolForKey:@"dailyBudgetTomorrowCountedBool"]) {
                 NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
                 double budgetOnDay = [userDefault doubleForKey:@"dailyBudgetTomorrowCounted"];
-                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate new], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
                 [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
                 
                 double budgetOnDayInDailyBudgetTomorrowCounted = [userDefault doubleForKey:@"budgetOnDay"];
@@ -104,7 +104,7 @@
             } else {
                 NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
                 double budgetOnDay = [userDefault doubleForKey:@"budgetOnDay"];
-                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
+                budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate new], @"dayWhenSpend", [NSNumber numberWithDouble:budgetOnDay], @"mutableBudgetOnDay", nil];
                 [userDefault setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
                 [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBool"];
             }
@@ -124,21 +124,11 @@
             MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
             [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
         }
-        /*
-        //прошлый месяц
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDateComponents *comps = [NSDateComponents new];
-        comps.month = -1;
-        NSDate *date = [calendar dateByAddingComponents:comps toDate:[NSDate date] options:0];
-        NSDateComponents *components = [calendar components:NSCalendarUnitMonth fromDate:date];
-        
-        NSInteger monthNumber = [components month];
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
-        NSString *monthName = [[df standaloneMonthSymbols] objectAtIndex:(monthNumber - 1)];
-        NSString *monthNameBig = [NSString stringWithFormat:@"%@%@",[[monthName substringToIndex:1] uppercaseString],[monthName substringFromIndex:1]];
-        */
-        
+        // если отлаживаем или нет
+//        if ([userDefaults objectForKey:@"mutableMonthDebit"] > 0) {
+//            double moneyToMoneyBox = [[userDefaults objectForKey:@"moneyBox"] doubleValue] + [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue];
+//            [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
+//        }
         /*
         //работа с таблицей (история)
         NSMutableArray *historySaveOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]];
@@ -153,7 +143,7 @@
             NSNumber *mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
             [dictWithDateAndSum setObject:mutableMonthDebit forKey: @"currentMutableMonthDebit"];
         }
-        [dictWithDateAndSum setObject:monthNameBig forKey:@"currentMonthOfSave"];
+        [dictWithDateAndSum setObject:[[Manager sharedInstance] nameOfPreviousMonth]  forKey:@"currentMonthOfSave"];
         [historySaveOfMonth addObject:dictWithDateAndSum];
         [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
         [userDefaults synchronize];
@@ -161,7 +151,6 @@
         
         [[Manager sharedInstance] resetData];
 
-        
     } else {
         [self recalculationEveryDay];
     }

@@ -24,4 +24,6 @@
 - (void)resetData;
 - (NSInteger)daysToStartNewMonth;
 - (NSInteger)differenceDay;
+- (NSString*)nameOfPreviousMonth;
+- (NSString*)stringForHistorySaveOfMonthDict;
 @end
