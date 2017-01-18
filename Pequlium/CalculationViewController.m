@@ -46,6 +46,11 @@
     double moneyBox = [[userdefaults objectForKey:@"monthPercent"] doubleValue];
     [userdefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
     
+    double monthDebit = [[userdefaults objectForKey:@"monthDebit"] doubleValue] - [[userdefaults objectForKey:@"monthPercent"] doubleValue];
+    [userdefaults setObject:[NSNumber numberWithDouble:monthDebit] forKey:@"monthDebit"];
+    double mutableMonthDebit = [[userdefaults objectForKey:@"mutableMonthDebit"]  doubleValue] - [[userdefaults objectForKey:@"monthPercent"] doubleValue];
+    [userdefaults setObject:[NSNumber numberWithDouble:mutableMonthDebit] forKey:@"mutableMonthDebit"];
+    
     [userdefaults setBool:YES forKey:@"withPercent"];
     [userdefaults synchronize];
 }
@@ -65,7 +70,6 @@
     NSDictionary *budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", budgetOnDayNumber, @"mutableBudgetOnDay", nil];
     [userDefaults setObject:budgetOnDayNumber forKey:@"budgetOnDay"];
     [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-    
     
     [userDefaults setObject:budgetOnDayNumber forKey:@"stableBudgetOnDay"];
     

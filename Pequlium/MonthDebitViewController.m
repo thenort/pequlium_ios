@@ -25,11 +25,12 @@
     [self.monthDebitTextField becomeFirstResponder];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     
-    
+    /*
     NSDate *resetDate = [NSDate date];
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     [userDefault setObject:resetDate forKey:@"resetDateEveryMonth"];
     [userDefault synchronize];
+    */
 }
 
 #pragma mark - Custom Button Add -
@@ -40,7 +41,7 @@
 }
 
 #pragma mark - Work with UITextField -
-//проверка пустое полу или нет (если нет - сохраняем инфу в базу)
+//проверка пустое поле или нет (если нет - сохраняем инфу в базу)
 - (void)checkTextField {
     
     if ([self.monthDebitTextField.text length] <= 0 || [self.monthDebitTextField.text  isEqual: @"0"]) {
@@ -61,16 +62,20 @@
         
         NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
         [userDefault setDouble:monthDebit forKey:@"monthDebit"];
-        
         [userDefault setObject:[NSNumber numberWithDouble:monthDebitWithEightPercent] forKey:@"monthPercent"];
         
-        NSDate *currDate = [NSDate date];
-        [userDefault setObject:currDate forKey:@"dateWhenCreateMonthDebit"];
+//        NSDate *currDate = [NSDate date];
+//        [userDefault setObject:currDate forKey:@"dateWhenCreateMonthDebit"];
         
         [userDefault setDouble:[self.monthDebitTextField.text doubleValue] forKey:@"mutableMonthDebit"];
-        
-        [[Manager sharedInstance] resetData];
-        
+
+        if (![userDefault objectForKey:@"resetDateEveryMonth"]) {
+            NSDate *resetDate = [NSDate date];
+            [userDefault setObject:resetDate forKey:@"resetDateEveryMonth"];
+            [[Manager sharedInstance] resetData];
+            
+        }
+
         [userDefault synchronize];
         
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];

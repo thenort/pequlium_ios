@@ -63,26 +63,26 @@
 }
 
 - (IBAction)saveMoney:(id)sender {
-    //[self callOneTimeMonthBool];
+    [self callOneTimeMonthBool];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     double moneyBox = [[userDefaults objectForKey:@"moneyBox"] doubleValue] + [self.mutableMonthDebit doubleValue];
     [userDefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
 
-    NSMutableArray *historySaveOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]];
-    if (historySaveOfMonth == nil) {
-        historySaveOfMonth = [NSMutableArray array];
-    }
-    NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
-    
-    NSNumber *mutableMonthDebit = self.mutableMonthDebit;
-    [dictWithDateAndSum setObject:mutableMonthDebit forKey: @"currentMutableMonthDebit"];
-    [dictWithDateAndSum setObject:[[Manager sharedInstance] stringForHistorySaveOfMonthDict] forKey:@"currentMonthPeriod"];
-    
-    [historySaveOfMonth addObject:dictWithDateAndSum];
-    [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
-    [userDefaults synchronize];
+    [[Manager sharedInstance] workWithHistoryOfSave:self.mutableMonthDebit];
 
+    ////--------///массив для подсчета отложенного бюджета за год
+    NSMutableArray *arrForHistorySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
+    if (arrForHistorySaveOfMonthMoneyDebit == nil) {
+        arrForHistorySaveOfMonthMoneyDebit = [NSMutableArray array];
+    }
+    [arrForHistorySaveOfMonthMoneyDebit addObject:self.mutableMonthDebit];
+    [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
+    
+    double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
+    [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+    
+    [[Manager sharedInstance] resetUserDefData];
+    
     //значение для switch в настройках дня 3 пункта
     [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
     [userDefaults synchronize];

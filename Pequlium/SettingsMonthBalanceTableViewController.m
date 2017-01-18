@@ -52,7 +52,7 @@
         [userDefaults setBool:NO forKey:@"amountDailyBudgetSettingsMonth"];
         [userDefaults setBool:NO forKey:@"moneyBoxSettingsMonth"];
     } else {
-        if (![userDefaults boolForKey:@""] || ![userDefaults boolForKey:@""]) {
+        if (![userDefaults boolForKey:@"amountDailyBudgetSettingsMonth"] || ![userDefaults boolForKey:@"moneyBoxSettingsMonth"]) {
             self.transferMoneyNextDaySwitch.on = YES;
         }
     }

@@ -31,6 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self recalculationEveryMonth];
+    [self newYear];
     [self xibInHeaderToTableView];
     [self customise];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
@@ -62,6 +63,7 @@
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
 
     if ([[Manager sharedInstance] differenceDay] != 0) {
+        
         NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
         NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
         
@@ -124,36 +126,73 @@
             MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
             [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
         }
-        // если отлаживаем или нет
-//        if ([userDefaults objectForKey:@"mutableMonthDebit"] > 0) {
-//            double moneyToMoneyBox = [[userDefaults objectForKey:@"moneyBox"] doubleValue] + [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue];
-//            [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
-//        }
-        /*
-        //работа с таблицей (история)
-        NSMutableArray *historySaveOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]];
-        if (historySaveOfMonth == nil) {
-            historySaveOfMonth = [NSMutableArray array];
-        }
-        NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
-        if ([userDefaults boolForKey:@"withPercent"]) {
-            double mutableMonthDebit = [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue] + [[userDefaults objectForKey:@"monthPercent"] doubleValue];
-            [dictWithDateAndSum setObject:[NSNumber numberWithDouble:mutableMonthDebit] forKey: @"currentMutableMonthDebit"];
-        } else {
-            NSNumber *mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
-            [dictWithDateAndSum setObject:mutableMonthDebit forKey: @"currentMutableMonthDebit"];
-        }
-        [dictWithDateAndSum setObject:[[Manager sharedInstance] nameOfPreviousMonth]  forKey:@"currentMonthOfSave"];
-        [historySaveOfMonth addObject:dictWithDateAndSum];
-        [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
-        [userDefaults synchronize];
-        */
-        
         [[Manager sharedInstance] resetData];
-
+        
+        NSString *num = @"0";
+       if  ([userDefaults boolForKey:@"transferMoneyNextDaySettingsMonth"]) {
+            
+            if ([userDefaults boolForKey:@"withPercent"]) {
+                double moneyToMoneyBox = [[userDefaults objectForKey:@"monthPercent"] doubleValue] + [[userDefaults objectForKey:@"moneyBox"] doubleValue];
+                [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
+            }
+            [[Manager sharedInstance] workWithHistoryOfSave:num];
+        }
+        else if ([userDefaults boolForKey:@"amountDailyBudgetSettingsMonth"]) {
+            
+            if ([userDefaults objectForKey:@"withPercent"]) {
+                double moneyToMoneyBox = [[userDefaults objectForKey:@"monthPercent"] doubleValue] + [[userDefaults objectForKey:@"moneyBox"] doubleValue];
+                [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
+            }
+            [[Manager sharedInstance] workWithHistoryOfSave:num];
+        }
+        else if ([userDefaults boolForKey:@"moneyBoxSettingsMonth"]) {
+            
+            if ([userDefaults boolForKey:@"withPercent"]) {
+                double moneyToMoneyBox = [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue] + [[userDefaults objectForKey:@"monthPercent"] doubleValue] + [[userDefaults objectForKey:@"moneyBox"] doubleValue];
+                [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
+            } else {
+                double moneyToMoneyBox = [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue] + [[userDefaults objectForKey:@"moneyBox"] doubleValue];
+                [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
+            }
+            
+            NSNumber *mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
+            [[Manager sharedInstance] workWithHistoryOfSave:mutableMonthDebit];
+            //массив для подсчета отложенного бюджета за год
+            NSMutableArray *arrForHistorySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
+            if (arrForHistorySaveOfMonthMoneyDebit == nil) {
+                arrForHistorySaveOfMonthMoneyDebit = [NSMutableArray array];
+            }
+            [arrForHistorySaveOfMonthMoneyDebit addObject:mutableMonthDebit];
+            [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
+            
+            [[Manager sharedInstance] resetUserDefData];
+        }
+    
     } else {
         [self recalculationEveryDay];
     }
+}
+//для подсчета скопленного бюджета за год (копилка)
+- (void)newYear {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults integerForKey:@"Year"]) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *currDate = [NSDate date];
+        NSInteger yearOfCurrDate = [calendar component:NSCalendarUnitYear fromDate:currDate];
+        [userDefaults setInteger:yearOfCurrDate forKey:@"Year"];
+    }
+    NSInteger yearOfCurrDateInt = [userDefaults integerForKey:@"Year"];
+
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger yearOfCurrDate = [calendar component:NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    if (yearOfCurrDateInt < yearOfCurrDate) {
+        [userDefaults setInteger:yearOfCurrDate forKey:@"Year"];
+        
+        
+    }
+    
+    [userDefaults synchronize];
 }
 
 - (void)negativeBalance {
@@ -212,6 +251,7 @@
         if (historySpendOfMonth == nil) {
             historySpendOfMonth = [NSMutableArray array];
         }
+        
         //работа с таблицей (история)
         NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
         [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];

@@ -49,16 +49,22 @@
     return valueFromData;
 }
 
-
+- (void)resetUserDefData {
+    //обнуление средств
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
+    [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
+    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    NSNumber *mutableBudgetOnDay = [userDefaults objectForKey:@"budgetOnDay"];
+    budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", mutableBudgetOnDay, @"mutableBudgetOnDay", nil];
+    [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
+    [userDefaults synchronize];
+}
 
 - (void)resetData {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
-    [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
-    
-    NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
-    [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
 
     //обнуляем историю
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
@@ -157,6 +163,20 @@
     NSString *monthName = [[df monthSymbols] objectAtIndex:(numberOfMonth)];
     return monthName;
 
+}
+
+- (void)workWithHistoryOfSave:(id)mutableMonthDebite {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *historySaveOfMonth = [[NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]]mutableCopy];
+    if (historySaveOfMonth == nil) {
+        historySaveOfMonth = [NSMutableArray array];
+    }
+    NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
+    
+    [dictWithDateAndSum setObject:mutableMonthDebite forKey: @"currentMutableMonthDebit"];
+    [dictWithDateAndSum setObject:[[Manager sharedInstance] stringForHistorySaveOfMonthDict] forKey:@"currentMonthPeriod"];
+    [historySaveOfMonth addObject:dictWithDateAndSum];
+    [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
 }
 
 - (NSString*)stringForHistorySaveOfMonthDict {
