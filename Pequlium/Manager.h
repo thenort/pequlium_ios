@@ -26,6 +26,8 @@
 - (NSInteger)differenceDay;
 - (NSString*)nameOfPreviousMonth;
 - (NSString*)stringForHistorySaveOfMonthDict;
-- (void)workWithHistoryOfSave:(id)mutableMonthDebite;
-- (void)resetUserDefData;
+- (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name;
+- (void)resetUserDefData:(NSNumber*)mutableBudgetOnDay;
+- (NSString*)workWithDateForMainTable:(NSDate*)date;
+
 @end

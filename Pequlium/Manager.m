@@ -7,6 +7,7 @@
 //
 
 #import "Manager.h"
+#import <NSDate+TimeAgo.h>
 
 
 @implementation Manager
@@ -49,13 +50,13 @@
     return valueFromData;
 }
 
-- (void)resetUserDefData {
-    //обнуление средств
+- (void)resetUserDefData:(NSNumber*)mutableBudgetOnDay {
+    //обнуление средств (возобновление даты и бюджета)
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
     [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
     NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    NSNumber *mutableBudgetOnDay = [userDefaults objectForKey:@"budgetOnDay"];
+    
     budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", mutableBudgetOnDay, @"mutableBudgetOnDay", nil];
     [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
@@ -72,8 +73,8 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
-    
     NSDateComponents *componentsCurrentDate = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:resetDateEveryMonth];
+    
     [componentsCurrentDate setTimeZone:[NSTimeZone systemTimeZone]];
     
     NSDate *newCurrentDate = [calendar dateFromComponents:componentsCurrentDate];
@@ -141,6 +142,13 @@
     return dateString;
 }
 
+
+
+- (NSString*)workWithDateForMainTable:(NSDate*)date {
+    NSString *timeAgo = [date timeAgo];
+    return timeAgo;
+}
+
 - (NSInteger)daysToStartNewMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDate *dateStartNewMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
@@ -165,7 +173,7 @@
 
 }
 
-- (void)workWithHistoryOfSave:(id)mutableMonthDebite {
+- (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *historySaveOfMonth = [[NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]]mutableCopy];
     if (historySaveOfMonth == nil) {
@@ -174,7 +182,7 @@
     NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
     
     [dictWithDateAndSum setObject:mutableMonthDebite forKey: @"currentMutableMonthDebit"];
-    [dictWithDateAndSum setObject:[[Manager sharedInstance] stringForHistorySaveOfMonthDict] forKey:@"currentMonthPeriod"];
+    [dictWithDateAndSum setObject:name forKey:@"currentMonthPeriod"];
     [historySaveOfMonth addObject:dictWithDateAndSum];
     [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
 }

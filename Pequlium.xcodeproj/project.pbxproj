@@ -33,6 +33,7 @@
 		44C921451E0170B300F3D004 /* MonthDebitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C921441E0170B300F3D004 /* MonthDebitViewController.m */; };
 		44E28D7B1DFEB7A80033514F /* SettingsMainScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */; };
 		44E28D7D1DFEB7B10033514F /* SettingsMainScreenHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */; };
+		59C8503892ABBFE2CF934543 /* libPods-Pequlium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 426B8E129D5FAF837F623C84 /* libPods-Pequlium.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,8 @@
 		13FE06A41E25150200E9C313 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		13FE06A61E25154D00E9C313 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
 		13FE06A71E25154D00E9C313 /* NavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationViewController.m; sourceTree = "<group>"; };
+		1ECEE08ADD40ADA3010F9681 /* Pods-Pequlium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pequlium.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pequlium/Pods-Pequlium.debug.xcconfig"; sourceTree = "<group>"; };
+		426B8E129D5FAF837F623C84 /* libPods-Pequlium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Pequlium.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4499179C1DFAFAF90099800E /* MainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenHeaderView.h; sourceTree = "<group>"; };
 		4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenHeaderView.m; sourceTree = "<group>"; };
 		4499179F1DFAFB800099800E /* MainScreenHeaderXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainScreenHeaderXib.xib; sourceTree = "<group>"; };
@@ -84,6 +87,7 @@
 		44E28D791DFEB7A80033514F /* SettingsMainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenHeaderView.h; sourceTree = "<group>"; };
 		44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenHeaderView.m; sourceTree = "<group>"; };
 		44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsMainScreenHeader.xib; sourceTree = "<group>"; };
+		E4A495592FC6E427F574DC8C /* Pods-Pequlium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pequlium.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pequlium/Pods-Pequlium.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				59C8503892ABBFE2CF934543 /* libPods-Pequlium.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +179,8 @@
 			children = (
 				44C0D90E1DFAB6C300E3D413 /* Pequlium */,
 				44C0D90D1DFAB6C300E3D413 /* Products */,
+				6FFC07B72A5538747C7CAB0C /* Pods */,
+				D54193F36A9CF6BBB0A9EC3A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -207,6 +214,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		6FFC07B72A5538747C7CAB0C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1ECEE08ADD40ADA3010F9681 /* Pods-Pequlium.debug.xcconfig */,
+				E4A495592FC6E427F574DC8C /* Pods-Pequlium.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		D54193F36A9CF6BBB0A9EC3A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				426B8E129D5FAF837F623C84 /* libPods-Pequlium.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -214,9 +238,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44C0D9231DFAB6C300E3D413 /* Build configuration list for PBXNativeTarget "Pequlium" */;
 			buildPhases = (
+				075E1B81EC631996F7816A4F /* [CP] Check Pods Manifest.lock */,
 				44C0D9081DFAB6C300E3D413 /* Sources */,
 				44C0D9091DFAB6C300E3D413 /* Frameworks */,
 				44C0D90A1DFAB6C300E3D413 /* Resources */,
+				612939E7DDE050B3067E56DE /* [CP] Embed Pods Frameworks */,
+				2BFD159B8C97AD7B59E9A4CD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -274,6 +301,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		075E1B81EC631996F7816A4F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		2BFD159B8C97AD7B59E9A4CD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pequlium/Pods-Pequlium-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		612939E7DDE050B3067E56DE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pequlium/Pods-Pequlium-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		44C0D9081DFAB6C300E3D413 /* Sources */ = {
@@ -416,6 +491,7 @@
 		};
 		44C0D9241DFAB6C300E3D413 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1ECEE08ADD40ADA3010F9681 /* Pods-Pequlium.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Pequlium/Info.plist;
@@ -427,6 +503,7 @@
 		};
 		44C0D9251DFAB6C300E3D413 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E4A495592FC6E427F574DC8C /* Pods-Pequlium.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Pequlium/Info.plist;
