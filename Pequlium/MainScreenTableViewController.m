@@ -30,7 +30,7 @@
 }
 
 - (void)viewDidLoad {
-    [NSTimer scheduledTimerWithTimeInterval:2.0
+    [NSTimer scheduledTimerWithTimeInterval:8.0
                                      target:self
                                    selector:@selector(reloadDateInTableView)
                                    userInfo:nil
@@ -126,12 +126,28 @@
     }
 }
 
+- (void)resetBoolOfNegativeBalanceInEndOfMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setBool:NO forKey:@"callOneTime"];
+    [userDefaults setBool:NO forKey:@"callOneTimeToLable"];
+    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
+    
+    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowCountedBool"];
+    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowBool"];
+    
+    [userDefaults synchronize];
+}
+
 - (void)recalculationEveryMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
     
     if ([[NSDate date] compare:resetDateEveryMonth] == NSOrderedDescending) {
+        NSString *emptyBudgetToMoneyBox = @"0";
+        
         BOOL callOneTimeMonth = [userDefaults boolForKey:@"callOneTimeMonth"];
+        
         if (!callOneTimeMonth) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
             MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
@@ -139,7 +155,6 @@
         }
         [[Manager sharedInstance] resetData];
         
-        NSString *emptyBudgetToMoneyBox = @"0";
        if  ([userDefaults boolForKey:@"transferMoneyNextDaySettingsMonth"]) {
             
             if ([userDefaults boolForKey:@"withPercent"]) {
@@ -157,8 +172,13 @@
            
            [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
            
-           double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
-           [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+           NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
+           [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
+           [userDefaults setDouble:[stableBudgetOnDay doubleValue] forKey:@"dailyBudgetTomorrowCounted"];
+           
+           double monthDebitWithBalanceMutableMonthDebit = [userDefaults doubleForKey:@"monthDebit"] + [userDefaults doubleForKey:@"mutableMonthDebit"];
+           
+           [userDefaults setDouble:monthDebitWithBalanceMutableMonthDebit forKey:@"mutableMonthDebit"];
            
         }
         
@@ -169,10 +189,10 @@
                 [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
             }
             [[Manager sharedInstance] workWithHistoryOfSave:emptyBudgetToMoneyBox nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
-            
+
             NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-            double divided = [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue] / [[Manager sharedInstance] daysInCurrentMonth];
-            double amountBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] + divided;
+            double divided = [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
+            double amountBudgetOnDay = [userDefaults doubleForKey:@"stableBudgetOnDay"] + divided;
             [userDefaults setObject:[NSNumber numberWithDouble:amountBudgetOnDay] forKey:@"budgetOnDay"];
             
             double recalculationBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
@@ -181,9 +201,9 @@
             [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
             
             [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
-            
-            double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
-            [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+            [userDefaults setDouble:recalculationBudgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
+            double monthDebitWithBalanceMutableMonthDebit = [userDefaults doubleForKey:@"monthDebit"] + [userDefaults doubleForKey:@"mutableMonthDebit"];
+            [userDefaults setDouble:monthDebitWithBalanceMutableMonthDebit forKey:@"mutableMonthDebit"];
         }
         
         else if ([userDefaults boolForKey:@"moneyBoxSettingsMonth"]) {
@@ -198,6 +218,7 @@
             
             NSNumber *mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
             [[Manager sharedInstance] workWithHistoryOfSave:mutableMonthDebit nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
+            
             //массив для подсчета отложенного бюджета за год
             NSMutableArray *arrForHistorySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
             if (arrForHistorySaveOfMonthMoneyDebit == nil) {
@@ -206,9 +227,15 @@
             [arrForHistorySaveOfMonthMoneyDebit addObject:mutableMonthDebit];
             [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
             
-            [[Manager sharedInstance] resetUserDefData:[userDefaults objectForKey:@"budgetOnDay"]];
+            double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
+            [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+            
+            [[Manager sharedInstance] resetUserDefData:[userDefaults objectForKey:@"stableBudgetOnDay"]];
+            
+            NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
+            [userDefaults setDouble:[stableBudgetOnDay doubleValue] forKey:@"dailyBudgetTomorrowCounted"];
         }
-    
+        [self resetBoolOfNegativeBalanceInEndOfMonth];
     } else {
         [self recalculationEveryDay];
     }
@@ -231,7 +258,7 @@
         NSArray *historySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
         double sumOfSaveMoneForYear = 0.0;
         for (NSNumber* budgetInArray in historySaveOfMonthMoneyDebit) {
-            sumOfSaveMoneForYear = +[budgetInArray doubleValue];
+            sumOfSaveMoneForYear = sumOfSaveMoneForYear + [budgetInArray doubleValue];
         }
         [[Manager sharedInstance] workWithHistoryOfSave:[NSNumber numberWithDouble:sumOfSaveMoneForYear] nameOfPeriod:[NSString stringWithFormat:@"%ld", yearOfCurrDateInt]];
         
@@ -263,11 +290,13 @@
 
 //когда клавиатура выезжает
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < - 57 ) {
+    if (scrollView.contentOffset.y < - 64 ) {//- 57
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+        //NSLog(@"< -  %f ", scrollView.contentOffset.y);
     }
-    else if (scrollView.contentOffset.y > - 57 ) {
+    else if (scrollView.contentOffset.y > 41 ) {//- 57
         [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
+        //NSLog(@"> -  %f ", scrollView.contentOffset.y);
     }
 }
 
@@ -307,6 +336,7 @@
         [userDefault setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
         [userDefault synchronize];
         self.arrayForTable = historySpendOfMonth;
+        self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
         [self.tableView reloadData];
         
         //работа с бюджетом на день
@@ -365,7 +395,7 @@
 #pragma mark - Table view data source -
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.arrayForTable count];
+    return [self.arrayForTable count];//arrayForTable
 }
 
 
@@ -389,6 +419,7 @@
         [self.arrayForTable removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView reloadData];
+        self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:self.arrayForTable forKey:@"historySpendOfMonth"];
         [userDefaults synchronize];

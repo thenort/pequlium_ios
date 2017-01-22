@@ -63,11 +63,22 @@
         double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
         [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
         
+        if ([userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
+            double recDailyBudgetTomorrowCounted = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs(divided);
+            [userDefaults setObject:[NSNumber numberWithDouble:recDailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
+        }
+        
         BOOL callOneTime = YES;
         [userDefaults setBool:callOneTime forKey:@"callOneTime"];
     } else {
         double divided = [userDefaults doubleForKey:@"processOfSpendingMoneyTextField"] / [[Manager sharedInstance] daysToStartNewMonth];
         double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
+        
+        if ([userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
+            double recDailyBudgetTomorrowCounted = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs(divided);
+            [userDefaults setObject:[NSNumber numberWithDouble:recDailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
+        }
+        
         [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
     }
     [userDefaults synchronize];

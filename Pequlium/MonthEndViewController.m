@@ -44,9 +44,13 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     double moneyOnTodayWithSpendMutMonthDebid = [self.mutableMonthDebit doubleValue] + [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue];
     [[Manager sharedInstance] resetUserDefData:[NSNumber numberWithDouble:moneyOnTodayWithSpendMutMonthDebid]];
-    double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
-    [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+    double monthDebitWithBalanceMutableMonthDebit = [userDefaults doubleForKey:@"monthDebit"] + [self.mutableMonthDebit doubleValue];
+    
+    [userDefaults setDouble:monthDebitWithBalanceMutableMonthDebit forKey:@"mutableMonthDebit"];
     [[Manager sharedInstance] workWithHistoryOfSave:@"0" nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
+    
+    double budgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
+    [userDefaults setDouble:budgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
     
     //значение для switch в настройках дня 1 пункта
     [userDefaults setBool:YES forKey:@"transferMoneyNextDaySettingsMonth"];
@@ -69,8 +73,11 @@
     
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     
-    double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
-    [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+    double monthDebitWithBalanceMutableMonthDebit = [userDefaults doubleForKey:@"monthDebit"] + [self.mutableMonthDebit doubleValue];
+    [userDefaults setDouble:monthDebitWithBalanceMutableMonthDebit forKey:@"mutableMonthDebit"];
+    
+    double budgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
+    [userDefaults setDouble:budgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
     
     [[Manager sharedInstance] workWithHistoryOfSave:@"0" nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
     //значение для switch в настройках дня 2 пункта
@@ -99,8 +106,10 @@
     [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
     ////--------///
     
-    [[Manager sharedInstance] resetUserDefData:[userDefaults objectForKey:@"budgetOnDay"]];
+    [[Manager sharedInstance] resetUserDefData:[userDefaults objectForKey:@"stableBudgetOnDay"]];
     
+    double budgetOnDay = [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue];
+    [userDefaults setDouble:budgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
     //значение для switch в настройках дня 3 пункта
     [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
     [userDefaults synchronize];
