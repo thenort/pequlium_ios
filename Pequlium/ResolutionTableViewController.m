@@ -7,6 +7,7 @@
 //
 
 #import "ResolutionTableViewController.h"
+#import <UserNotifications/UserNotifications.h>
 
 
 @interface ResolutionTableViewController ()
@@ -36,8 +37,27 @@
         self.resolutionSwitch.on = NO;
     }
 }
+/// доделать переключение (алерт и т.д)
+- (void)checkNotificationSetting {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
+        if (granted) {
+            
+            [userDefaults setBool:YES forKey:@"resolutionSettingsSwitch"];
+            self.resolutionSwitch.on = YES;
+            
+        } else {
+            [userDefaults setBool:NO forKey:@"resolutionSettingsSwitch"];
+        }
+    }];
+    [userDefaults synchronize];
+}
 
 - (IBAction)pressedResolutionSwitch:(id)sender {
+    
+    
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([self.resolutionSwitch isOn]) {
         [userDefaults setBool:YES forKey:@"resolutionSettingsSwitch"];
@@ -45,6 +65,7 @@
         [userDefaults setBool:NO forKey:@"resolutionSettingsSwitch"];
     }
     [userDefaults synchronize];
+    
 }
 
 #pragma mark - Table view data source

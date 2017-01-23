@@ -16,6 +16,7 @@
 		137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964BA1E095A4B0042BF27 /* CalculationViewController.m */; };
 		13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */; };
 		13C35BB21E0C189100DD497B /* MainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */; };
+		13CF86391E363C61005CB2EA /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CF86381E363C61005CB2EA /* UserNotifications.framework */; };
 		13FE06A51E25150200E9C313 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FE06A41E25150200E9C313 /* FirstViewController.m */; };
 		13FE06A81E25154D00E9C313 /* NavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13FE06A71E25154D00E9C313 /* NavigationViewController.m */; };
 		4499179E1DFAFAF90099800E /* MainScreenHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4499179D1DFAFAF90099800E /* MainScreenHeaderView.m */; };
@@ -55,6 +56,7 @@
 		13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenTableViewCell.m; sourceTree = "<group>"; };
 		13C35BB01E0C189100DD497B /* MainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTableViewCell.h; sourceTree = "<group>"; };
 		13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainScreenTableViewCell.m; sourceTree = "<group>"; };
+		13CF86381E363C61005CB2EA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		13FE06A31E25150200E9C313 /* FirstViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
 		13FE06A41E25150200E9C313 /* FirstViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
 		13FE06A61E25154D00E9C313 /* NavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationViewController.h; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				13CF86391E363C61005CB2EA /* UserNotifications.framework in Frameworks */,
 				59C8503892ABBFE2CF934543 /* libPods-Pequlium.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -226,6 +229,7 @@
 		D54193F36A9CF6BBB0A9EC3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13CF86381E363C61005CB2EA /* UserNotifications.framework */,
 				426B8E129D5FAF837F623C84 /* libPods-Pequlium.a */,
 			);
 			name = Frameworks;
