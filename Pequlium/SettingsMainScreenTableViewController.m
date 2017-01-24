@@ -7,9 +7,15 @@
 //
 
 #import "SettingsMainScreenTableViewController.h"
+#import "SettingsMainScreenHeaderView.h"
+#import "SettingsMainScreenTableViewCell.h"
+#import "SettingsDayBalanceTableViewController.h"
+#import "SettingsMonthBalanceTableViewController.h"
+#import "ResolutionTableViewController.h"
+#import "MoneyBoxHistoryTableViewController.h"
 
-@interface SettingsMainScreenTableViewController ()
-
+@interface SettingsMainScreenTableViewController () <SettingsMainScreenHeaderViewDelegate>
+@property (strong, nonatomic) NSArray *textForCell;
 @end
 
 @implementation SettingsMainScreenTableViewController
@@ -17,82 +23,75 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self xibInHeaderToTableView];
+    self.tableView.tableFooterView = [UIView new];
+    self.textForCell = @[@"Дневной остаток", @"Ежемесячный остаток", @"Разрешить уведомления", @"Отзыв", @"О приложении"];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)xibInHeaderToTableView {
+    //добавление xib в tableview header
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    SettingsMainScreenHeaderView *headerView = [[SettingsMainScreenHeaderView alloc] initWithDate:[userDefaults objectForKey:@"resetDateEveryMonth"] lastMoney:[userDefaults doubleForKey:@"mutableMonthDebit"] moneyBox:[[userDefaults objectForKey:@"moneyBox"] doubleValue]];
+    headerView.delegate = self;
+    self.tableView.tableHeaderView = headerView;
+    
 }
+
+#pragma mark - Header view delegate -
+
+- (void)tappedMoneyBox {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    MoneyBoxHistoryTableViewController *moneyBoxHistoryTableViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MoneyBoxHistoryTableViewController"];
+    [self.navigationController pushViewController:moneyBoxHistoryTableViewControllerVC animated:YES];
+}
+
 
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return self.textForCell.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    SettingsMainScreenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CellReuseIdentifier" forIndexPath:indexPath];
+    cell.textForCellInSettingsMainScreenTableViewController.text = self.textForCell[indexPath.row];
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    switch (indexPath.row) {
+        case 0:
+            [self settingsDayBalanceVC];
+            break;
+        case 1:
+            [self settingsMonthBalanceVC];
+            break;
+        case 2:
+            [self resolutonVC];
+            break;
+        default:
+            break;
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)settingsDayBalanceVC {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    SettingsDayBalanceTableViewController *settingsDayBalanceVC = [storyboard instantiateViewControllerWithIdentifier:@"SettingsDayBalanceTableViewController"];
+    [self.navigationController pushViewController:settingsDayBalanceVC animated:YES];
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+- (void)settingsMonthBalanceVC {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    SettingsMonthBalanceTableViewController *settingsMonthBalanceVC = [storyboard instantiateViewControllerWithIdentifier:@"SettingsMonthBalanceTableViewController"];
+    [self.navigationController pushViewController:settingsMonthBalanceVC animated:YES];
 }
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
+- (void)resolutonVC {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    ResolutionTableViewController *resolutionVC = [storyboard instantiateViewControllerWithIdentifier:@"ResolutionTableViewController"];
+    [self.navigationController pushViewController:resolutionVC animated:YES];
 }
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

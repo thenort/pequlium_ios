@@ -7,31 +7,114 @@
 //
 
 #import "MonthEndViewController.h"
+#import "MainScreenTableViewController.h"
+#import "Manager.h"
 
 @interface MonthEndViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *balanceEndMonth;
+@property (strong, nonatomic) NSNumber *mutableMonthDebit;
 @end
 
 @implementation MonthEndViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    self.navigationItem.hidesBackButton = YES;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
+    self.balanceEndMonth.text = [NSString stringWithFormat:@"%.2f", [self.mutableMonthDebit doubleValue]];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)goToVC {
+    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [nav pushViewController:mainScreenTableViewVC animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)callOneTimeMonthBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL callOneTimeMonth = YES;
+    [userDefaults setBool:callOneTimeMonth forKey:@"callOneTimeMonth"];
+    [userDefaults synchronize];
 }
-*/
+
+- (IBAction)moveBalanceOnToday:(id)sender {
+    [self callOneTimeMonthBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    double moneyOnTodayWithSpendMutMonthDebid = [self.mutableMonthDebit doubleValue] + [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue];
+    [[Manager sharedInstance] resetUserDefData:[NSNumber numberWithDouble:moneyOnTodayWithSpendMutMonthDebid]];
+    double monthDebitWithBalanceMutableMonthDebit = [userDefaults doubleForKey:@"monthDebit"] + [self.mutableMonthDebit doubleValue];
+    
+    [userDefaults setDouble:monthDebitWithBalanceMutableMonthDebit forKey:@"mutableMonthDebit"];
+    [[Manager sharedInstance] workWithHistoryOfSave:@"0" nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
+    
+    double budgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
+    [userDefaults setDouble:budgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
+    
+    //значение для switch в настройках дня 1 пункта
+    [userDefaults setBool:YES forKey:@"transferMoneyNextDaySettingsMonth"];
+    [userDefaults synchronize];
+    [self goToVC];
+}
+
+- (IBAction)amountOnDailyBudget:(id)sender {
+    [self callOneTimeMonthBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    double divided = [self.mutableMonthDebit doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
+    double amountBudget = [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue] + divided;
+    
+    [userDefaults setObject:[NSNumber numberWithDouble:amountBudget] forKey:@"budgetOnDay"];
+    
+    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    
+    budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:amountBudget], @"mutableBudgetOnDay", nil];
+    [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+    
+    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
+    
+    double monthDebitWithBalanceMutableMonthDebit = [userDefaults doubleForKey:@"monthDebit"] + [self.mutableMonthDebit doubleValue];
+    [userDefaults setDouble:monthDebitWithBalanceMutableMonthDebit forKey:@"mutableMonthDebit"];
+    
+    double budgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
+    [userDefaults setDouble:budgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
+    
+    [[Manager sharedInstance] workWithHistoryOfSave:@"0" nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
+    //значение для switch в настройках дня 2 пункта
+    [userDefaults setBool:YES forKey:@"amountDailyBudgetSettingsMonth"];
+    [userDefaults synchronize];
+    [self goToVC];
+}
+
+- (IBAction)saveMoney:(id)sender {
+    [self callOneTimeMonthBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    double moneyBox = [[userDefaults objectForKey:@"moneyBox"] doubleValue] + [self.mutableMonthDebit doubleValue];
+    [userDefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
+
+    [[Manager sharedInstance] workWithHistoryOfSave:self.mutableMonthDebit nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
+
+    ////--------///массив для подсчета отложенного бюджета за год
+    NSMutableArray *arrForHistorySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
+    if (arrForHistorySaveOfMonthMoneyDebit == nil) {
+        arrForHistorySaveOfMonthMoneyDebit = [NSMutableArray array];
+    }
+    [arrForHistorySaveOfMonthMoneyDebit addObject:self.mutableMonthDebit];
+    [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
+    
+    double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
+    [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+    ////--------///
+    
+    [[Manager sharedInstance] resetUserDefData:[userDefaults objectForKey:@"stableBudgetOnDay"]];
+    
+    double budgetOnDay = [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue];
+    [userDefaults setDouble:budgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
+    //значение для switch в настройках дня 3 пункта
+    [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
+    [userDefaults synchronize];
+    [self goToVC];
+}
+
 
 @end

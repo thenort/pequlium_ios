@@ -7,31 +7,72 @@
 //
 
 #import "DayEndViewController.h"
+#import "MainScreenTableViewController.h"
+#import "Manager.h"
 
 @interface DayEndViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *balanceEndDay;
+@property (strong, nonatomic) NSNumber *mutableBudgetOnDayWithSpendNumberFromDict;
 @end
 
 @implementation DayEndViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    self.mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
+    self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
+}
+
+- (void)callOneTimeDayBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    BOOL callOneTimeDay = YES;
+    [userDefaults setBool:callOneTimeDay forKey:@"callOneTimeDay"];
+    [userDefaults synchronize];
+}
+
+- (void)goToVC {
+    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [nav pushViewController:mainScreenTableViewVC animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
+- (IBAction)moveBalanceOnToday:(id)sender {
+    [self callOneTimeDayBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    double mutableBalanceOnToday = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue];
+    
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: mutableBalanceOnToday], @"mutableBudgetOnDay", nil];
+    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
+    //значение для switch в настройках дня 1пункта
+    [userDefaults setBool:YES forKey:@"transferMoneyToNextDaySettingsDay"];
+    [userDefaults synchronize];
+    [self goToVC];
+}
+
+- (IBAction)amountOnDailyBudget:(id)sender {
+    [self callOneTimeDayBool];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    double divided = [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
+    double amountBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + divided;
+    [userDefaults setObject:[NSNumber numberWithDouble:amountBudgetOnDay] forKey:@"budgetOnDay"];
+    double recalculationBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
+    
+    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: recalculationBudgetOnDay], @"mutableBudgetOnDay", nil];
+    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
+    //значение для switch в настройках дня 2пункта
+    [userDefaults setBool:YES forKey:@"amountOnDailyBudgetSettingsDay"];
+    [userDefaults synchronize];
+    [self goToVC];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
