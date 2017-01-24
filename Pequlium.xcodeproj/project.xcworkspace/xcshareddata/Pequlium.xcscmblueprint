@@ -1,14 +1,18 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "82AB44B3E08BA5A05204B69C32F613D680BB5EA9",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++68024E3",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9" : 9223372036854775807
+    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++14A3AF0" : 9223372036854775807,
+    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++68024E3" : 9223372036854775807,
+    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++D7B8350" : 9223372036854775807
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "93124563-57CA-4319-8F0C-AE49CF208D2B",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9" : ""
+    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++14A3AF0" : "",
+    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++68024E3" : "Pequilum\/",
+    "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++D7B8350" : ""
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "Pequlium",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -17,12 +21,17 @@
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lufttech\/pequlium_ios.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "82AB44B3E08BA5A05204B69C32F613D680BB5EA9"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++14A3AF0"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lufttech\/pequlium_ios.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "82AB44B3E08BA5A05204B69C32F613D680BB5EA9"
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++68024E3"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lufttech\/pequlium_ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "82AB44B3E08BA5A05204B69C32F613D680BB5EA9+++D7B8350"
     }
   ]
 }
