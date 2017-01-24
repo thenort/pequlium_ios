@@ -49,6 +49,17 @@
     self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
     [self updateSwitchViewDay];
     [self updateSwitchViewMonth];
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(recalculationEveryMonth)
+                                                 name:@"NotificationRecalculationEveryMonth"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateTextCurrentBudgetOnDayLabel)
+                                                 name:@"updateTextCurrentBudgetOnDayLabel"
+                                               object:nil];
 }
 
 - (void) reloadDateInTableView {
@@ -204,6 +215,7 @@
             [userDefaults setDouble:recalculationBudgetOnDay forKey:@"dailyBudgetTomorrowCounted"];
             double monthDebitWithBalanceMutableMonthDebit = [userDefaults doubleForKey:@"monthDebit"] + [userDefaults doubleForKey:@"mutableMonthDebit"];
             [userDefaults setDouble:monthDebitWithBalanceMutableMonthDebit forKey:@"mutableMonthDebit"];
+            [userDefaults synchronize];
         }
         
         else if ([userDefaults boolForKey:@"moneyBoxSettingsMonth"]) {
@@ -280,10 +292,14 @@
     }
 }
 
+
+
 //добавление xib в tableview header
 - (void)xibInHeaderToTableView {
     self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
+    
     self.tableView.tableHeaderView = self.headerView;
+    
 }
 
 #pragma mark - UIScrollViewDelegat -

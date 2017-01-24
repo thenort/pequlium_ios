@@ -229,6 +229,7 @@
 
 #pragma mark - Work With balance in Label -
 
+
 - (NSString*)updateTextBalanceLabel {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];

@@ -25,46 +25,80 @@
                                 action:nil];
     self.navigationController.navigationBar.topItem.backBarButtonItem = btnBack;
     self.tableView.tableFooterView = [UIView new];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(updateViewSwitchIfBackground)
+                                                 name:@"MyNotification"
+                                               object:nil];
     [self updateSwitchView];
 }
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
+}
+
+
 #pragma mark - Work with Switch -
 
 - (void)updateSwitchView {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if ([userDefaults boolForKey:@"resolutionSettingsSwitch"]) {
-        self.resolutionSwitch.on = YES;
+        
+        [self.resolutionSwitch setOn:YES animated:YES];
+        NSString *error = @"Для того чтобы выключить уведомления!";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Измените в настройках" message:error preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
+
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    
+        [self.resolutionSwitch setEnabled:NO];
+        
     } else {
-        self.resolutionSwitch.on = NO;
+        
+        [self.resolutionSwitch setOn:NO animated:YES];
+        NSString *error = @"Для того чтобы включить уведомления!";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Измените в настройках" message:error preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
+
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        
+        
+        [self.resolutionSwitch setEnabled:NO];
+        
     }
+    [userDefaults synchronize];
 }
-/// доделать переключение (алерт и т.д)
-- (void)checkNotificationSetting {
+
+- (void)updateViewSwitchIfBackground {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
-    [center requestAuthorizationWithOptions:(UNAuthorizationOptionSound | UNAuthorizationOptionAlert) completionHandler:^(BOOL granted, NSError * _Nullable error) {
-        if (granted) {
-            
-            [userDefaults setBool:YES forKey:@"resolutionSettingsSwitch"];
-            self.resolutionSwitch.on = YES;
-            
-        } else {
-            [userDefaults setBool:NO forKey:@"resolutionSettingsSwitch"];
-        }
-    }];
+    if ([userDefaults boolForKey:@"resolutionSettingsSwitch"]) {
+        
+        [self.resolutionSwitch setOn:YES animated:YES];
+        [self.resolutionSwitch setEnabled:NO];
+        
+    } else {
+        
+        [self.resolutionSwitch setOn:NO animated:YES];
+        [self.resolutionSwitch setEnabled:NO];
+        
+    }
     [userDefaults synchronize];
 }
 
 - (IBAction)pressedResolutionSwitch:(id)sender {
     
-    
-    
+    /*
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([self.resolutionSwitch isOn]) {
-        [userDefaults setBool:YES forKey:@"resolutionSettingsSwitch"];
+    
+    if (self.resolutionSwitch.on == YES) {
+        
     } else {
-        [userDefaults setBool:NO forKey:@"resolutionSettingsSwitch"];
+    
     }
     [userDefaults synchronize];
+    */
     
 }
 
