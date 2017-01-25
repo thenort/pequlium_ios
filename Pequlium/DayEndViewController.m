@@ -17,6 +17,10 @@
 
 @implementation DayEndViewController
 
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -30,13 +34,6 @@
     BOOL callOneTimeDay = YES;
     [userDefaults setBool:callOneTimeDay forKey:@"callOneTimeDay"];
     [userDefaults synchronize];
-}
-
-- (void)goToVC {
-    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
-    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
-    [nav pushViewController:mainScreenTableViewVC animated:YES];
-    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (IBAction)moveBalanceOnToday:(id)sender {
@@ -71,8 +68,25 @@
     [self goToVC];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+- (void)popVC {
+    UIViewController* popVC;
+    for (UIViewController* vC in self.navigationController.viewControllers) {
+        if ([vC isKindOfClass:[MainScreenTableViewController class]]) {
+            popVC = vC;
+            break;
+        }
+    }
+    if (popVC) {
+        [self.navigationController popToViewController:popVC animated:YES];
+    }
+    
+}
+
+- (void)goToVC {
+    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [nav pushViewController:mainScreenTableViewVC animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 @end

@@ -16,6 +16,9 @@
 
 
 
+
+
+
 @interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
 @property (strong, nonatomic) NSMutableArray *arrayForTable;
@@ -29,13 +32,32 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    self.arrayForTable = [[userDefaults objectForKey:@"historySpendOfMonth"] mutableCopy];
+    self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
+    self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
+    [self.tableView reloadData];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:YES];
+
+}
+
 - (void)viewDidLoad {
+    
     [NSTimer scheduledTimerWithTimeInterval:8.0
                                      target:self
                                    selector:@selector(reloadDateInTableView)
                                    userInfo:nil
                                     repeats:YES];
-    [super viewDidLoad];
+    
     [self recalculationEveryMonth];
     [self newYear];
     [self xibInHeaderToTableView];
@@ -50,7 +72,6 @@
     [self updateSwitchViewDay];
     [self updateSwitchViewMonth];
     
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(recalculationEveryMonth)
                                                  name:@"NotificationRecalculationEveryMonth"
@@ -60,6 +81,17 @@
                                              selector:@selector(updateTextCurrentBudgetOnDayLabel)
                                                  name:@"updateTextCurrentBudgetOnDayLabel"
                                                object:nil];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NotificationRecalculationEveryMonth" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTextCurrentBudgetOnDayLabel" object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:YES];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NotificationRecalculationEveryMonth" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTextCurrentBudgetOnDayLabel" object:nil];
 }
 
 - (void) reloadDateInTableView {
@@ -296,11 +328,14 @@
 
 //добавление xib в tableview header
 - (void)xibInHeaderToTableView {
-    self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
     
+    self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = self.headerView;
     
+    //[self.tableView.tableHeaderView setFrame:CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, 13, 134)];
+
 }
+
 
 #pragma mark - UIScrollViewDelegat -
 

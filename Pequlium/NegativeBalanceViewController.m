@@ -82,7 +82,7 @@
         [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
     }
     [userDefaults synchronize];
-    [self pushVC];
+    [self popVC];
 }
 
 - (void)infoToDailyBudgetWillBeTomorrowLabel {
@@ -139,7 +139,7 @@
             }
         }
         [userDefaults synchronize];
-        [self pushVC];
+        [self popVC];
     } else {
         NSString *error = @"Введенная вами сумма превышает ваш бюджет на завтра. Нажмите: Пересчитать дневной бюджет. Или введите меньшую сумму.";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -177,15 +177,23 @@
     
     [historySpendOfMonth removeLastObject];
     [userDefaults setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
-    
-    [self pushVC];
+    [self popVC];
     
 }
 
-- (void)pushVC {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-    MainScreenTableViewController *mainScreenTableViewVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
-    [self.navigationController pushViewController:mainScreenTableViewVC animated:YES];
+- (void)popVC {
+    UIViewController* popVC;
+    for (UIViewController* vC in self.navigationController.viewControllers) {
+        if ([vC isKindOfClass:[MainScreenTableViewController class]]) {
+            popVC = vC;
+            break;
+        }
+    }
+    if (popVC) {
+        [self.navigationController popToViewController:popVC animated:YES];
+    }
+    
 }
+
 
 @end
