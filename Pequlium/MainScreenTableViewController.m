@@ -320,7 +320,7 @@
 }
 
 #pragma mark - Timer
-- (void)startTimer{
+- (void)startTimer {
     _updateTimer = [NSTimer scheduledTimerWithTimeInterval:8.0
                                                     target:self
                                                   selector:@selector(reloadDateInTableView)
