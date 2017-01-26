@@ -8,6 +8,8 @@
 
 #import "Manager.h"
 #import <NSDate+TimeAgo.h>
+#include <sys/types.h>
+#include <sys/sysctl.h>
 
 
 @implementation Manager
@@ -23,6 +25,17 @@
     return _singleton;
 }
 
+#pragma marlk - Platform -
+
+- (NSString *) platform {
+    size_t size;
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
+    free(machine);
+    return platform;
+}
 
 #pragma mark - Work with NSUserDefaults -
 
@@ -155,7 +168,12 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *days = [calendar components:NSCalendarUnitDay fromDate:[NSDate new] toDate:dateStartNewMonth options:0];
     NSInteger daysToStartNewMonth = days.day;
-    return daysToStartNewMonth;
+    if (daysToStartNewMonth == 0) {
+        daysToStartNewMonth = 1;
+        return daysToStartNewMonth;
+    } else {
+        return daysToStartNewMonth;
+    }
 }
 
 - (NSString*)nameOfPreviousMonth {
@@ -228,6 +246,7 @@
 }
 
 #pragma mark - Work With balance in Label -
+
 
 - (NSString*)updateTextBalanceLabel {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];

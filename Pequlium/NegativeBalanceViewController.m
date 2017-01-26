@@ -51,38 +51,49 @@
 }
 
 - (IBAction)dailyBudgetCounted:(id)sender {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    BOOL dailyBudgetTomorrowBool = YES;
-    [userDefaults setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
-    
-    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    BOOL callOneTimeBool = [userDefaults boolForKey:@"callOneTime"];
-    if (!callOneTimeBool) {
-        double divided = [[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue] / [[Manager sharedInstance] daysToStartNewMonth] ;
-        double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
-        [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
+    if ([self.dailyBudgetWillBeLabel.text doubleValue] > 0) {
         
-        if ([userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
-            double recDailyBudgetTomorrowCounted = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs(divided);
-            [userDefaults setObject:[NSNumber numberWithDouble:recDailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        
+        BOOL dailyBudgetTomorrowBool = YES;
+        [userDefaults setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
+        
+        NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+        BOOL callOneTimeBool = [userDefaults boolForKey:@"callOneTime"];
+        if (!callOneTimeBool) {
+            double divided = [[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue] / [[Manager sharedInstance] daysToStartNewMonth] ;
+            double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
+            [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
+            
+            if ([userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
+                double recDailyBudgetTomorrowCounted = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs(divided);
+                [userDefaults setObject:[NSNumber numberWithDouble:recDailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
+            }
+            
+            BOOL callOneTime = YES;
+            [userDefaults setBool:callOneTime forKey:@"callOneTime"];
+        } else {
+            double divided = [userDefaults doubleForKey:@"processOfSpendingMoneyTextField"] / [[Manager sharedInstance] daysToStartNewMonth];
+            double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
+            
+            if ([userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
+                double recDailyBudgetTomorrowCounted = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs(divided);
+                [userDefaults setObject:[NSNumber numberWithDouble:recDailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
+            }
+            
+            [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
         }
-        
-        BOOL callOneTime = YES;
-        [userDefaults setBool:callOneTime forKey:@"callOneTime"];
+        [userDefaults synchronize];
+        [self popVC];
     } else {
-        double divided = [userDefaults doubleForKey:@"processOfSpendingMoneyTextField"] / [[Manager sharedInstance] daysToStartNewMonth];
-        double recalculationBudgetOnDay = [userDefaults doubleForKey:@"budgetOnDay"] - fabs(divided);
-        
-        if ([userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
-            double recDailyBudgetTomorrowCounted = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs(divided);
-            [userDefaults setObject:[NSNumber numberWithDouble:recDailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
-        }
-        
-        [userDefaults setDouble:recalculationBudgetOnDay forKey:@"budgetOnDay"];
+        NSString *error = @"Введенная вами сумма превышает ваш дневной бюджет. Нажмите: Потратить меньше завтра. Или введите меньшую сумму.";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+
     }
-    [userDefaults synchronize];
-    [self pushVC];
 }
 
 - (void)infoToDailyBudgetWillBeTomorrowLabel {
@@ -93,18 +104,30 @@
     if (!dailyBudgetTomorrowBoolLabel) {
         
         double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] - fabs([[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue]) ;
-        
-        self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
-        
+
+        if (recalculationBudgetOnTomorrow <= 0) {
+            self.dailyBudgetWillBeTomorrowLabel.text = @"0";
+        } else {
+            self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+        }
+
         BOOL callOneTimeTomorrowBool = YES;
         [userDefaults setBool:callOneTimeTomorrowBool forKey:@"dailyBudgetTomorrowBoolLabel"];
     } else {
         if (![userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"]) {
             double recalculationBudgetOnTomorrow = [[userDefaults objectForKey:@"budgetOnDay"]  doubleValue] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
-            self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+            if (recalculationBudgetOnTomorrow <= 0) {
+                self.dailyBudgetWillBeTomorrowLabel.text = @"0";
+            } else {
+                self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+            }
         } else {
             double recalculationBudgetOnTomorrow = [userDefaults doubleForKey:@"dailyBudgetTomorrowCounted"] - fabs([userDefaults doubleForKey:@"processOfSpendingMoneyTextField"]);
-            self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+            if (recalculationBudgetOnTomorrow <= 0) {
+                self.dailyBudgetWillBeTomorrowLabel.text = @"0";
+            } else {
+                self.dailyBudgetWillBeTomorrowLabel.text = [NSString stringWithFormat:@"%.2f", recalculationBudgetOnTomorrow];
+            }
         }
     }
 }
@@ -139,7 +162,7 @@
             }
         }
         [userDefaults synchronize];
-        [self pushVC];
+        [self popVC];
     } else {
         NSString *error = @"Введенная вами сумма превышает ваш бюджет на завтра. Нажмите: Пересчитать дневной бюджет. Или введите меньшую сумму.";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -166,7 +189,11 @@
     NSNumber *mutableDayDebitWithReturnNumber = [NSNumber numberWithDouble:mutableDayDebitWithReturn];
     [budgetOnCurrentDay setObject:mutableDayDebitWithReturnNumber forKey:@"mutableBudgetOnDay"];
     [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-    [userDefaults synchronize];
+    
+    NSNumber *number = 0;
+    [userDefaults setObject:number forKey:@"processOfSpendingMoneyTextField"];
+    
+    
     
     if ([[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue] > 0) {
         BOOL callOneTime = NO;
@@ -177,15 +204,24 @@
     
     [historySpendOfMonth removeLastObject];
     [userDefaults setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
-    
-    [self pushVC];
+    [userDefaults synchronize];
+    [self popVC];
     
 }
 
-- (void)pushVC {
-    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-    MainScreenTableViewController *mainScreenTableViewVC = [storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
-    [self.navigationController pushViewController:mainScreenTableViewVC animated:YES];
+- (void)popVC {
+    UIViewController* popVC;
+    for (UIViewController* vC in self.navigationController.viewControllers) {
+        if ([vC isKindOfClass:[MainScreenTableViewController class]]) {
+            popVC = vC;
+            break;
+        }
+    }
+    if (popVC) {
+        [self.navigationController popToViewController:popVC animated:YES];
+    }
+    
 }
+
 
 @end

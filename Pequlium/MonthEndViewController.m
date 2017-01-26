@@ -25,13 +25,6 @@
     self.balanceEndMonth.text = [NSString stringWithFormat:@"%.2f", [self.mutableMonthDebit doubleValue]];
 }
 
-- (void)goToVC {
-    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
-    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
-    [nav pushViewController:mainScreenTableViewVC animated:YES];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
 - (void)callOneTimeMonthBool {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     BOOL callOneTimeMonth = YES;
@@ -55,7 +48,8 @@
     //значение для switch в настройках дня 1 пункта
     [userDefaults setBool:YES forKey:@"transferMoneyNextDaySettingsMonth"];
     [userDefaults synchronize];
-    [self goToVC];
+    
+    [self popVC];
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
@@ -83,7 +77,8 @@
     //значение для switch в настройках дня 2 пункта
     [userDefaults setBool:YES forKey:@"amountDailyBudgetSettingsMonth"];
     [userDefaults synchronize];
-    [self goToVC];
+    
+    [self popVC];
 }
 
 - (IBAction)saveMoney:(id)sender {
@@ -113,7 +108,23 @@
     //значение для switch в настройках дня 3 пункта
     [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
     [userDefaults synchronize];
-    [self goToVC];
+    
+    [self popVC];
+}
+
+
+- (void)popVC {
+    UIViewController* popVC;
+    for (UIViewController* vC in self.navigationController.viewControllers) {
+        if ([vC isKindOfClass:[MainScreenTableViewController class]]) {
+            popVC = vC;
+            break;
+        }
+    }
+    if (popVC) {
+        [self.navigationController popToViewController:popVC animated:YES];
+    }
+    
 }
 
 

@@ -64,9 +64,6 @@
         [userDefault setDouble:monthDebit forKey:@"monthDebit"];
         [userDefault setObject:[NSNumber numberWithDouble:monthDebitWithEightPercent] forKey:@"monthPercent"];
         
-//        NSDate *currDate = [NSDate date];
-//        [userDefault setObject:currDate forKey:@"dateWhenCreateMonthDebit"];
-        
         [userDefault setDouble:[self.monthDebitTextField.text doubleValue] forKey:@"mutableMonthDebit"];
 
         if (![userDefault objectForKey:@"resetDateEveryMonth"]) {

@@ -25,6 +25,10 @@
                                 target:self
                                 action:nil];
     self.navigationController.navigationBar.topItem.backBarButtonItem = btnBack;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:YES];
     [self updateSwitchView];
 }
 
