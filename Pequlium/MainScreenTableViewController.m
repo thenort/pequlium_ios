@@ -15,22 +15,15 @@
 #import "NegativeBalanceViewController.h"
 
 
-
-
-
-
 @interface MainScreenTableViewController () <UITextFieldDelegate>
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
 @property (strong, nonatomic) NSMutableArray *arrayForTable;
 @property (strong, nonatomic) NSMutableArray *reverseArrayForTable;
+@property (strong, nonatomic) NSTimer* updateTimer;
 @end
 
 @implementation MainScreenTableViewController
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -42,33 +35,23 @@
     self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
     [self.tableView reloadData];
     
+    [self recalculationEveryMonth];
+    [self newYear];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:YES];
+    [super viewDidAppear:animated];
+    [self startTimer];
 
 }
 
 - (void)viewDidLoad {
-    
-    [NSTimer scheduledTimerWithTimeInterval:8.0
-                                     target:self
-                                   selector:@selector(reloadDateInTableView)
-                                   userInfo:nil
-                                    repeats:YES];
-    
-    [self recalculationEveryMonth];
-    [self newYear];
     [self xibInHeaderToTableView];
     [self customise];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     [self.headerView.processOfSpendingMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.arrayForTable = [[userDefaults objectForKey:@"historySpendOfMonth"] mutableCopy];
-    self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
-    self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
+
     [self updateSwitchViewDay];
     [self updateSwitchViewMonth];
     
@@ -83,13 +66,13 @@
                                                object:nil];
 }
 
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NotificationRecalculationEveryMonth" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTextCurrentBudgetOnDayLabel" object:nil];
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self stopTimer];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:YES];
+- (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NotificationRecalculationEveryMonth" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTextCurrentBudgetOnDayLabel" object:nil];
 }
@@ -336,18 +319,27 @@
 
 }
 
-
+#pragma mark - Timer
+- (void)startTimer{
+    _updateTimer = [NSTimer scheduledTimerWithTimeInterval:8.0
+                                                    target:self
+                                                  selector:@selector(reloadDateInTableView)
+                                                  userInfo:nil
+                                                   repeats:YES];
+}
+- (void)stopTimer{
+    [_updateTimer invalidate];
+    _updateTimer = nil;
+}
 #pragma mark - UIScrollViewDelegat -
 
 //когда клавиатура выезжает
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    if (scrollView.contentOffset.y < - 64 ) {//- 57
+    if (scrollView.contentOffset.y < - 64 ) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
-        //NSLog(@"< -  %f ", scrollView.contentOffset.y);
     }
-    else if (scrollView.contentOffset.y > 41 ) {//- 57
+    else if (scrollView.contentOffset.y > 41 ) {
         [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
-        //NSLog(@"> -  %f ", scrollView.contentOffset.y);
     }
 }
 
@@ -356,10 +348,10 @@
 //вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
     [self checkTextField];
-    [self negativeBalance];
 }
 
 - (void)checkTextField {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
     
     if ([self.headerView.processOfSpendingMoneyTextField.text length] <= 0 || [self.headerView.processOfSpendingMoneyTextField.text  isEqual: @"-0"]) {
         
@@ -369,11 +361,20 @@
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
         
+    } else if (fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]) > [[userDefault objectForKey:@"mutableMonthDebit"] doubleValue]) {
+        NSString *error = @"Введенная вами сумма превышает ваш месячный баланс";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка" message:error preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+        [self cleanupProcessOfSpendingMoneyTextField];
+        
     } else {
         
         double currentSpend = [self.headerView.processOfSpendingMoneyTextField.text doubleValue];
         NSNumber *currentSpendNumber = [NSNumber numberWithDouble:currentSpend];
-        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+        
         NSMutableArray *historySpendOfMonth = [NSMutableArray arrayWithArray:[userDefault objectForKey:@"historySpendOfMonth"]];
         if (historySpendOfMonth == nil) {
             historySpendOfMonth = [NSMutableArray array];
@@ -405,12 +406,17 @@
         [userDefault setDouble:fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]) forKey:@"processOfSpendingMoneyTextField"];
         
         self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
-        //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальные значения Альфы
-        self.headerView.processOfSpendingMoneyTextField.text = @"";
-        if ([self.headerView.processOfSpendingMoneyTextField.text  isEqual: @""]) {
-            [self.headerView.iSpendTextLabel setAlpha:0];
-            [self.headerView.startEnterLabel setAlpha:1];
-        }
+        [self negativeBalance];
+        [self cleanupProcessOfSpendingMoneyTextField];
+    }
+}
+
+- (void)cleanupProcessOfSpendingMoneyTextField {
+    //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальные значения Альфы
+    self.headerView.processOfSpendingMoneyTextField.text = @"";
+    if ([self.headerView.processOfSpendingMoneyTextField.text  isEqual: @""]) {
+        [self.headerView.iSpendTextLabel setAlpha:0];
+        [self.headerView.startEnterLabel setAlpha:1];
     }
 }
 
@@ -446,7 +452,7 @@
 #pragma mark - Table view data source -
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.arrayForTable count];//arrayForTable
+    return [self.arrayForTable count];
 }
 
 
@@ -459,8 +465,7 @@
     
     NSNumber *spend = [tempDataOfSpend objectForKey:@"currentSpendNumber"];
     cell.howMuchMoneySpendLabel.text = [NSString stringWithFormat:@"%.2f", [spend doubleValue]];
-    
-    
+ 
     return cell;
 }
 
@@ -511,36 +516,5 @@
     [userDefaults synchronize];
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

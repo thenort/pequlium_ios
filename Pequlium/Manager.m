@@ -168,7 +168,12 @@
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *days = [calendar components:NSCalendarUnitDay fromDate:[NSDate new] toDate:dateStartNewMonth options:0];
     NSInteger daysToStartNewMonth = days.day;
-    return daysToStartNewMonth;
+    if (daysToStartNewMonth == 0) {
+        daysToStartNewMonth = 1;
+        return daysToStartNewMonth;
+    } else {
+        return daysToStartNewMonth;
+    }
 }
 
 - (NSString*)nameOfPreviousMonth {

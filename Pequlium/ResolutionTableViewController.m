@@ -45,7 +45,7 @@
     if ([userDefaults boolForKey:@"resolutionSettingsSwitch"]) {
         
         [self.resolutionSwitch setOn:YES animated:YES];
-        NSString *error = @"Для того чтобы выключить уведомления!";
+        NSString *error = @"Для того чтобы выключить уведомления! Настройки -> Pequlium -> Уведомления -> Допуск уведомлений";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Измените в настройках" message:error preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
 
@@ -57,7 +57,7 @@
     } else {
         
         [self.resolutionSwitch setOn:NO animated:YES];
-        NSString *error = @"Для того чтобы включить уведомления!";
+        NSString *error = @"Для того чтобы включить уведомления зайдите в настройки вашего устройства! Настройки -> Pequlium -> Уведомления -> Допуск уведомлений";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Измените в настройках" message:error preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
 
