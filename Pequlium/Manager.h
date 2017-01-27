@@ -20,6 +20,7 @@
 - (NSUInteger)daysInCurrentMonth;
 - (NSString*)updateTextBalanceLabel;
 - (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action;
+- (void)customButtonsOnKeyboardFor:(UITextField*)nameOfTextField addAction:(SEL)addAction cancelAction:(SEL)cancelAction;
 - (NSString*)formatDate:(NSDate*)date;
 - (void)resetData;
 - (NSInteger)daysToStartNewMonth;

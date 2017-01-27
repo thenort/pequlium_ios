@@ -25,17 +25,38 @@
     return _singleton;
 }
 
-#pragma marlk - Platform -
+#pragma mark - Work With Data -
 
-- (NSString *) platform {
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = malloc(size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
-    free(machine);
-    return platform;
+#pragma mark - Work budgetOnCurrentDay NSDictionary (NSUserdefaults) -
+
+// Work budgetOnCurrentDay NSDictionary (get)
+
+- (NSDictionary*)getBudgetOnCurrentDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dictBudgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    return dictBudgetOnCurrentDay;
 }
+
+- (NSNumber*)getBudgetOnCurrentDayMoney {
+    return [self getBudgetOnCurrentDay][@"mutableBudgetOnDay"];
+}
+
+- (NSDate*)getBudgetOnCurrentDayDate {
+    return [self getBudgetOnCurrentDay][@"dayWhenSpend"];
+}
+
+// Work budgetOnCurrentDay NSDictionary (set)
+
+- (void)setBudgetOnCurrentDay:(double)mutableBudgetOnDay dayWhenSpend:(NSDate*)date {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", date, @"dayWhenSpend", nil];
+    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work budgetOnDay (NSUserdefaults) -
+
+
 
 #pragma mark - Work with NSUserDefaults -
 
@@ -243,6 +264,22 @@
                                                                         action:action];
     [ViewForDoneButtonOnKeyboard setItems:@[btnAddOnKeyboard]];
     nameOfTextField.inputAccessoryView = ViewForDoneButtonOnKeyboard;
+}
+
+- (void)customButtonsOnKeyboardFor:(UITextField*)nameOfTextField addAction:(SEL)addAction cancelAction:(SEL)cancelAction {
+    UIToolbar *ViewForButtonsOnKeyboard = [[UIToolbar alloc] init];
+    [ViewForButtonsOnKeyboard sizeToFit];
+    UIBarButtonItem *btnAddOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Add"
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:nil
+                                                                        action:addAction];
+    UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *btnCancelOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:nil
+                                                                        action:cancelAction];
+    [ViewForButtonsOnKeyboard setItems:@[btnAddOnKeyboard, flexible, btnCancelOnKeyboard]];
+    nameOfTextField.inputAccessoryView = ViewForButtonsOnKeyboard;
 }
 
 #pragma mark - Work With balance in Label -

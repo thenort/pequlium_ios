@@ -314,9 +314,17 @@
     
     self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
     self.tableView.tableHeaderView = self.headerView;
+  
+    CGRect screen = [[UIScreen mainScreen] bounds];
+    CGFloat height = CGRectGetHeight(screen);
     
-    //[self.tableView.tableHeaderView setFrame:CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, 13, 134)];
-
+    if (height > 480.f && height <= 568.f) {
+        [self.tableView.tableHeaderView setFrame:CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 243.f)];
+    } else if (height > 568.f && height <= 667.f) {
+        [self.tableView.tableHeaderView setFrame:CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 343.f)];
+    } else if (height > 667.f && height <= 736.f) {
+        [self.tableView.tableHeaderView setFrame:CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 400.f)];
+    }
 }
 
 #pragma mark - Timer

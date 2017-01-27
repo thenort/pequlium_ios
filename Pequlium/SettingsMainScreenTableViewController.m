@@ -14,6 +14,7 @@
 #import "ResolutionTableViewController.h"
 #import "MoneyBoxHistoryTableViewController.h"
 #import "Manager.h"
+#import "MonthDebitViewController.h"
 
 @interface SettingsMainScreenTableViewController () <SettingsMainScreenHeaderViewDelegate, UITextFieldDelegate>
 @property (strong, nonatomic) SettingsMainScreenHeaderView *headerView;
@@ -22,16 +23,19 @@
 
 @implementation SettingsMainScreenTableViewController
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self xibInHeaderToTableView];
     self.tableView.tableFooterView = [UIView new];
-    self.textForCell = @[@"Дневной остаток", @"Ежемесячный остаток", @"Разрешить уведомления", @"Отзыв", @"О приложении"];
-    
-    [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.enterMoneyTextField nameOfAction:@selector(checkTextField)];
+    self.textForCell = @[@"Дневной остаток", @"Ежемесячный остаток", @"Разрешить уведомления", @"Изменить месячный баланс", @"Отзыв", @"О приложении"];
+    self.headerView.enterMoneyTextField.delegate = self;
+    [[Manager sharedInstance] customButtonsOnKeyboardFor:self.headerView.enterMoneyTextField addAction:@selector(addButtonTextField) cancelAction:@selector(cancelButtonTextField)];
     [self.headerView.enterMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    //self.headerView.enterMoneyTextField.tintColor = [UIColor clearColor];//убираем мигающий курсор
 }
 
 - (void)xibInHeaderToTableView {
@@ -51,18 +55,59 @@
     [self.headerView.moneyBoxButton setTitle:[NSString stringWithFormat:@"%2.f", [[userDefaults objectForKey:@"moneyBox"] doubleValue]] forState:UIControlStateNormal];
 }
 
-- (void)checkTextField {
-    [UIView animateWithDuration:0.5f animations:^{
-        self.headerView.textFieldHeightConstraint.constant = -100.f;
-        [self.view layoutIfNeeded];
+#pragma mark - actions buttons on UIToolbar UITextField -
+
+- (void)addButtonTextField {
+    if ([self.headerView.enterMoneyTextField.text length] == 0 || [self.headerView.enterMoneyTextField.text  isEqual: @"+0"]) {
+        NSString *error = @"Введите сумму или нажмите кнопку Cancel";
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка" message:error preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
+        
+        [alertController addAction:okAction];
+        [self presentViewController:alertController animated:YES completion:nil];
+    } else {
+        
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        double mutableBudgetPlusEnterValue = [userDefaults doubleForKey:@"mutableMonthDebit"] + [self.headerView.enterMoneyTextField.text doubleValue];
+        [userDefaults setDouble:mutableBudgetPlusEnterValue forKey:@"mutableMonthDebit"];
+        [userDefaults synchronize];
+        self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [userDefaults doubleForKey:@"mutableMonthDebit"]];
+        
+        [UIView animateWithDuration:0.5 animations:^{
+            self.headerView.textFieldHeightConstraint.constant = -70.f;
+            [self.headerView layoutIfNeeded];
+            [self.headerView.settingsLabel setAlpha:1];
+            [self.headerView.enterMoneyTextField resignFirstResponder];
+            self.headerView.enterMoneyTextField.text = @"";
+            [self.headerView.addMoneyButton setTitleColor:[UIColor colorWithRed:0.f / 255.f
+                                                                          green:153.f / 255.f
+                                                                           blue:255.f / 255.f
+                                                                          alpha:1.f] forState:UIControlStateNormal];
+        }];
+    }
+}
+
+- (void)cancelButtonTextField {
+    [UIView animateWithDuration:0.5 animations:^{
+        self.headerView.textFieldHeightConstraint.constant = -70.f;
+        [self.headerView layoutIfNeeded];
+        [self.headerView.settingsLabel setAlpha:1];
         [self.headerView.enterMoneyTextField resignFirstResponder];
+        self.headerView.enterMoneyTextField.text = @"";
+        [self.headerView.addMoneyButton setTitleColor:[UIColor colorWithRed:0.f / 255.f
+                                                                      green:153.f / 255.f
+                                                                       blue:255.f / 255.f
+                                                                      alpha:1.f] forState:UIControlStateNormal];
     }];
 }
 
+#pragma mark - Header view delegate -
+
 - (void)tappedAddMoneyButton {
-    [UIView animateWithDuration:0.5f animations:^{
-        self.headerView.textFieldHeightConstraint.constant = +100.f;
-        [self.view layoutIfNeeded];
+    [UIView animateWithDuration:0.5 animations:^{
+        self.headerView.textFieldHeightConstraint.constant = +70.f;
+        [self.headerView layoutIfNeeded];
+        [self.headerView.settingsLabel setAlpha:0];
         [self.headerView.enterMoneyTextField becomeFirstResponder];
     }];
     
@@ -101,6 +146,9 @@
         case 2:
             [self resolutonVC];
             break;
+        case 3:
+            [self monthDebitVC];
+            break;
         default:
             break;
     }
@@ -125,6 +173,12 @@
     [self.navigationController pushViewController:resolutionVC animated:YES];
 }
 
+- (void)monthDebitVC {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    MonthDebitViewController *monthDebitViewController = [storyboard instantiateViewControllerWithIdentifier:@"MonthDebitViewController"];
+    [self.navigationController pushViewController:monthDebitViewController animated:YES];
+}
+
 #pragma mark - UITextFieldDelegate -
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -137,8 +191,6 @@
     }
 }
 
-//работа с лейблами находящимися в UITextField и знак плюс [self.headerView.enterMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-
 -(void)textFieldDidChange:(UITextField *)textField {
     if ([textField.text length] > 0) {
         NSString *firstLetter = [textField.text substringToIndex:1];
@@ -148,12 +200,6 @@
     }
     if ([textField.text length] > 0) {
         [self.headerView.addMoneyButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        
-    } else {
-        [self.headerView.addMoneyButton setTitleColor:[UIColor colorWithRed:0.f / 255.f
-                                                                      green:153.f / 255.f
-                                                                       blue:255.f / 255.f
-                                                                      alpha:1.f] forState:UIControlStateNormal];
         
     }
 }

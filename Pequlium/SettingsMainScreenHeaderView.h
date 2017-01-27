@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *textFieldHeightConstraint;
 @property (weak, nonatomic) IBOutlet UIButton *addMoneyButton;
 @property (weak, nonatomic) IBOutlet UITextField *enterMoneyTextField;
+@property (weak, nonatomic) IBOutlet UILabel *settingsLabel;
 
 
 
