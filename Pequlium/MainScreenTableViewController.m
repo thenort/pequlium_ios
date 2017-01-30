@@ -34,7 +34,6 @@
     self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
     self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
     [self.tableView reloadData];
-    
     [self recalculationEveryMonth];
     [self newYear];
 }
@@ -43,10 +42,11 @@
 {
     [super viewDidAppear:animated];
     [self startTimer];
-
 }
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
+    
     [self xibInHeaderToTableView];
     [self customise];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
@@ -66,8 +66,7 @@
                                                object:nil];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
+- (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     [self stopTimer];
 }
@@ -179,7 +178,7 @@
             MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
             [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
         }
-        [[Manager sharedInstance] resetData];
+        [[Manager sharedInstance] resetDate];
         
        if  ([userDefaults boolForKey:@"transferMoneyNextDaySettingsMonth"]) {
             
@@ -283,11 +282,11 @@
     
     if (yearOfCurrDateInt < yearOfCurrDate) {
         NSArray *historySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
-        double sumOfSaveMoneForYear = 0.0;
+        double sumOfSaveMoneyForYear = 0.0;
         for (NSNumber* budgetInArray in historySaveOfMonthMoneyDebit) {
-            sumOfSaveMoneForYear = sumOfSaveMoneForYear + [budgetInArray doubleValue];
+            sumOfSaveMoneyForYear = sumOfSaveMoneyForYear + [budgetInArray doubleValue];
         }
-        [[Manager sharedInstance] workWithHistoryOfSave:[NSNumber numberWithDouble:sumOfSaveMoneForYear] nameOfPeriod:[NSString stringWithFormat:@"%ld", yearOfCurrDateInt]];
+        [[Manager sharedInstance] workWithHistoryOfSave:[NSNumber numberWithDouble:sumOfSaveMoneyForYear] nameOfPeriod:[NSString stringWithFormat:@"%ld", yearOfCurrDateInt]];
         
         [userDefaults setObject:nil forKey:@"historySaveOfMonthMoneyDebit"];
         [userDefaults setInteger:yearOfCurrDate forKey:@"Year"];
@@ -307,14 +306,8 @@
     }
 }
 
-
-
-//добавление xib в tableview header
-- (void)xibInHeaderToTableView {
+- (void)autoresizeXib {
     
-    self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
-    self.tableView.tableHeaderView = self.headerView;
-  
     CGRect screen = [[UIScreen mainScreen] bounds];
     CGFloat height = CGRectGetHeight(screen);
     
@@ -325,16 +318,27 @@
     } else if (height > 667.f && height <= 736.f) {
         [self.tableView.tableHeaderView setFrame:CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 400.f)];
     }
+    
 }
 
+//добавление xib в tableview header
+- (void)xibInHeaderToTableView {
+    self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
+    self.tableView.tableHeaderView = self.headerView;
+    [self autoresizeXib];
+}
+
+
 #pragma mark - Timer
+
 - (void)startTimer {
-    _updateTimer = [NSTimer scheduledTimerWithTimeInterval:8.0
+    _updateTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
                                                     target:self
                                                   selector:@selector(reloadDateInTableView)
                                                   userInfo:nil
                                                    repeats:YES];
 }
+
 - (void)stopTimer{
     [_updateTimer invalidate];
     _updateTimer = nil;
@@ -345,9 +349,11 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < - 64 ) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
+        //NSLog(@"1 scrollView.contentOffset.y %f", scrollView.contentOffset.y);
     }
     else if (scrollView.contentOffset.y > 41 ) {
         [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
+        //NSLog(@"2 scrollView.contentOffset.y %f", scrollView.contentOffset.y);
     }
 }
 

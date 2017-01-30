@@ -58,6 +58,7 @@
 #pragma mark - actions buttons on UIToolbar UITextField -
 
 - (void)addButtonTextField {
+    
     if ([self.headerView.enterMoneyTextField.text length] == 0 || [self.headerView.enterMoneyTextField.text  isEqual: @"+0"]) {
         NSString *error = @"Введите сумму или нажмите кнопку Cancel";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка" message:error preferredStyle:UIAlertControllerStyleAlert];
@@ -65,14 +66,20 @@
         
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
+        
     } else {
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         double mutableBudgetPlusEnterValue = [userDefaults doubleForKey:@"mutableMonthDebit"] + [self.headerView.enterMoneyTextField.text doubleValue];
         [userDefaults setDouble:mutableBudgetPlusEnterValue forKey:@"mutableMonthDebit"];
-        [userDefaults synchronize];
         self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [userDefaults doubleForKey:@"mutableMonthDebit"]];
+        [userDefaults synchronize];
         
+        double divided = [self.headerView.enterMoneyTextField.text doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
+        double newBudgetOnDay = [[Manager sharedInstance] getBudgetOnDay] + divided;
+        [[Manager sharedInstance] setBudgetOnDay:newBudgetOnDay];
+        
+        //animation
         [UIView animateWithDuration:0.5 animations:^{
             self.headerView.textFieldHeightConstraint.constant = -70.f;
             [self.headerView layoutIfNeeded];
@@ -154,7 +161,6 @@
     }
 }
 
-
 - (void)settingsDayBalanceVC {
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
     SettingsDayBalanceTableViewController *settingsDayBalanceVC = [storyboard instantiateViewControllerWithIdentifier:@"SettingsDayBalanceTableViewController"];
@@ -203,7 +209,5 @@
         
     }
 }
-
-
 
 @end

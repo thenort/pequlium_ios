@@ -15,12 +15,6 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="На сегодня " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyb-rl-vYO">
-                    <rect key="frame" x="16" y="0.0" width="343" height="20.5"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2aK-Ke-r8b">
                     <rect key="frame" x="16" y="129" width="343" height="121"/>
                     <constraints>
@@ -31,7 +25,7 @@
                     <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Я потратил" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Bj8-30-3Gf">
-                    <rect key="frame" x="282" y="138" width="77" height="21"/>
+                    <rect key="frame" x="282" y="129" width="77" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="77" id="ZPv-yx-qsw"/>
                         <constraint firstAttribute="height" constant="21" id="hcK-fm-Eob"/>
@@ -40,17 +34,23 @@
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="На сегодня " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wyb-rl-vYO">
+                    <rect key="frame" x="16" y="0.0" width="343" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ap0-a5-e4t">
-                    <rect key="frame" x="16" y="28" width="343" height="69.5"/>
+                    <rect key="frame" x="16" y="28" width="343" height="66"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="69.5" id="Qtr-2b-mTb"/>
+                        <constraint firstAttribute="height" constant="66" id="Qtr-2b-mTb"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="79"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Просто начните вводить сумму,                         которую вы потратили" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kte-y0-PUi">
-                    <rect key="frame" x="16" y="199" width="217" height="52"/>
+                    <rect key="frame" x="16" y="198" width="217" height="52"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="217" id="CjP-R4-Kbt"/>
                     </constraints>
@@ -65,12 +65,12 @@
                 <constraint firstItem="Wyb-rl-vYO" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="4wK-kO-dm3"/>
                 <constraint firstAttribute="trailing" secondItem="Ap0-a5-e4t" secondAttribute="trailing" constant="16" id="8wy-I5-BkQ"/>
                 <constraint firstItem="Wyb-rl-vYO" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="H4g-Rf-hCS"/>
-                <constraint firstAttribute="bottom" secondItem="kte-y0-PUi" secondAttribute="bottom" constant="-1" id="JhT-qa-d8l"/>
+                <constraint firstAttribute="bottom" secondItem="kte-y0-PUi" secondAttribute="bottom" id="JhT-qa-d8l"/>
                 <constraint firstAttribute="bottom" secondItem="2aK-Ke-r8b" secondAttribute="bottom" id="U5H-FQ-HWC"/>
                 <constraint firstItem="Ap0-a5-e4t" firstAttribute="top" secondItem="Wyb-rl-vYO" secondAttribute="bottom" constant="7.5" id="Uiy-Xv-mKs"/>
                 <constraint firstItem="2aK-Ke-r8b" firstAttribute="leading" secondItem="kte-y0-PUi" secondAttribute="trailing" constant="-217" id="Yhy-p4-A0T"/>
-                <constraint firstItem="2aK-Ke-r8b" firstAttribute="top" secondItem="Bj8-30-3Gf" secondAttribute="bottom" constant="-30" id="cyJ-bj-4YU"/>
-                <constraint firstItem="kte-y0-PUi" firstAttribute="top" secondItem="2aK-Ke-r8b" secondAttribute="bottom" constant="-51" id="e8y-El-ayk"/>
+                <constraint firstItem="2aK-Ke-r8b" firstAttribute="top" secondItem="Bj8-30-3Gf" secondAttribute="bottom" constant="-21" id="cyJ-bj-4YU"/>
+                <constraint firstItem="kte-y0-PUi" firstAttribute="top" secondItem="2aK-Ke-r8b" secondAttribute="bottom" constant="-52" id="e8y-El-ayk"/>
                 <constraint firstItem="2aK-Ke-r8b" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ezF-TU-NRk"/>
                 <constraint firstAttribute="trailing" secondItem="Bj8-30-3Gf" secondAttribute="trailing" constant="16" id="fFw-Vk-jZO"/>
                 <constraint firstAttribute="trailing" secondItem="Wyb-rl-vYO" secondAttribute="trailing" constant="16" id="ru7-L1-Qt6"/>
@@ -83,7 +83,7 @@
                 <outlet property="processOfSpendingMoneyTextField" destination="2aK-Ke-r8b" id="8hZ-9e-agS"/>
                 <outlet property="startEnterLabel" destination="kte-y0-PUi" id="MRz-Sl-5m4"/>
             </connections>
-            <point key="canvasLocation" x="-1529.5" y="3550"/>
+            <point key="canvasLocation" x="-1589.5" y="3553"/>
         </view>
     </objects>
 </document>

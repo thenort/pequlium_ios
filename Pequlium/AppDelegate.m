@@ -107,6 +107,7 @@
     
     //Notification
     [self scheduleNotification];
+    
 }
 
 
