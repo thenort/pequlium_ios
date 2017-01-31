@@ -69,6 +69,25 @@
     [userDefaults synchronize];
 }
 
+#pragma mark - Work with dailyBudgetTomorrowCounted (NSUserdefaults) -
+
+// Work with dailyBudgetTomorrowCounted (get)
+
+- (double)getDailyBudgetTomorrowCounted {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"dailyBudgetTomorrowCounted"] doubleValue];
+}
+
+// Work with dailyBudgetTomorrowCounted (set)
+
+- (void)setDailyBudgetTomorrowCounted:(double)dailyBudgetTomorrowCounted {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:dailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
+    [userDefaults synchronize];
+}
+
+
+
 #pragma mark - Work with stableBudgetOnDay  (NSUserdefaults) -
 
 // Work with stableBudgetOnDay  (get)
@@ -208,13 +227,6 @@
     [userDefaults synchronize];
 }
 
-#pragma mark - Work with change: (monthPercent, monthDebit, stableBudgetOnDay) -
-
-- (void)changeMonthDebit {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-}
-
 #pragma mark - Work with moneyBox  (NSUserdefaults) -
 
 // Work with moneyBox  (get)
@@ -238,12 +250,42 @@
     return [userDefaults objectForKey:@"resetDateEveryMonth"];
 }
 
-
-
 // Work with resetDateEveryMonth  (set)
 - (void)setResetDateEveryMonth:(NSDate*)resetDateEveryMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:resetDateEveryMonth forKey:@"resetDateEveryMonth"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with change: (monthPercent, monthDebit, stableBudgetOnDay) -
+
+- (void)setAllStableDebit {
+    [self setMonthDebit:[self getNewMonthDebit]];
+    [self setStableBudgetOnDay:[self getNewStableBudgetOnDay]];
+    
+    if ([self getNewWithPercent]) {
+        [self setWithPercent:YES];
+        [self setMonthPercent:[self getNewMonthPercent]];
+    } else {
+        [self setWithPercent:NO];
+    }
+    
+    [self setChangeAllStableDebitBool:NO];
+}
+
+#pragma mark - Work with changeAllStableDebit  (NSUserdefaults) -
+
+// Work with changeAllStableDebitBool  (get)
+- (BOOL)getChangeAllStableDebitBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"changeAllStableDebitBool"];
+}
+
+
+// Work with changeAllStableDebitBool  (set)
+- (void)setChangeAllStableDebitBool:(BOOL)changeAllStableDebitBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:changeAllStableDebitBool forKey:@"changeAllStableDebitBool"];
     [userDefaults synchronize];
 }
 

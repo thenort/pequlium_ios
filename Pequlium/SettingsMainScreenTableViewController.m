@@ -76,9 +76,13 @@
         [userDefaults synchronize];
         
         double divided = [self.headerView.enterMoneyTextField.text doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
+        
         double newBudgetOnDay = [[Manager sharedInstance] getBudgetOnDay] + divided;
         [[Manager sharedInstance] setBudgetOnDay:newBudgetOnDay];
         
+        double newDailyBudgetTomorrowCounted = [[Manager sharedInstance] getDailyBudgetTomorrowCounted] + divided;
+        [[Manager sharedInstance] setDailyBudgetTomorrowCounted:newDailyBudgetTomorrowCounted];
+    
         //animation
         [UIView animateWithDuration:0.5 animations:^{
             self.headerView.textFieldHeightConstraint.constant = -70.f;

@@ -37,27 +37,32 @@
         [[Manager sharedInstance] setWithPercent:YES];
     } else {
         [[Manager sharedInstance] setNewMonthDebit:[[Manager sharedInstance] getNewMonthDebit] - [[Manager sharedInstance] getNewMonthPercent]];
+        
         [[Manager sharedInstance] setNewWithPercent:YES];
+        [[Manager sharedInstance] setChangeAllStableDebitBool:YES];
     }
-    [self writeInData:[self.budgetOnDayWithSavingLabel.text doubleValue]];
+    [self writeInData:[self.budgetOnDayWithSavingLabel.text doubleValue] setNewWithPercent:YES];
     
     [self pushVC];
 }
 
 - (IBAction)budgetWithNonSavingMoney:(id)sender {
-    [self writeInData:[self.budgetOnDayLabel.text doubleValue]];
-    [[Manager sharedInstance] setNewWithPercent:NO];
+    [self writeInData:[self.budgetOnDayLabel.text doubleValue] setNewWithPercent:NO];
     
     [self pushVC];
 }
 
-- (void)writeInData:(double) budgetOnDay {
+- (void)writeInData:(double)budgetOnDay setNewWithPercent:(BOOL)newWithPercent {
     if (![[Manager sharedInstance] getBudgetOnDay]) {
         [[Manager sharedInstance] setBudgetOnDay:budgetOnDay];
         [[Manager sharedInstance] setBudgetOnCurrentDay:budgetOnDay dayWhenSpend:[NSDate date]];
         [[Manager sharedInstance] setStableBudgetOnDay:budgetOnDay];
     } else {
         [[Manager sharedInstance] setNewStableBudgetOnDay:budgetOnDay];
+        
+        [[Manager sharedInstance] setNewWithPercent:newWithPercent];
+        
+        [[Manager sharedInstance] setChangeAllStableDebitBool:YES];
     }
 }
 

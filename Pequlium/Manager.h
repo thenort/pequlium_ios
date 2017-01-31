@@ -21,6 +21,9 @@
 - (double)getBudgetOnDay;
 - (void)setBudgetOnDay:(double)budgetOnDay;
 
+- (double)getDailyBudgetTomorrowCounted;
+- (void)setDailyBudgetTomorrowCounted:(double)dailyBudgetTomorrowCounted;
+
 - (double)getStableBudgetOnDay;
 - (void)setStableBudgetOnDay:(double)stableBudgetOnDay;
 
@@ -52,6 +55,11 @@
 
 - (NSDate*)getResetDateEveryMonth;
 - (void)setResetDateEveryMonth:(NSDate*)resetDateEveryMonth;
+
+- (void)setAllStableDebit;
+
+- (BOOL)getChangeAllStableDebitBool;
+- (void)setChangeAllStableDebitBool:(BOOL)changeAllStableDebitBool;
 
 - (void)resetDate;
 
