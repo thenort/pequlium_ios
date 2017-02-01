@@ -57,7 +57,7 @@
 - (void)customNavigationBar {
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new]
                                   forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance]setShadowImage:[UIImage new]];
+    [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setTranslucent:YES];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
 }
@@ -107,6 +107,7 @@
     
     //Notification
     [self scheduleNotification];
+    
 }
 
 

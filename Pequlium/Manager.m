@@ -14,8 +14,6 @@
 
 @implementation Manager
 
-#pragma mark - Singletone Methods -
-
 + (instancetype) sharedInstance {
     static id _singleton = nil;
     static dispatch_once_t onceToken;
@@ -25,17 +23,279 @@
     return _singleton;
 }
 
-#pragma marlk - Platform -
+#pragma mark - Work With Data -
 
-- (NSString *) platform {
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = malloc(size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithCString:machine encoding:NSUTF8StringEncoding];
-    free(machine);
-    return platform;
+#pragma mark - Work with budgetOnCurrentDay NSDictionary (NSUserdefaults) -
+
+// Work with budgetOnCurrentDay NSDictionary (get)
+
+- (NSDictionary*)getBudgetOnCurrentDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dictBudgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    return dictBudgetOnCurrentDay;
 }
+
+- (NSNumber*)getBudgetOnCurrentDayMoneyNumber {
+    return [self getBudgetOnCurrentDay][@"mutableBudgetOnDay"];
+}
+
+- (double)getBudgetOnCurrentDayMoneyDouble {
+    return [[self getBudgetOnCurrentDay][@"mutableBudgetOnDay"] doubleValue];
+}
+
+- (NSDate*)getBudgetOnCurrentDayDate {
+    return [self getBudgetOnCurrentDay][@"dayWhenSpend"];
+}
+
+// Work with budgetOnCurrentDay NSDictionary (set)
+
+- (void)setBudgetOnCurrentDay:(double)mutableBudgetOnDay dayWhenSpend:(NSDate*)date {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys: [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", date, @"dayWhenSpend", nil];
+    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with budgetOnDay (NSUserdefaults) -
+
+// Work with budgetOnDay (get)
+
+- (double)getBudgetOnDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
+}
+
+// Work with budgetOnDay (set)
+
+- (void)setBudgetOnDay:(double)budgetOnDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:budgetOnDay] forKey:@"budgetOnDay"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with dailyBudgetTomorrowCounted (NSUserdefaults) -
+
+// Work with dailyBudgetTomorrowCounted (get)
+
+- (double)getDailyBudgetTomorrowCounted {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"dailyBudgetTomorrowCounted"] doubleValue];
+}
+
+// Work with dailyBudgetTomorrowCounted (set)
+
+- (void)setDailyBudgetTomorrowCounted:(double)dailyBudgetTomorrowCounted {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:dailyBudgetTomorrowCounted] forKey:@"dailyBudgetTomorrowCounted"];
+    [userDefaults synchronize];
+}
+
+
+
+#pragma mark - Work with stableBudgetOnDay  (NSUserdefaults) -
+
+// Work with stableBudgetOnDay  (get)
+- (double)getStableBudgetOnDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue];
+}
+
+// Work with stableBudgetOnDay  (set)
+- (void)setStableBudgetOnDay:(double)stableBudgetOnDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:stableBudgetOnDay] forKey:@"stableBudgetOnDay"];
+    [userDefaults synchronize];
+
+}
+
+#pragma mark - Work with newStableBudgetOnDay  (NSUserdefaults) -
+
+// Work with newStableBudgetOnDay  (get)
+- (double)getNewStableBudgetOnDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"newStableBudgetOnDay"] doubleValue];
+}
+
+// Work with newStableBudgetOnDay  (set)
+- (void)setNewStableBudgetOnDay:(double)newStableBudgetOnDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:newStableBudgetOnDay] forKey:@"newStableBudgetOnDay"];
+    [userDefaults synchronize];
+    
+}
+
+#pragma mark - Work with mutableMonthDebit  (NSUserdefaults) -
+
+// Work with mutableMonthDebit  (get)
+- (double)getMutableMonthDebit {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue];
+}
+
+- (NSNumber*) getMutableMonthDebitNumber {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"mutableMonthDebit"];
+}
+
+// Work with mutableMonthDebit  (set)
+- (void)setMutableMonthDebit:(double)mutableMonthDebit {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:mutableMonthDebit] forKey:@"mutableMonthDebit"];
+    [userDefaults synchronize];
+}
+
+
+
+#pragma mark - Work with monthDebit  (NSUserdefaults) -
+
+// Work with monthDebit  (get)
+- (double)getMonthDebit {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"monthDebit"] doubleValue];
+}
+
+// Work with monthDebit  (set)
+- (void)setMonthDebit:(double)monthDebit {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:monthDebit] forKey:@"monthDebit"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with newMonthDebit  (NSUserdefaults) -
+
+// Work with newMonthDebit  (get)
+- (double)getNewMonthDebit {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"newMonthDebit"] doubleValue];
+}
+
+// Work with monthDebit  (set)
+- (void)setNewMonthDebit:(double)newMonthDebit {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:newMonthDebit] forKey:@"newMonthDebit"];
+    [userDefaults synchronize];
+}
+
+
+#pragma mark - Work with monthPercent  (NSUserdefaults) -
+
+// Work with monthPercent  (get)
+- (double)getMonthPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"monthPercent"] doubleValue];
+}
+
+// Work with monthPercent  (set)
+- (void)setMonthPercent:(double)monthPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:monthPercent] forKey:@"monthPercent"];
+    [userDefaults synchronize];
+}
+
+// Work with withPercent  (get)
+- (BOOL)getWithPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"withPercent"];
+}
+
+// Work with withPercent  (set)
+- (void)setWithPercent:(BOOL)withPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:withPercent forKey:@"withPercent"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with newWithPercent  (NSUserdefaults) -
+
+// Work with newWithPercent  (get)
+- (BOOL)getNewWithPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"newWithPercent"];
+}
+
+// Work with withPercent  (set)
+- (void)setNewWithPercent:(BOOL)newWithPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:newWithPercent forKey:@"newWithPercent"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with newMonthPercent  (NSUserdefaults) -
+
+// Work with newMonthPercent  (get)
+- (double)getNewMonthPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"newMonthPercent"] doubleValue];
+}
+
+// Work with newMonthPercent  (set)
+- (void)setNewMonthPercent:(double)newMonthPercent {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:newMonthPercent] forKey:@"newMonthPercent"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with moneyBox  (NSUserdefaults) -
+
+// Work with moneyBox  (get)
+- (double)getMoneyBox {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"moneyBox"] doubleValue];
+}
+
+// Work with moneyBox  (set)
+- (void)setMoneyBox:(double)moneyBox {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with resetDateEveryMonth  (NSUserdefaults) -
+
+// Work with resetDateEveryMonth  (get)
+- (NSDate*)getResetDateEveryMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"resetDateEveryMonth"];
+}
+
+// Work with resetDateEveryMonth  (set)
+- (void)setResetDateEveryMonth:(NSDate*)resetDateEveryMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:resetDateEveryMonth forKey:@"resetDateEveryMonth"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with change: (monthPercent, monthDebit, stableBudgetOnDay) -
+
+- (void)setAllStableDebit {
+    [self setMonthDebit:[self getNewMonthDebit]];
+    [self setStableBudgetOnDay:[self getNewStableBudgetOnDay]];
+    if ([self getNewWithPercent]) {
+        [self setWithPercent:YES];
+        [self setMonthPercent:[self getNewMonthPercent]];
+    } else {
+        [self setWithPercent:NO];
+    }
+    [self setChangeAllStableDebitBool:NO];
+}
+
+#pragma mark - Work with changeAllStableDebit  (NSUserdefaults) -
+
+// Work with changeAllStableDebitBool  (get)
+- (BOOL)getChangeAllStableDebitBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"changeAllStableDebitBool"];
+}
+
+
+// Work with changeAllStableDebitBool  (set)
+- (void)setChangeAllStableDebitBool:(BOOL)changeAllStableDebitBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:changeAllStableDebitBool forKey:@"changeAllStableDebitBool"];
+    [userDefaults synchronize];
+}
+
+
 
 #pragma mark - Work with NSUserDefaults -
 
@@ -76,7 +336,7 @@
     [userDefaults synchronize];
 }
 
-- (void)resetData {
+- (void)resetDate {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
@@ -87,7 +347,6 @@
     
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
     NSDateComponents *componentsCurrentDate = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:resetDateEveryMonth];
-    
     [componentsCurrentDate setTimeZone:[NSTimeZone systemTimeZone]];
     
     NSDate *newCurrentDate = [calendar dateFromComponents:componentsCurrentDate];
@@ -243,6 +502,22 @@
                                                                         action:action];
     [ViewForDoneButtonOnKeyboard setItems:@[btnAddOnKeyboard]];
     nameOfTextField.inputAccessoryView = ViewForDoneButtonOnKeyboard;
+}
+
+- (void)customButtonsOnKeyboardFor:(UITextField*)nameOfTextField addAction:(SEL)addAction cancelAction:(SEL)cancelAction {
+    UIToolbar *ViewForButtonsOnKeyboard = [[UIToolbar alloc] init];
+    [ViewForButtonsOnKeyboard sizeToFit];
+    UIBarButtonItem *btnAddOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Add"
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:nil
+                                                                        action:addAction];
+    UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    UIBarButtonItem *btnCancelOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                         style:UIBarButtonItemStylePlain
+                                                                        target:nil
+                                                                        action:cancelAction];
+    [ViewForButtonsOnKeyboard setItems:@[btnAddOnKeyboard, flexible, btnCancelOnKeyboard]];
+    nameOfTextField.inputAccessoryView = ViewForButtonsOnKeyboard;
 }
 
 #pragma mark - Work With balance in Label -

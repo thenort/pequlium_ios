@@ -16,22 +16,12 @@
 
 @implementation MonthDebitViewController
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.monthDebitTextField becomeFirstResponder];
     [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
-    
-    /*
-    NSDate *resetDate = [NSDate date];
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setObject:resetDate forKey:@"resetDateEveryMonth"];
-    [userDefault synchronize];
-    */
 }
+
 
 #pragma mark - Custom Button Add -
 
@@ -40,13 +30,16 @@
     [self checkTextField];
 }
 
+
+
 #pragma mark - Work with UITextField -
-//проверка пустое поле или нет (если нет - сохраняем инфу в базу)
+
+
 - (void)checkTextField {
     
-    if ([self.monthDebitTextField.text length] <= 0 || [self.monthDebitTextField.text  isEqual: @"0"]) {
+    if ([self.monthDebitTextField.text length] <= 0 || [self.monthDebitTextField.text isEqual: @"0"]) {
         
-        NSString *error = @"Введите сумму";
+        NSString *error = @"Введите корректную сумму";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:okAction];
@@ -60,21 +53,19 @@
         double budgetOnDayWithEconomy = (monthDebit - monthDebitWithEightPercent) / [[Manager sharedInstance] daysInCurrentMonth];
         double moneySavingInYear = monthDebitWithEightPercent * 12;
         
-        NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-        [userDefault setDouble:monthDebit forKey:@"monthDebit"];
-        [userDefault setObject:[NSNumber numberWithDouble:monthDebitWithEightPercent] forKey:@"monthPercent"];
         
-        [userDefault setDouble:[self.monthDebitTextField.text doubleValue] forKey:@"mutableMonthDebit"];
+        if (![[Manager sharedInstance] getMonthDebit]) {
+            [[Manager sharedInstance] setMonthDebit:monthDebit];
+            [[Manager sharedInstance] setMutableMonthDebit:monthDebit];
+            [[Manager sharedInstance] setMonthPercent:monthDebitWithEightPercent];
 
-        if (![userDefault objectForKey:@"resetDateEveryMonth"]) {
-            NSDate *resetDate = [NSDate date];
-            [userDefault setObject:resetDate forKey:@"resetDateEveryMonth"];
-            [[Manager sharedInstance] resetData];
-            
+            [[Manager sharedInstance] setResetDateEveryMonth:[NSDate date]];
+            [[Manager sharedInstance] resetDate];
+        } else {
+            [[Manager sharedInstance] setNewMonthDebit:monthDebit];
+            [[Manager sharedInstance] setNewMonthPercent:monthDebitWithEightPercent];
         }
 
-        [userDefault synchronize];
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
         CalculationViewController *calculationVC = [storyboard instantiateViewControllerWithIdentifier:@"CalculationViewController"];
         calculationVC.budgetOnDay = [NSString stringWithFormat:@"%.2f", budgetOnDay];
@@ -84,6 +75,8 @@
         
     }
 }
+
+
 #pragma mark - UITextFieldDelegate -
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string

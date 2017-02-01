@@ -13,6 +13,61 @@
 
 + (instancetype) sharedInstance;
 
+- (NSDictionary*)getBudgetOnCurrentDay;
+- (NSNumber*)getBudgetOnCurrentDayMoneyNumber;
+- (double)getBudgetOnCurrentDayMoneyDouble;
+- (NSDate*)getBudgetOnCurrentDayDate;
+- (void)setBudgetOnCurrentDay:(double)mutableBudgetOnDay dayWhenSpend:(NSDate*)date;
+
+- (double)getBudgetOnDay;
+- (void)setBudgetOnDay:(double)budgetOnDay;
+
+- (double)getDailyBudgetTomorrowCounted;
+- (void)setDailyBudgetTomorrowCounted:(double)dailyBudgetTomorrowCounted;
+
+- (double)getStableBudgetOnDay;
+- (void)setStableBudgetOnDay:(double)stableBudgetOnDay;
+
+- (double)getNewStableBudgetOnDay;
+- (void)setNewStableBudgetOnDay:(double)newStableBudgetOnDay;
+
+- (double)getMutableMonthDebit;
+- (NSNumber*) getMutableMonthDebitNumber;
+- (void)setMutableMonthDebit:(double)mutableMonthDebit;
+
+- (double)getMonthDebit;
+- (void)setMonthDebit:(double)monthDebit;
+
+- (double)getNewMonthDebit;
+- (void)setNewMonthDebit:(double)newMonthDebit;
+
+- (double)getMonthPercent;
+- (void)setMonthPercent:(double)monthPercent;
+- (BOOL)getWithPercent;
+- (void)setWithPercent:(BOOL)withPercent;
+
+- (BOOL)getNewWithPercent;
+- (void)setNewWithPercent:(BOOL)newWithPercent;
+
+- (double)getNewMonthPercent;
+- (void)setNewMonthPercent:(double)newMonthPercent;
+
+- (double)getMoneyBox;
+- (void)setMoneyBox:(double)moneyBox;
+
+- (NSDate*)getResetDateEveryMonth;
+- (void)setResetDateEveryMonth:(NSDate*)resetDateEveryMonth;
+
+- (void)setAllStableDebit;
+
+- (BOOL)getChangeAllStableDebitBool;
+- (void)setChangeAllStableDebitBool:(BOOL)changeAllStableDebitBool;
+
+- (void)resetDate;
+
+
+
+
 - (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key;
 - (void)saveInData:(double)anyDoubleValue withKey:(NSString*)key;
 - (NSString*)getDebitFromDataInStringFormat:(NSString*)key;
@@ -20,8 +75,8 @@
 - (NSUInteger)daysInCurrentMonth;
 - (NSString*)updateTextBalanceLabel;
 - (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action;
+- (void)customButtonsOnKeyboardFor:(UITextField*)nameOfTextField addAction:(SEL)addAction cancelAction:(SEL)cancelAction;
 - (NSString*)formatDate:(NSDate*)date;
-- (void)resetData;
 - (NSInteger)daysToStartNewMonth;
 - (NSInteger)differenceDay;
 - (NSString*)nameOfPreviousMonth;

@@ -351,7 +351,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
         <!--Month Debit View Controller-->
         <scene sceneID="zsK-0Y-Qvk">
             <objects>
-                <viewController id="dXh-ig-4gv" customClass="MonthDebitViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MonthDebitViewController" id="dXh-ig-4gv" customClass="MonthDebitViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="20f-nm-6v8"/>
                         <viewControllerLayoutGuide type="bottom" id="x1u-hc-uCX"/>
@@ -601,7 +601,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKh-h0-Zdo">
-                                            <rect key="frame" x="45.5" y="11" width="218.5" height="21"/>
+                                            <rect key="frame" x="46" y="11" width="242" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -633,7 +633,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Ch-rr-OA6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1766" y="-690"/>
+            <point key="canvasLocation" x="-1766.25" y="-690.84507042253517"/>
         </scene>
         <!--Дневной остаток-->
         <scene sceneID="Wkh-B1-qQD">

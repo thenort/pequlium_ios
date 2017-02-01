@@ -34,6 +34,11 @@
 
 - (IBAction)moveBalanceOnToday:(id)sender {
     [self callOneTimeMonthBool];
+    
+    if ([[Manager sharedInstance] getChangeAllStableDebitBool]) {
+        [[Manager sharedInstance] setAllStableDebit];
+    }
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     double moneyOnTodayWithSpendMutMonthDebid = [self.mutableMonthDebit doubleValue] + [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue];
     [[Manager sharedInstance] resetUserDefData:[NSNumber numberWithDouble:moneyOnTodayWithSpendMutMonthDebid]];
@@ -54,6 +59,11 @@
 
 - (IBAction)amountOnDailyBudget:(id)sender {
     [self callOneTimeMonthBool];
+    
+    if ([[Manager sharedInstance] getChangeAllStableDebitBool]) {
+        [[Manager sharedInstance] setAllStableDebit];
+    }
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     double divided = [self.mutableMonthDebit doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
     double amountBudget = [[userDefaults objectForKey:@"stableBudgetOnDay"] doubleValue] + divided;
@@ -83,6 +93,11 @@
 
 - (IBAction)saveMoney:(id)sender {
     [self callOneTimeMonthBool];
+    
+    if ([[Manager sharedInstance] getChangeAllStableDebitBool]) {
+        [[Manager sharedInstance] setAllStableDebit];
+    }
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     double moneyBox = [[userDefaults objectForKey:@"moneyBox"] doubleValue] + [self.mutableMonthDebit doubleValue];
     [userDefaults setObject:[NSNumber numberWithDouble:moneyBox] forKey:@"moneyBox"];
