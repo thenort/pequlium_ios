@@ -40,19 +40,18 @@
 
 - (void)xibInHeaderToTableView {
     //добавление xib в tableview header
-    self.headerView = (SettingsMainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"SettingsMainScreenHeader" owner:self options:nil]objectAtIndex:0];
+    self.headerView = (SettingsMainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"SettingsMainScreenHeader" owner:self options:nil] objectAtIndex:0];
     self.headerView.delegate = self;
     self.tableView.tableHeaderView = self.headerView;
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"dd MMMM"];
     [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
-    NSString *dateString = [dateFormatter stringFromDate:[userDefaults objectForKey:@"resetDateEveryMonth"]];
+    NSString *dateString = [dateFormatter stringFromDate:[[Manager sharedInstance] getResetDateEveryMonth]];
     
     self.headerView.summaToNewMonthLabel.text = [NSString stringWithFormat:@"Сумма до %@", dateString];
-    self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [userDefaults doubleForKey:@"mutableMonthDebit"]];
-    [self.headerView.moneyBoxButton setTitle:[NSString stringWithFormat:@"%2.f", [[userDefaults objectForKey:@"moneyBox"] doubleValue]] forState:UIControlStateNormal];
+    self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [[Manager sharedInstance] getMutableMonthDebit]];
+    [self.headerView.moneyBoxButton setTitle:[NSString stringWithFormat:@"%2.f", [[Manager sharedInstance] getMoneyBox]] forState:UIControlStateNormal];
 }
 
 #pragma mark - actions buttons on UIToolbar UITextField -
@@ -68,21 +67,19 @@
         [self presentViewController:alertController animated:YES completion:nil];
         
     } else {
+
+        [[Manager sharedInstance] setMutableMonthDebit:[[Manager sharedInstance] getMutableMonthDebit] + [self.headerView.enterMoneyTextField.text doubleValue]];
         
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        double mutableBudgetPlusEnterValue = [userDefaults doubleForKey:@"mutableMonthDebit"] + [self.headerView.enterMoneyTextField.text doubleValue];
-        [userDefaults setDouble:mutableBudgetPlusEnterValue forKey:@"mutableMonthDebit"];
-        self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [userDefaults doubleForKey:@"mutableMonthDebit"]];
-        [userDefaults synchronize];
-        
+        self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [[Manager sharedInstance] getMutableMonthDebit]];
         double divided = [self.headerView.enterMoneyTextField.text doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
-        
         double newBudgetOnDay = [[Manager sharedInstance] getBudgetOnDay] + divided;
         [[Manager sharedInstance] setBudgetOnDay:newBudgetOnDay];
         
-        double newDailyBudgetTomorrowCounted = [[Manager sharedInstance] getDailyBudgetTomorrowCounted] + divided;
-        [[Manager sharedInstance] setDailyBudgetTomorrowCounted:newDailyBudgetTomorrowCounted];
-    
+        if ([[Manager sharedInstance] getDailyBudgetTomorrowCounted]) {
+            double newDailyBudgetTomorrowCounted = [[Manager sharedInstance] getDailyBudgetTomorrowCounted] + divided;
+            [[Manager sharedInstance] setDailyBudgetTomorrowCounted:newDailyBudgetTomorrowCounted];
+        }
+
         //animation
         [UIView animateWithDuration:0.5 animations:^{
             self.headerView.textFieldHeightConstraint.constant = -70.f;

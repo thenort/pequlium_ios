@@ -39,7 +39,7 @@
     
     if ([self.monthDebitTextField.text length] <= 0 || [self.monthDebitTextField.text isEqual: @"0"]) {
         
-        NSString *error = @"Введите сумму";
+        NSString *error = @"Введите корректную сумму";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:okAction];

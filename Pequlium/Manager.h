@@ -14,7 +14,8 @@
 + (instancetype) sharedInstance;
 
 - (NSDictionary*)getBudgetOnCurrentDay;
-- (NSNumber*)getBudgetOnCurrentDayMoney;
+- (NSNumber*)getBudgetOnCurrentDayMoneyNumber;
+- (double)getBudgetOnCurrentDayMoneyDouble;
 - (NSDate*)getBudgetOnCurrentDayDate;
 - (void)setBudgetOnCurrentDay:(double)mutableBudgetOnDay dayWhenSpend:(NSDate*)date;
 
@@ -31,6 +32,7 @@
 - (void)setNewStableBudgetOnDay:(double)newStableBudgetOnDay;
 
 - (double)getMutableMonthDebit;
+- (NSNumber*) getMutableMonthDebitNumber;
 - (void)setMutableMonthDebit:(double)mutableMonthDebit;
 
 - (double)getMonthDebit;

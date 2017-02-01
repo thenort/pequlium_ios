@@ -35,8 +35,12 @@
     return dictBudgetOnCurrentDay;
 }
 
-- (NSNumber*)getBudgetOnCurrentDayMoney {
+- (NSNumber*)getBudgetOnCurrentDayMoneyNumber {
     return [self getBudgetOnCurrentDay][@"mutableBudgetOnDay"];
+}
+
+- (double)getBudgetOnCurrentDayMoneyDouble {
+    return [[self getBudgetOnCurrentDay][@"mutableBudgetOnDay"] doubleValue];
 }
 
 - (NSDate*)getBudgetOnCurrentDayDate {
@@ -128,6 +132,10 @@
     return [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue];
 }
 
+- (NSNumber*) getMutableMonthDebitNumber {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"mutableMonthDebit"];
+}
 
 // Work with mutableMonthDebit  (set)
 - (void)setMutableMonthDebit:(double)mutableMonthDebit {
@@ -262,14 +270,12 @@
 - (void)setAllStableDebit {
     [self setMonthDebit:[self getNewMonthDebit]];
     [self setStableBudgetOnDay:[self getNewStableBudgetOnDay]];
-    
     if ([self getNewWithPercent]) {
         [self setWithPercent:YES];
         [self setMonthPercent:[self getNewMonthPercent]];
     } else {
         [self setWithPercent:NO];
     }
-    
     [self setChangeAllStableDebitBool:NO];
 }
 
@@ -288,6 +294,7 @@
     [userDefaults setBool:changeAllStableDebitBool forKey:@"changeAllStableDebitBool"];
     [userDefaults synchronize];
 }
+
 
 
 #pragma mark - Work with NSUserDefaults -

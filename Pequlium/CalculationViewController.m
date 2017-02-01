@@ -34,6 +34,7 @@
         [[Manager sharedInstance] setMoneyBox:[[Manager sharedInstance] getMonthPercent]];
         [[Manager sharedInstance] setMonthDebit:[[Manager sharedInstance] getMonthDebit] - [[Manager sharedInstance] getMonthPercent]];
         [[Manager sharedInstance] setMutableMonthDebit:[[Manager sharedInstance] getMutableMonthDebit] - [[Manager sharedInstance]getMonthPercent]];
+        
         [[Manager sharedInstance] setWithPercent:YES];
     } else {
         [[Manager sharedInstance] setNewMonthDebit:[[Manager sharedInstance] getNewMonthDebit] - [[Manager sharedInstance] getNewMonthPercent]];
@@ -59,9 +60,7 @@
         [[Manager sharedInstance] setStableBudgetOnDay:budgetOnDay];
     } else {
         [[Manager sharedInstance] setNewStableBudgetOnDay:budgetOnDay];
-        
         [[Manager sharedInstance] setNewWithPercent:newWithPercent];
-        
         [[Manager sharedInstance] setChangeAllStableDebitBool:YES];
     }
 }

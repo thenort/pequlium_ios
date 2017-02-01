@@ -35,7 +35,7 @@
     self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
     [self.tableView reloadData];
     [self recalculationEveryMonth];
-    [self newYear];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -85,10 +85,7 @@
 }
 
 - (void)updateTextCurrentBudgetOnDayLabel {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-    self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
+    self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [[Manager sharedInstance] getBudgetOnCurrentDayMoneyDouble]];
 }
 
 - (void)recalculationEveryDay {
@@ -165,6 +162,7 @@
     NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
     
     if ([[NSDate date] compare:resetDateEveryMonth] == NSOrderedDescending) {
+        
         NSString *emptyBudgetToMoneyBox = @"0";
         
         BOOL callOneTimeMonth = [userDefaults boolForKey:@"callOneTimeMonth"];
@@ -242,7 +240,7 @@
                 [userDefaults setObject:[NSNumber numberWithDouble:moneyToMoneyBox] forKey:@"moneyBox"];
             }
             
-            NSNumber *mutableMonthDebit = [userDefaults objectForKey:@"mutableMonthDebit"];
+            NSNumber *mutableMonthDebit = [[Manager sharedInstance] getMutableMonthDebitNumber];
             [[Manager sharedInstance] workWithHistoryOfSave:mutableMonthDebit nameOfPeriod:[[Manager sharedInstance] stringForHistorySaveOfMonthDict]];
             
             //массив для подсчета отложенного бюджета за год
@@ -253,17 +251,16 @@
             [arrForHistorySaveOfMonthMoneyDebit addObject:mutableMonthDebit];
             [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
             
-            double monthDebit = [userDefaults doubleForKey:@"monthDebit"];
-            [userDefaults setDouble:monthDebit forKey:@"mutableMonthDebit"];
+            [[Manager sharedInstance] setMutableMonthDebit:[[Manager sharedInstance] getMonthDebit]];
+            [[Manager sharedInstance] resetUserDefData:[NSNumber numberWithDouble:[[Manager sharedInstance] getStableBudgetOnDay]]];
             
-            [[Manager sharedInstance] resetUserDefData:[userDefaults objectForKey:@"stableBudgetOnDay"]];
-            
-            NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
-            [userDefaults setDouble:[stableBudgetOnDay doubleValue] forKey:@"dailyBudgetTomorrowCounted"];
+            [userDefaults setDouble:[[Manager sharedInstance] getStableBudgetOnDay] forKey:@"dailyBudgetTomorrowCounted"];
+            [userDefaults synchronize];
         }
         [self resetBoolOfNegativeBalanceInEndOfMonth];
     } else {
         [self recalculationEveryDay];
+        [self newYear];
     }
 }
 //для подсчета скопленного бюджета за год (копилка)
@@ -365,59 +362,58 @@
 }
 
 - (void)checkTextField {
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     if ([self.headerView.processOfSpendingMoneyTextField.text length] <= 0 || [self.headerView.processOfSpendingMoneyTextField.text  isEqual: @"-0"]) {
         
-        NSString *error = @"Введите сумму";
+        NSString *error = @"Введите корректную сумму";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка!" message:error preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
         
-    } else if (fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]) > [[userDefault objectForKey:@"mutableMonthDebit"] doubleValue]) {
-        NSString *error = @"Введенная вами сумма превышает ваш месячный баланс";
+    } else if (fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]) > [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue]) {
+        
+        NSString *error = @"Введенная вами сумма превышает ваш месячный финансовый остаток";
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Ошибка" message:error preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
-        
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
+        
         [self cleanupProcessOfSpendingMoneyTextField];
         
     } else {
         
-        double currentSpend = [self.headerView.processOfSpendingMoneyTextField.text doubleValue];
-        NSNumber *currentSpendNumber = [NSNumber numberWithDouble:currentSpend];
-        
-        NSMutableArray *historySpendOfMonth = [NSMutableArray arrayWithArray:[userDefault objectForKey:@"historySpendOfMonth"]];
+        NSNumberFormatter* numberFormatter = [NSNumberFormatter new];
+        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        NSNumber *currentSpendNumber = [numberFormatter numberFromString:self.headerView.processOfSpendingMoneyTextField.text];
+
+        NSMutableArray *historySpendOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySpendOfMonth"]];
         if (historySpendOfMonth == nil) {
             historySpendOfMonth = [NSMutableArray array];
         }
-        
-        //работа с таблицей (история)
+        //tableview (history)
         NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
         [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
         [dictWithDateAndSum setObject:[NSDate date] forKey:@"currentDateOfSpend"];
         [historySpendOfMonth addObject:dictWithDateAndSum];
-        [userDefault setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
-        [userDefault synchronize];
+        [userDefaults setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
+        [userDefaults synchronize];
+        
         self.arrayForTable = historySpendOfMonth;
         self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
         [self.tableView reloadData];
         
+        
         //работа с бюджетом на день
-        NSMutableDictionary *budgetOnCurrentDay = [[userDefault objectForKey:@"budgetOnCurrentDay"]mutableCopy];
-        NSNumber *mutableBudgetOnDay = [budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"];
-        double mutableBudgetOnDayWithSpend = [mutableBudgetOnDay doubleValue] - fabs(currentSpend);
-        NSNumber *mutableBudgetOnDayWithSpendNumber = [NSNumber numberWithDouble:mutableBudgetOnDayWithSpend];
-        [budgetOnCurrentDay setObject:mutableBudgetOnDayWithSpendNumber forKey:@"mutableBudgetOnDay"];
-        [userDefault setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
-        [userDefault synchronize];
+        NSMutableDictionary *budgetOnCurrentDay = [[[Manager sharedInstance] getBudgetOnCurrentDay] mutableCopy];
+        [budgetOnCurrentDay setObject: [NSNumber numberWithDouble:[[Manager sharedInstance] getBudgetOnCurrentDayMoneyDouble] - fabs([currentSpendNumber doubleValue])] forKey:@"mutableBudgetOnDay"];
+        [userDefaults setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
+        //work with mutableMonthdebit
+        [[Manager sharedInstance] setMutableMonthDebit:[[Manager sharedInstance] getMutableMonthDebit] - fabs([currentSpendNumber doubleValue])];
         
-        double mutableMonthDebitWithSpend = [userDefault doubleForKey:@"mutableMonthDebit"] - fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]);
-        [userDefault setDouble:mutableMonthDebitWithSpend forKey:@"mutableMonthDebit"];
-        
-        [userDefault setDouble:fabs([self.headerView.processOfSpendingMoneyTextField.text doubleValue]) forKey:@"processOfSpendingMoneyTextField"];
+        [userDefaults setDouble:fabs([currentSpendNumber doubleValue]) forKey:@"processOfSpendingMoneyTextField"];
+        [userDefaults synchronize];
         
         self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
         [self negativeBalance];
@@ -426,7 +422,7 @@
 }
 
 - (void)cleanupProcessOfSpendingMoneyTextField {
-    //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальные значения Альфы
+    //при нажатии на кнопку Add очищаем textfield и ставим lable в изначальное значения Альфы
     self.headerView.processOfSpendingMoneyTextField.text = @"";
     if ([self.headerView.processOfSpendingMoneyTextField.text  isEqual: @""]) {
         [self.headerView.iSpendTextLabel setAlpha:0];
