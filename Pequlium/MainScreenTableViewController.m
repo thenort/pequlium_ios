@@ -88,6 +88,16 @@
     self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [[Manager sharedInstance] getBudgetOnCurrentDayMoneyDouble]];
 }
 
+- (void)resetBoolOfNegativeBalanceEveryDay {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    //обнуление bool для negativebalance
+    [userDefault setBool:NO forKey:@"callOneTime"];
+    //обнуление bool для negativebalance dailyBudgetWillBeLabel
+    [userDefault setBool:NO forKey:@"callOneTimeToLable"];
+    [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
+    [userDefault synchronize];
+}
+
 - (void)recalculationEveryDay {
     NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
 
@@ -96,11 +106,7 @@
         NSDictionary *dict = [userDefault objectForKey:@"budgetOnCurrentDay"];
         NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
         
-        //обнуление bool для negativebalance
-        [userDefault setBool:NO forKey:@"callOneTime"];
-        //обнуление bool для negativebalance dailyBudgetWillBeLabel
-        [userDefault setBool:NO forKey:@"callOneTimeToLable"];
-        [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
+        [self resetBoolOfNegativeBalanceEveryDay];
         
         if ([mutableBudgetWithSpendNumber doubleValue] > 0 && [userDefault boolForKey:@"callOneTimeDay"]) {
             if ([userDefault boolForKey:@"transferMoneyToNextDaySettingsDay"]) {
@@ -144,7 +150,7 @@
     }
 }
 
-- (void)resetBoolOfNegativeBalanceInEndOfMonth {
+- (void)resetBoolOfNegativeBalanceEndMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     [userDefaults setBool:NO forKey:@"callOneTime"];
@@ -257,7 +263,7 @@
             [userDefaults setDouble:[[Manager sharedInstance] getStableBudgetOnDay] forKey:@"dailyBudgetTomorrowCounted"];
             [userDefaults synchronize];
         }
-        [self resetBoolOfNegativeBalanceInEndOfMonth];
+        [self resetBoolOfNegativeBalanceEndMonth];
     } else {
         [self recalculationEveryDay];
         [self newYear];
