@@ -32,10 +32,9 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     self.arrayForTable = [[userDefaults objectForKey:@"historySpendOfMonth"] mutableCopy];
     self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
+    [self recalculationEveryMonth];
     self.headerView.currentBudgetOnDayLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
     [self.tableView reloadData];
-    [self recalculationEveryMonth];
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -309,6 +308,13 @@
     }
 }
 
+//добавление xib в tableview header
+- (void)xibInHeaderToTableView {
+    self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
+    self.tableView.tableHeaderView = self.headerView;
+    [self autoresizeXib];
+}
+
 - (void)autoresizeXib {
     
     CGRect screen = [[UIScreen mainScreen] bounds];
@@ -324,15 +330,7 @@
     
 }
 
-//добавление xib в tableview header
-- (void)xibInHeaderToTableView {
-    self.headerView = (MainScreenHeaderView*)[[[NSBundle mainBundle] loadNibNamed:@"MainScreenHeaderXib" owner:self options:nil]objectAtIndex:0];
-    self.tableView.tableHeaderView = self.headerView;
-    [self autoresizeXib];
-}
-
-
-#pragma mark - Timer
+#pragma mark - Timer -
 
 - (void)startTimer {
     _updateTimer = [NSTimer scheduledTimerWithTimeInterval:10.0

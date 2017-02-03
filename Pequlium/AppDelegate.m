@@ -90,8 +90,8 @@
         
         NSDateComponents *triggerDaily = [[NSDateComponents alloc] init];
         [triggerDaily setTimeZone:[NSTimeZone systemTimeZone]];
-        triggerDaily.hour = 8;
-        triggerDaily.minute = 30;
+        triggerDaily.hour = 13;
+        triggerDaily.minute = 00;
         
         UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:triggerDaily repeats:YES];
         
