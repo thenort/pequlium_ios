@@ -63,6 +63,25 @@
 - (BOOL)getTransferMoneyToNextDaySettingsDay;
 - (void)setTransferMoneyToNextDaySettingsDay:(BOOL)boolValue;
 
+- (BOOL)getTransferMoneyNextDaySettingsMonth;
+- (void)setTransferMoneyNextDaySettingsMonth:(BOOL)boolValue;
+- (BOOL)getAmountDailyBudgetSettingsMonth;
+- (void)setAmountDailyBudgetSettingsMonth:(BOOL)boolValue;
+- (BOOL)getMoneyBoxSettingsMonth;
+- (void)setMoneyBoxSettingsMonth:(BOOL)boolValue;
+
+- (BOOL)getCallOneTimeDay;
+- (void)setCallOneTimeDay:(BOOL)callOneTimeDay;
+
+- (BOOL)getCallOneTimeMonth;
+- (void)setCallOneTimeMonth:(BOOL)callOneTimeMonth;
+
+- (BOOL)getDailyBudgetTomorrowCountedBool;
+- (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool;
+
+- (BOOL)getDailyBudgetTomorrowBool;
+- (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool;
+
 - (void)setAllStableDebit;
 
 - (BOOL)getChangeAllStableDebitBool;
@@ -70,24 +89,21 @@
 
 - (void)resetDate;
 
+- (void)resetBoolOfNegativeBalanceEndDay;
+- (void)resetBoolOfNegativeBalanceEndMonth;
 
-
-
-- (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key;
-- (void)saveInData:(double)anyDoubleValue withKey:(NSString*)key;
-- (NSString*)getDebitFromDataInStringFormat:(NSString*)key;
-- (double)getDebitFromDataInDoubleFormat:(NSString*)key;
 - (NSUInteger)daysInCurrentMonth;
 - (NSString*)updateTextBalanceLabel;
+
 - (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action;
 - (void)customButtonsOnKeyboardFor:(UITextField*)nameOfTextField addAction:(SEL)addAction cancelAction:(SEL)cancelAction;
+
 - (NSString*)formatDate:(NSDate*)date;
 - (NSInteger)daysToStartNewMonth;
 - (NSInteger)differenceDay;
 - (NSString*)nameOfPreviousMonth;
 - (NSString*)stringForHistorySaveOfMonthDict;
 - (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name;
-- (void)resetUserDefData:(double)mutableBudgetOnDay;
 - (NSString*)workWithDateForMainTable:(NSDate*)date;
 
 @end

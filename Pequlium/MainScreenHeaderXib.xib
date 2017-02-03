@@ -49,10 +49,10 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Просто начните вводить сумму,                         которую вы потратили" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kte-y0-PUi">
-                    <rect key="frame" x="16" y="198" width="217" height="52"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Введите сумму,                         которую вы потратили" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kte-y0-PUi">
+                    <rect key="frame" x="16" y="198" width="158" height="52"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="217" id="CjP-R4-Kbt"/>
+                        <constraint firstAttribute="width" constant="158" id="CjP-R4-Kbt"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -68,7 +68,7 @@
                 <constraint firstAttribute="bottom" secondItem="kte-y0-PUi" secondAttribute="bottom" id="JhT-qa-d8l"/>
                 <constraint firstAttribute="bottom" secondItem="2aK-Ke-r8b" secondAttribute="bottom" id="U5H-FQ-HWC"/>
                 <constraint firstItem="Ap0-a5-e4t" firstAttribute="top" secondItem="Wyb-rl-vYO" secondAttribute="bottom" constant="7.5" id="Uiy-Xv-mKs"/>
-                <constraint firstItem="2aK-Ke-r8b" firstAttribute="leading" secondItem="kte-y0-PUi" secondAttribute="trailing" constant="-217" id="Yhy-p4-A0T"/>
+                <constraint firstItem="2aK-Ke-r8b" firstAttribute="leading" secondItem="kte-y0-PUi" secondAttribute="trailing" constant="-158" id="Yhy-p4-A0T"/>
                 <constraint firstItem="2aK-Ke-r8b" firstAttribute="top" secondItem="Bj8-30-3Gf" secondAttribute="bottom" constant="-21" id="cyJ-bj-4YU"/>
                 <constraint firstItem="kte-y0-PUi" firstAttribute="top" secondItem="2aK-Ke-r8b" secondAttribute="bottom" constant="-52" id="e8y-El-ayk"/>
                 <constraint firstItem="2aK-Ke-r8b" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="ezF-TU-NRk"/>

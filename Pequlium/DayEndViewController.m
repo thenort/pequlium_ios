@@ -28,10 +28,7 @@
 }
 
 - (void)callOneTimeDayBool {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL callOneTimeDay = YES;
-    [userDefaults setBool:callOneTimeDay forKey:@"callOneTimeDay"];
-    [userDefaults synchronize];
+    [self.manager setCallOneTimeDay:YES];
 }
 
 - (IBAction)moveBalanceOnToday:(id)sender {

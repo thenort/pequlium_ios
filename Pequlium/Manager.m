@@ -295,6 +295,140 @@
     [userDefaults synchronize];
 }
 
+#pragma mark - Work with SwitchMonthEnd -
+
+// Work with SwitchMonthEnd transferMoneyNextDaySettingsMonth (get)
+- (BOOL)getTransferMoneyNextDaySettingsMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"transferMoneyNextDaySettingsMonth"];
+}
+
+// Work with SwitchMonthEnd amountOnDailyBudgetSettingsDay (set)
+- (void)setTransferMoneyNextDaySettingsMonth:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"transferMoneyNextDaySettingsMonth"];
+    [userDefaults synchronize];
+}
+
+// Work with SwitchMonthEnd amountDailyBudgetSettingsMonth (get)
+- (BOOL)getAmountDailyBudgetSettingsMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"amountDailyBudgetSettingsMonth"];
+}
+
+// Work with SwitchMonthEnd amountDailyBudgetSettingsMonth (set)
+- (void)setAmountDailyBudgetSettingsMonth:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"amountDailyBudgetSettingsMonth"];
+    [userDefaults synchronize];
+}
+
+// Work with SwitchMonthEnd moneyBoxSettingsMonth (get)
+- (BOOL)getMoneyBoxSettingsMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"moneyBoxSettingsMonth"];
+}
+
+// Work with SwitchMonthEnd moneyBoxSettingsMonth (set)
+- (void)setMoneyBoxSettingsMonth:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"moneyBoxSettingsMonth"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callOneTimeDay (Bool)  (NSUserdefaults) -
+
+// Work with callOneTimeDay  (get)
+- (BOOL)getCallOneTimeDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callOneTimeDay"];
+}
+
+
+// Work with callOneTimeDay  (set)
+- (void)setCallOneTimeDay:(BOOL)callOneTimeDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callOneTimeDay forKey:@"callOneTimeDay"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callOneTimeMonth (Bool)  (NSUserdefaults) -
+
+// Work with callOneTimeMonth  (get)
+- (BOOL)getCallOneTimeMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callOneTimeMonth"];
+}
+
+
+// Work with callOneTimeMonth  (set)
+- (void)setCallOneTimeMonth:(BOOL)callOneTimeMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callOneTimeMonth forKey:@"callOneTimeMonth"];
+    [userDefaults synchronize];
+}
+
+
+#pragma mark - Work with dailyBudgetTomorrowCountedBool (Bool)  (NSUserdefaults) -
+
+// Work with dailyBudgetTomorrowCountedBool  (get)
+- (BOOL)getDailyBudgetTomorrowCountedBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"dailyBudgetTomorrowCountedBool"];
+}
+
+
+// Work with dailyBudgetTomorrowCountedBool  (set)
+- (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:dailyBudgetTomorrowCountedBool forKey:@"dailyBudgetTomorrowCountedBool"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with dailyBudgetTomorrowBool (Bool)  (NSUserdefaults) -
+
+// Work with dailyBudgetTomorrowBool  (get)
+- (BOOL)getDailyBudgetTomorrowBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"dailyBudgetTomorrowBool"];
+}
+
+
+// Work with dailyBudgetTomorrowBool  (set)
+- (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
+    [userDefaults synchronize];
+}
+
+
+#pragma mark - Work with resetBoolOfNegativeBalanceEveryDay (Bool)  (NSUserdefaults) -
+
+- (void)resetBoolOfNegativeBalanceEndDay {
+    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
+    //обнуление bool для negativebalance
+    [userDefault setBool:NO forKey:@"callOneTime"];
+    //обнуление bool для negativebalance dailyBudgetWillBeLabel
+    [userDefault setBool:NO forKey:@"callOneTimeToLable"];
+    [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
+    [userDefault synchronize];
+}
+
+#pragma mark - Work with resetBoolOfNegativeBalanceEveryDay (Bool)  (NSUserdefaults) -
+
+- (void)resetBoolOfNegativeBalanceEndMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setBool:NO forKey:@"callOneTime"];
+    [userDefaults setBool:NO forKey:@"callOneTimeToLable"];
+    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
+    
+    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowCountedBool"];
+    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowBool"];
+    
+    [userDefaults synchronize];
+}
+
 #pragma mark - Work with change: (monthPercent, monthDebit, stableBudgetOnDay) -
 
 - (void)setAllStableDebit {
@@ -327,52 +461,9 @@
 
 
 
-#pragma mark - Work with NSUserDefaults -
-
-- (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key {
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    double valueDouble = [textFromTextField doubleValue];
-    [userDefault setDouble:valueDouble forKey:key];
-    [userDefault synchronize];
-}
-
-- (void)saveInData:(double)anyDoubleValue withKey:(NSString*)key {
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setDouble:anyDoubleValue forKey:key];
-    [userDefault synchronize];
-}
-
-
-- (NSString*)getDebitFromDataInStringFormat:(NSString*)key {
-    double valueFromData = [[NSUserDefaults standardUserDefaults]doubleForKey:key];
-    return [NSString stringWithFormat:@"%.2f",valueFromData];
-}
-
-- (double)getDebitFromDataInDoubleFormat:(NSString*)key {
-    double valueFromData = [[NSUserDefaults standardUserDefaults]doubleForKey:key];
-    return valueFromData;
-}
-
-- (void)resetUserDefData:(double)mutableBudgetOnDay {
-    //обнуление средств (возобновление даты и бюджета)
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
-    [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
-    
-    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
-    [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-    
-    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
-    [userDefaults synchronize];
-}
-
 - (void)resetDate {
     
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
-    //обнуляем историю
-    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
@@ -556,10 +647,7 @@
 
 
 - (NSString*)updateTextBalanceLabel {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-    return [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
+    return [NSString stringWithFormat:@"%.2f", [self getBudgetOnCurrentDayMoneyDouble]];
 }
 
 @end

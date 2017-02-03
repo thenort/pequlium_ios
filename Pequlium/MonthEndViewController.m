@@ -25,10 +25,7 @@
 }
 
 - (void)callOneTimeMonthBool {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    BOOL callOneTimeMonth = YES;
-    [userDefaults setBool:callOneTimeMonth forKey:@"callOneTimeMonth"];
-    [userDefaults synchronize];
+    [self.manager setCallOneTimeMonth:YES];
 }
 
 - (IBAction)moveBalanceOnToday:(id)sender {
@@ -37,11 +34,8 @@
     if ([self.manager getChangeAllStableDebitBool]) {
         [self.manager setAllStableDebit];
     } else {
-        if ([self.manager getWithPercent]) {
-            [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
-        } else {
-            [self.manager setStableBudgetOnDay:fabs(([self.manager getMonthDebit] - [self.manager getMonthPercent]) / [self.manager daysInCurrentMonth])];
-        }
+        //перерасчет дневного стабильного бюджета
+        [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
     
     [self.manager setBudgetOnDay:[self.manager getStableBudgetOnDay]];
@@ -67,11 +61,7 @@
         [self.manager setAllStableDebit];
     } else {
         //перерасчет дневного стабильного бюджета
-        if ([self.manager getWithPercent]) {
-            [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
-        } else {
-            [self.manager setStableBudgetOnDay:fabs(([self.manager getMonthDebit] - [self.manager getMonthPercent]) / [self.manager daysInCurrentMonth])];
-        }
+        [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
 
     double divided = [self.manager getMutableMonthDebit] / [self.manager daysToStartNewMonth];
@@ -100,11 +90,7 @@
         [self.manager setAllStableDebit];
     } else {
         //перерасчет дневного стабильного бюджета
-        if ([self.manager getWithPercent]) {
-            [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
-        } else {
-            [self.manager setStableBudgetOnDay:fabs(([self.manager getMonthDebit] - [self.manager getMonthPercent]) / [self.manager daysInCurrentMonth])];
-        }
+        [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
      
     [self.manager setMoneyBox:[self.manager getMoneyBox] + [self.manager getMutableMonthDebit]];

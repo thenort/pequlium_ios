@@ -88,18 +88,6 @@
 }
 
 - (IBAction)pressedResolutionSwitch:(id)sender {
-    
-    /*
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    if (self.resolutionSwitch.on == YES) {
-        
-    } else {
-    
-    }
-    [userDefaults synchronize];
-    */
-    
 }
 
 #pragma mark - Table view data source
