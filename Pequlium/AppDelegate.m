@@ -13,7 +13,7 @@
 
 
 @interface AppDelegate () <UNUserNotificationCenterDelegate>
-
+@property (strong, nonatomic) Manager *manager;
 @end
 
 @implementation AppDelegate
@@ -24,35 +24,40 @@
     
     [self puthNSUserDefaultsPlist];
     [self customNavigationBar];
-    
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     UINavigationController* rootNC = [storyboard instantiateInitialViewController];
     self.window.rootViewController = rootNC;
     [self.window makeKeyAndVisible];
     
-    [self callDayEndViewController];
+    self.manager = [Manager sharedInstance];
+    //[self callMonthEndDayEndControllers];
     
-
     return YES;
 }
 
-
-- (void)callDayEndViewController {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if ([[Manager sharedInstance]differenceDay] != 0) {
-        NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-        NSNumber *mutableBudgetWithSpendNumber = [dict objectForKey:@"mutableBudgetOnDay"];
-        BOOL callOneTimeDay = [userDefaults boolForKey:@"callOneTimeDay"];
-        if (!callOneTimeDay) {
-            if ([mutableBudgetWithSpendNumber doubleValue] > 0) {
+/*
+- (void)callMonthEndDayEndControllers {
+    if ([[NSDate date] compare:[self.manager getResetDateEveryMonth]] == NSOrderedDescending) {
+        if (![self.manager getCallOneTimeMonth]) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+            UINavigationController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
+            self.window.rootViewController = monthEndViewControllerVC;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissKeyboard" object:nil];
+        }
+    } else {
+        if ([self.manager differenceDay] != 0 && ![self.manager getCallOneTimeDay]) {
+            if ([self.manager getBudgetOnCurrentDayMoneyDouble] > 0) {
                 UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
                 UINavigationController *dayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
                 self.window.rootViewController = dayEndViewControllerVC;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissKeyboard" object:nil];
             }
         }
     }
 }
+*/
+
 
 - (void)customNavigationBar {
     [[UINavigationBar appearance] setBackgroundImage:[UIImage new]
@@ -96,7 +101,7 @@
         UNCalendarNotificationTrigger *trigger = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:triggerDaily repeats:YES];
         
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:@"notification"
-                                                                              content:objNotificationContent trigger:trigger];
+                                                                content:objNotificationContent trigger:trigger];
         UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
         [center addNotificationRequest:request withCompletionHandler:nil];
      }
@@ -137,9 +142,10 @@
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     [self notificationsOffOrOn];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"MyNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"NotificationRecalculationEveryMonth" object:nil];
+    //[self callMonthEndDayEndControllers];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"callMonthEndDayEndControllers" object:nil];
+    [self.manager recalculationEveryMonth];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"updateTextCurrentBudgetOnDayLabel" object:nil];
-    [self callDayEndViewController];
 }
 
 

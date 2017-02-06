@@ -21,6 +21,7 @@
 @property (strong, nonatomic) NSMutableArray *arrayForTable;
 @property (strong, nonatomic) NSMutableArray *reverseArrayForTable;
 @property (strong, nonatomic) NSTimer* updateTimer;
+
 @end
 
 @implementation MainScreenTableViewController
@@ -30,10 +31,10 @@
 {
     [super viewWillAppear:animated];
 
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    self.arrayForTable = [[userDefaults objectForKey:@"historySpendOfMonth"] mutableCopy];
+    self.arrayForTable = [self.manager getHistorySpendOfMonth];
     self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
-    [self recalculationEveryMonth];
+    [self callMonthEndDayEndControllers];
+    [self.manager recalculationEveryMonth];
     self.headerView.currentBudgetOnDayLabel.text = [self.manager updateTextBalanceLabel];
     [self.tableView reloadData];
 }
@@ -48,21 +49,38 @@
     [super viewDidLoad];
     
     self.manager = [Manager sharedInstance];
-    
     [self xibInHeaderToTableView];
     [self customise];
     [self.manager customBtnOnKeyboardFor:self.headerView.processOfSpendingMoneyTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
     [self.headerView.processOfSpendingMoneyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(recalculationEveryMonth)
-                                                 name:@"NotificationRecalculationEveryMonth"
-                                               object:nil];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(updateTextCurrentBudgetOnDayLabel)
                                                  name:@"updateTextCurrentBudgetOnDayLabel"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(callMonthEndDayEndControllers)
+                                                 name:@"callMonthEndDayEndControllers"
+                                               object:nil];
+}
+
+- (void)callMonthEndDayEndControllers {
+    if ([[NSDate date] compare:[self.manager getResetDateEveryMonth]] == NSOrderedDescending) {
+        if (![self.manager getCallOneTimeMonth]) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+            MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
+            [self.navigationController pushViewController:monthEndViewControllerVC animated:YES];
+        }
+    } else {
+        if ([self.manager differenceDay] != 0 && ![self.manager getCallOneTimeDay]) {
+            if ([self.manager getBudgetOnCurrentDayMoneyDouble] > 0) {
+                UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+                DayEndViewController *dayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
+                [self.navigationController pushViewController:dayEndViewControllerVC animated:YES];
+            }
+        }
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -71,7 +89,6 @@
 }
 
 - (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"NotificationRecalculationEveryMonth" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTextCurrentBudgetOnDayLabel" object:nil];
 }
 
@@ -89,155 +106,6 @@
 
 - (void)updateTextCurrentBudgetOnDayLabel {
     self.headerView.currentBudgetOnDayLabel.text = [NSString stringWithFormat:@"%.2f", [self.manager getBudgetOnCurrentDayMoneyDouble]];
-}
-
-- (void)recalculationEveryDay {
-    
-    if ([self.manager differenceDay] != 0) {
-        
-        [self.manager resetBoolOfNegativeBalanceEndDay];
-        
-        if ([self.manager getBudgetOnCurrentDayMoneyDouble] > 0 && [self.manager getCallOneTimeDay]) {
-            
-            if ([self.manager getTransferMoneyToNextDaySettingsDay]) {
-                [self.manager setBudgetOnCurrentDay:[self.manager getBudgetOnDay] + [self.manager getBudgetOnCurrentDayMoneyDouble] dayWhenSpend:[NSDate date]];
-            } else if ([self.manager getAmountOnDailyBudgetSettingsDay] && [self.manager getCallOneTimeDay]) {
-                double divided = [self.manager getBudgetOnCurrentDayMoneyDouble] / [self.manager daysToStartNewMonth];
-                double amountBudgetOnDay = [self.manager getBudgetOnDay] + divided;
-                [self.manager setBudgetOnDay:amountBudgetOnDay];
-                [self.manager setBudgetOnCurrentDay:amountBudgetOnDay dayWhenSpend:[NSDate date]];
-            }
-        }
-        
-        if ([self.manager getBudgetOnCurrentDayMoneyDouble] < 0) {
-            
-            if ([self.manager getDailyBudgetTomorrowCountedBool]) {
-                [self.manager setBudgetOnCurrentDay:[self.manager getDailyBudgetTomorrowCounted] dayWhenSpend:[NSDate date]];
-                [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay]];
-                [self.manager setDailyBudgetTomorrowCountedBool:NO];
-                [self.manager setDailyBudgetTomorrowBool:NO];
-            } else {
-                [self.manager setBudgetOnCurrentDay:[self.manager getBudgetOnDay] dayWhenSpend:[NSDate date]];
-                [self.manager setDailyBudgetTomorrowBool:NO];
-            }
-        }
-    }
-}
-
-- (void)recalculationEveryMonth {
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
-    if ([[NSDate date] compare:[self.manager getResetDateEveryMonth]] == NSOrderedDescending) {
-        
-        const NSString *emptyBudgetToMoneyBox = @"0";
-        
-        if (![self.manager getCallOneTimeMonth]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-            MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
-            [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
-        }
-        
-        [self.manager resetDate];//update date
-        
-        if ([self.manager getChangeAllStableDebitBool]) {
-            [self.manager setAllStableDebit];
-        } else {
-            [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
-        }
-        
-        if ([self.manager getTransferMoneyNextDaySettingsMonth] && [self.manager getCallOneTimeMonth]) {
-            
-            if ([self.manager getWithPercent]) {
-                [self.manager setMoneyBox:[self.manager getMonthPercent] + [self.manager getMoneyBox]];
-            }
-            
-            [self.manager setBudgetOnCurrentDay:[self.manager getStableBudgetOnDay] + [self.manager getMutableMonthDebit] dayWhenSpend:[NSDate date]];
-            [self.manager setBudgetOnDay:[self.manager getStableBudgetOnDay]];
-            [self.manager setDailyBudgetTomorrowCounted:[self.manager getStableBudgetOnDay]];
-            [self.manager setMutableMonthDebit:[self.manager getMonthDebit] + [self.manager getMutableMonthDebit]];
-            
-            [self.manager workWithHistoryOfSave:emptyBudgetToMoneyBox nameOfPeriod:[self.manager stringForHistorySaveOfMonthDict]];
-            [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
-            [userDefaults synchronize];
-            
-        } else if ([self.manager getAmountDailyBudgetSettingsMonth] && [self.manager getCallOneTimeMonth]) {
-            
-            if ([self.manager getWithPercent]) {
-                [self.manager setMoneyBox:[self.manager getMonthPercent] + [self.manager getMoneyBox]];
-            }
-            
-            double divided = [self.manager getMutableMonthDebit] / [self.manager daysToStartNewMonth];
-            double amountBudgetOnDay = [self.manager getStableBudgetOnDay] + divided;
-            [self.manager setBudgetOnDay:amountBudgetOnDay];
-            [self.manager setBudgetOnCurrentDay:amountBudgetOnDay dayWhenSpend:[NSDate date]];
-            [self.manager setDailyBudgetTomorrowCounted:amountBudgetOnDay];
-            [self.manager setMutableMonthDebit:[self.manager getMonthDebit] + [self.manager getMutableMonthDebit]];
-            
-            [self.manager workWithHistoryOfSave:emptyBudgetToMoneyBox nameOfPeriod:[self.manager stringForHistorySaveOfMonthDict]];
-            [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
-            [userDefaults synchronize];
-            
-        } else if ([self.manager getMoneyBoxSettingsMonth] && [self.manager getCallOneTimeMonth]) {
-            
-            if ([self.manager getWithPercent]) {
-                [self.manager setMoneyBox:[self.manager getMutableMonthDebit] + [self.manager getMonthPercent] + [self.manager getMoneyBox]];
-            } else {
-                [self.manager setMoneyBox:[self.manager getMutableMonthDebit] + [self.manager getMoneyBox]];
-            }
-            
-            //массив для подсчета отложенного бюджета за год
-            NSMutableArray *arrForHistorySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
-            if (arrForHistorySaveOfMonthMoneyDebit == nil) {
-                arrForHistorySaveOfMonthMoneyDebit = [NSMutableArray array];
-            }
-            [arrForHistorySaveOfMonthMoneyDebit addObject:[self.manager getMutableMonthDebitNumber]];
-            [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
-            //
-            
-            [self.manager workWithHistoryOfSave:[self.manager getMutableMonthDebitNumber] nameOfPeriod:[self.manager stringForHistorySaveOfMonthDict]];
-            [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
-            
-            [self.manager setBudgetOnDay:[self.manager getStableBudgetOnDay]];
-            [self.manager setBudgetOnCurrentDay:[self.manager getBudgetOnDay] dayWhenSpend:[NSDate date]];
-            [self.manager setMutableMonthDebit:[self.manager getMonthDebit]];
-            [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay]];
-            [userDefaults synchronize];
-        }
-        [self.manager resetBoolOfNegativeBalanceEndMonth];
-    } else {
-        [self recalculationEveryDay];
-        [self newYear];
-    }
-}
-
-//для подсчета скопленного бюджета за год (копилка)
-- (void)newYear {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    if (![userDefaults integerForKey:@"Year"]) {
-        NSCalendar *calendar = [NSCalendar currentCalendar];
-        NSDate *currDate = [NSDate date];
-        NSInteger yearOfCurrDate = [calendar component:NSCalendarUnitYear fromDate:currDate];
-        [userDefaults setInteger:yearOfCurrDate forKey:@"Year"];
-    }
-    NSInteger yearOfCurrDateInt = [userDefaults integerForKey:@"Year"];
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSInteger yearOfCurrDate = [calendar component:NSCalendarUnitYear fromDate:[NSDate date]];
-    
-    if (yearOfCurrDateInt < yearOfCurrDate) {
-        NSArray *historySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
-        double sumOfSaveMoneyForYear = 0.0;
-        for (NSNumber* budgetInArray in historySaveOfMonthMoneyDebit) {
-            sumOfSaveMoneyForYear = sumOfSaveMoneyForYear + [budgetInArray doubleValue];
-        }
-        [self.manager workWithHistoryOfSave:[NSNumber numberWithDouble:sumOfSaveMoneyForYear] nameOfPeriod:[NSString stringWithFormat:@"%ld", yearOfCurrDateInt]];
-        
-        [userDefaults setObject:nil forKey:@"historySaveOfMonthMoneyDebit"];
-        [userDefaults setInteger:yearOfCurrDate forKey:@"Year"];
-    }
-    
-    [userDefaults synchronize];
 }
 
 - (void)negativeBalance {
@@ -273,7 +141,7 @@
 #pragma mark - Timer -
 
 - (void)startTimer {
-    _updateTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:10.0
                                                     target:self
                                                   selector:@selector(reloadDateInTableView)
                                                   userInfo:nil
@@ -281,9 +149,10 @@
 }
 
 - (void)stopTimer{
-    [_updateTimer invalidate];
-    _updateTimer = nil;
+    [self.updateTimer invalidate];
+    self.updateTimer = nil;
 }
+
 #pragma mark - UIScrollViewDelegat -
 
 //когда клавиатура выезжает
@@ -331,33 +200,22 @@
         NSNumberFormatter* numberFormatter = [NSNumberFormatter new];
         [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
         NSNumber *currentSpendNumber = [numberFormatter numberFromString:self.headerView.processOfSpendingMoneyTextField.text];
-
-        NSMutableArray *historySpendOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySpendOfMonth"]];
-        if (historySpendOfMonth == nil) {
-            historySpendOfMonth = [NSMutableArray array];
-        }
-        //tableview (history)
-        NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
-        [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
-        [dictWithDateAndSum setObject:[NSDate date] forKey:@"currentDateOfSpend"];
-        [historySpendOfMonth addObject:dictWithDateAndSum];
-        [userDefaults setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
-        [userDefaults synchronize];
         
-        self.arrayForTable = historySpendOfMonth;
+        [self.manager setHistorySpendOfMonth:currentSpendNumber andDate:[NSDate date]];
+        self.arrayForTable = [self.manager getHistorySpendOfMonth];
         self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
         [self.tableView reloadData];
 
-        //работа с бюджетом на день
+        //work with mutableBudgetOnDay
         NSMutableDictionary *budgetOnCurrentDay = [[[Manager sharedInstance] getBudgetOnCurrentDay] mutableCopy];
         [budgetOnCurrentDay setObject: [NSNumber numberWithDouble:[self.manager getBudgetOnCurrentDayMoneyDouble] - fabs([currentSpendNumber doubleValue])] forKey:@"mutableBudgetOnDay"];
         [userDefaults setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
+        [userDefaults synchronize];
         
         //work with mutableMonthdebit
         [self.manager setMutableMonthDebit:[self.manager getMutableMonthDebit] - fabs([currentSpendNumber doubleValue])];
         
-        [userDefaults setDouble:fabs([currentSpendNumber doubleValue]) forKey:@"processOfSpendingMoneyTextField"];
-        [userDefaults synchronize];
+        [self.manager setProcessOfSpendingMoneyTextField:currentSpendNumber];
         
         self.headerView.currentBudgetOnDayLabel.text = [self.manager updateTextBalanceLabel];
         [self negativeBalance];
@@ -430,6 +288,7 @@
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [tableView reloadData];
         self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
+        
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:self.arrayForTable forKey:@"historySpendOfMonth"];
         [userDefaults synchronize];

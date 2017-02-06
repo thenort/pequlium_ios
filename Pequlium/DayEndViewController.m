@@ -34,7 +34,7 @@
 - (IBAction)moveBalanceOnToday:(id)sender {
     [self callOneTimeDayBool];
     
-    [self.manager setBudgetOnCurrentDay:[self.manager getBudgetOnDay] + [self.manager getBudgetOnCurrentDayMoneyDouble] dayWhenSpend:[NSDate date]];
+    [self.manager moveBalanceOnTodayDayEnd];
     
     //значение для switch в настройках дня 1 пункта
     [self.manager setTransferMoneyToNextDaySettingsDay:YES];
@@ -44,10 +44,7 @@
 - (IBAction)amountOnDailyBudget:(id)sender {
     [self callOneTimeDayBool];
     
-    double divided = [self.manager getBudgetOnCurrentDayMoneyDouble] / [self.manager daysToStartNewMonth];
-    double amountBudgetOnDay = [self.manager getBudgetOnDay] + divided;
-    [self.manager setBudgetOnDay:amountBudgetOnDay];
-    [self.manager setBudgetOnCurrentDay:amountBudgetOnDay dayWhenSpend:[NSDate date]];
+    [self.manager amountOnDailyBudgetDayEnd];
     
     //значение для switch в настройках дня 2 пункта
     [self.manager setAmountOnDailyBudgetSettingsDay:YES];

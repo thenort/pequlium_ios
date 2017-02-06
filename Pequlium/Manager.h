@@ -79,6 +79,9 @@
 - (BOOL)getDailyBudgetTomorrowCountedBool;
 - (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool;
 
+- (double)getProcessOfSpendingMoneyTextField;
+- (void)setProcessOfSpendingMoneyTextField:(NSNumber*)processOfSpendingMoneyTextField;
+
 - (BOOL)getDailyBudgetTomorrowBool;
 - (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool;
 
@@ -87,10 +90,28 @@
 - (BOOL)getChangeAllStableDebitBool;
 - (void)setChangeAllStableDebitBool:(BOOL)changeAllStableDebitBool;
 
-- (void)resetDate;
+- (NSMutableArray*)getHistorySpendOfMonth;
+- (void)setHistorySpendOfMonth:(NSNumber*)currentSpendNumber andDate:(NSDate*)date;
+- (void)setHistorySpendOfMonthNil;
 
+#pragma mark - Calculation Day End -
+- (void)moveBalanceOnTodayDayEnd;
+- (void)amountOnDailyBudgetDayEnd;
+
+#pragma mark - Calculation Month End -
+- (void)moveBalanceOnTodayMonthEnd;
+- (void)amountOnDailyBudgetMonthEnd;
+- (void)saveMoneyMonthEnd;
+
+
+#pragma mark - Work With MainScreenTableViewController -
 - (void)resetBoolOfNegativeBalanceEndDay;
+- (void)recalculationEveryDay;
 - (void)resetBoolOfNegativeBalanceEndMonth;
+- (void)recalculationEveryMonth;
+
+
+- (void)resetDate;
 
 - (NSUInteger)daysInCurrentMonth;
 - (NSString*)updateTextBalanceLabel;

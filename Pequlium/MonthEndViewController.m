@@ -34,24 +34,13 @@
     if ([self.manager getChangeAllStableDebitBool]) {
         [self.manager setAllStableDebit];
     } else {
-        //перерасчет дневного стабильного бюджета
         [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
-    
-    [self.manager setBudgetOnDay:[self.manager getStableBudgetOnDay]];
-    [self.manager setBudgetOnCurrentDay:[self.manager getMutableMonthDebit] + [self.manager getBudgetOnDay] dayWhenSpend:[NSDate date]];
-    [self.manager setMutableMonthDebit:[self.manager getMonthDebit] + [self.manager getMutableMonthDebit]];
-    [self.manager setDailyBudgetTomorrowCounted: [self.manager getBudgetOnDay]];
-    
-    [self.manager workWithHistoryOfSave:@"0" nameOfPeriod:[self.manager stringForHistorySaveOfMonthDict]];
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
+    [self.manager moveBalanceOnTodayMonthEnd];
     //Bool value for switch in settings 1
-    [userDefaults setBool:YES forKey:@"transferMoneyNextDaySettingsMonth"];
-    [userDefaults synchronize];
+    [self.manager setTransferMoneyNextDaySettingsMonth:YES];
     
-    [self popVC];
+    [self goToVC];
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
@@ -60,27 +49,14 @@
     if ([self.manager getChangeAllStableDebitBool]) {
         [self.manager setAllStableDebit];
     } else {
-        //перерасчет дневного стабильного бюджета
         [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
+    [self.manager amountOnDailyBudgetMonthEnd];
 
-    double divided = [self.manager getMutableMonthDebit] / [self.manager daysToStartNewMonth];
-    double amountBudget = [self.manager getStableBudgetOnDay] + divided;
-    
-    [self.manager setBudgetOnDay:amountBudget];
-    [self.manager setBudgetOnCurrentDay:amountBudget dayWhenSpend:[NSDate date]];
-    [self.manager setMutableMonthDebit: [self.manager getMonthDebit] + [self.manager getMutableMonthDebit]];
-    [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay]];
-    
-    [self.manager workWithHistoryOfSave:@"0" nameOfPeriod:[self.manager stringForHistorySaveOfMonthDict]];
-
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     //Bool value for switch in settings 2
-    [userDefaults setBool:YES forKey:@"amountDailyBudgetSettingsMonth"];
-    [userDefaults synchronize];
+    [self.manager setAmountDailyBudgetSettingsMonth:YES];
     
-    [self popVC];
+    [self goToVC];
 }
 
 - (IBAction)saveMoney:(id)sender {
@@ -89,38 +65,25 @@
     if ([self.manager getChangeAllStableDebitBool]) {
         [self.manager setAllStableDebit];
     } else {
-        //перерасчет дневного стабильного бюджета
         [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
-     
-    [self.manager setMoneyBox:[self.manager getMoneyBox] + [self.manager getMutableMonthDebit]];
-    [self.manager workWithHistoryOfSave:[self.manager getMutableMonthDebitNumber] nameOfPeriod:[self.manager stringForHistorySaveOfMonthDict]];
-
-    //массив для подсчета отложенного бюджета за год
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSMutableArray *arrForHistorySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
-    if (arrForHistorySaveOfMonthMoneyDebit == nil) {
-        arrForHistorySaveOfMonthMoneyDebit = [NSMutableArray array];
-    }
-    [arrForHistorySaveOfMonthMoneyDebit addObject:[self.manager getMutableMonthDebitNumber]];
-    [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
-    [userDefaults synchronize];
-    //
-
-    [self.manager setBudgetOnDay:[self.manager getStableBudgetOnDay]];
-    [self.manager setBudgetOnCurrentDay:[self.manager getBudgetOnDay] dayWhenSpend:[NSDate date]];
-    [self.manager setMutableMonthDebit:[self.manager getMonthDebit]];
-    [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay]];
     
-    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
+    [self.manager setMoneyBox:[self.manager getMutableMonthDebit] + [self.manager getMoneyBox]];
+    [self.manager saveMoneyMonthEnd];
     //Bool value for switch in settings 3
-    [userDefaults setBool:YES forKey:@"moneyBoxSettingsMonth"];
-    [userDefaults synchronize];
+    [self.manager setMoneyBoxSettingsMonth:YES];
     
-    [self popVC];
+    [self goToVC];
 }
 
+- (void)goToVC {
+    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
+    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
+    [nav pushViewController:mainScreenTableViewVC animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
+}
 
+/*
 - (void)popVC {
     UIViewController* popVC;
     for (UIViewController* vC in self.navigationController.viewControllers) {
@@ -134,6 +97,7 @@
     }
     
 }
+*/
 
 
 @end
