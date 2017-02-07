@@ -19,7 +19,6 @@
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
 @property (strong, nonatomic) Manager *manager;
 @property (strong, nonatomic) NSMutableArray *arrayForTable;
-@property (strong, nonatomic) NSMutableArray *reverseArrayForTable;
 @property (strong, nonatomic) NSTimer* updateTimer;
 
 @end
@@ -32,7 +31,6 @@
     [super viewWillAppear:animated];
 
     self.arrayForTable = [self.manager getHistorySpendOfMonth];
-    self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
     [self callMonthEndDayEndControllers];
     [self.manager recalculationEveryMonth];
     self.headerView.currentBudgetOnDayLabel.text = [self.manager updateTextBalanceLabel];
@@ -97,11 +95,11 @@
 }
 
 - (void)customise {
-    self.navigationItem.hidesBackButton = YES;//прячем кнопку назад на navBar
+    self.navigationItem.hidesBackButton = YES;
     self.headerView.processOfSpendingMoneyTextField.delegate = self;
     [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
     [self.headerView.iSpendTextLabel setAlpha:0];
-    self.headerView.processOfSpendingMoneyTextField.tintColor = [UIColor clearColor];//убираем мигающий курсор
+    self.headerView.processOfSpendingMoneyTextField.tintColor = [UIColor clearColor];
 }
 
 - (void)updateTextCurrentBudgetOnDayLabel {
@@ -169,7 +167,6 @@
 
 #pragma mark - Work with TextFieldKeyboard and Custom Button "Add" -
 
-//вызов функции при нажатии на созданую кнопку Add
 - (IBAction)addBtnFromKeyboardClicked:(id)sender {
     [self checkTextField];
 }
@@ -202,8 +199,8 @@
         NSNumber *currentSpendNumber = [numberFormatter numberFromString:self.headerView.processOfSpendingMoneyTextField.text];
         
         [self.manager setHistorySpendOfMonth:currentSpendNumber andDate:[NSDate date]];
+        
         self.arrayForTable = [self.manager getHistorySpendOfMonth];
-        self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
         [self.tableView reloadData];
 
         //work with mutableBudgetOnDay
@@ -270,14 +267,14 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MainScreenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"reuseId" forIndexPath:indexPath];
-    NSDictionary *tempDataOfSpend = [self.reverseArrayForTable objectAtIndex:indexPath.row];
+    NSDictionary *tempDataOfSpend = [self.arrayForTable objectAtIndex:indexPath.row];
     
     NSDate *date = [tempDataOfSpend objectForKey:@"currentDateOfSpend"];
-    cell.howLongAgoSpandMoneyLabel.text = [[Manager sharedInstance] workWithDateForMainTable:date];
+    cell.howLongAgoSpandMoneyLabel.text = [self.manager workWithDateForMainTable:date];
     
     NSNumber *spend = [tempDataOfSpend objectForKey:@"currentSpendNumber"];
     cell.howMuchMoneySpendLabel.text = [NSString stringWithFormat:@"%.2f", [spend doubleValue]];
- 
+    
     return cell;
 }
 
@@ -286,12 +283,13 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.arrayForTable removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [tableView reloadData];
-        self.reverseArrayForTable = [[[self.arrayForTable reverseObjectEnumerator] allObjects] mutableCopy];
         
         NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:self.arrayForTable forKey:@"historySpendOfMonth"];
         [userDefaults synchronize];
+        
+        [tableView reloadData];
+        
     }
 }
 

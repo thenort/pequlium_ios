@@ -40,7 +40,7 @@
     //Bool value for switch in settings 1
     [self.manager setTransferMoneyNextDaySettingsMonth:YES];
     
-    [self goToVC];
+    [self popVC];
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
@@ -52,11 +52,10 @@
         [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
     [self.manager amountOnDailyBudgetMonthEnd];
-
     //Bool value for switch in settings 2
     [self.manager setAmountDailyBudgetSettingsMonth:YES];
     
-    [self goToVC];
+    [self popVC];
 }
 
 - (IBAction)saveMoney:(id)sender {
@@ -67,23 +66,14 @@
     } else {
         [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
     }
-    
     [self.manager setMoneyBox:[self.manager getMutableMonthDebit] + [self.manager getMoneyBox]];
     [self.manager saveMoneyMonthEnd];
     //Bool value for switch in settings 3
     [self.manager setMoneyBoxSettingsMonth:YES];
     
-    [self goToVC];
+    [self popVC];
 }
 
-- (void)goToVC {
-    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
-    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
-    [nav pushViewController:mainScreenTableViewVC animated:YES];
-    [self presentViewController:nav animated:YES completion:nil];
-}
-
-/*
 - (void)popVC {
     UIViewController* popVC;
     for (UIViewController* vC in self.navigationController.viewControllers) {
@@ -97,7 +87,5 @@
     }
     
 }
-*/
-
 
 @end

@@ -76,6 +76,10 @@
 - (BOOL)getCallOneTimeMonth;
 - (void)setCallOneTimeMonth:(BOOL)callOneTimeMonth;
 
+- (BOOL)getCallOneTime;
+- (void)setCallOneTime:(BOOL)callOneTime;
+
+
 - (BOOL)getDailyBudgetTomorrowCountedBool;
 - (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool;
 
@@ -90,7 +94,15 @@
 - (BOOL)getChangeAllStableDebitBool;
 - (void)setChangeAllStableDebitBool:(BOOL)changeAllStableDebitBool;
 
+#pragma mark - Bool NegativeBalance Controller -
+- (BOOL)getCallFirstTimeInfoToLable;
+- (void)setCallFirstTimeInfoToLable:(BOOL)callFirstTimeInfoToLable;
+- (BOOL)getCallFirstTimeInfoToLableTwo;
+- (void)setCallFirstTimeInfoToLableTwo:(BOOL)callFirstTimeInfoToLableTwo;
+
+#pragma mark - -
 - (NSMutableArray*)getHistorySpendOfMonth;
+- (NSMutableArray*)getHistorySpendOfMonthNoCopy;
 - (void)setHistorySpendOfMonth:(NSNumber*)currentSpendNumber andDate:(NSDate*)date;
 - (void)setHistorySpendOfMonthNil;
 

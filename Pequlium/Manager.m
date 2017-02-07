@@ -368,6 +368,21 @@
     [userDefaults synchronize];
 }
 
+#pragma mark - Work with callOneTime (Bool)  (NSUserdefaults) -
+
+// Work with callOneTimeMonth  (get)
+- (BOOL)getCallOneTime {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callOneTime"];
+}
+
+
+// Work with callOneTime  (set)
+- (void)setCallOneTime:(BOOL)callOneTime {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callOneTime forKey:@"callOneTime"];
+    [userDefaults synchronize];
+}
 
 #pragma mark - Work with dailyBudgetTomorrowCountedBool (Bool)  (NSUserdefaults) -
 
@@ -398,6 +413,38 @@
 - (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callFirstTimeInfoToLable (Bool NegativeBalance Controller)  (NSUserdefaults) -
+
+// Work with callFirstTimeInfoToLable  (get)
+- (BOOL)getCallFirstTimeInfoToLable {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callFirstTimeInfoToLable"];
+}
+
+
+// Work with dailyBudgetTomorrowBool  (set)
+- (void)setCallFirstTimeInfoToLable:(BOOL)callFirstTimeInfoToLable {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callFirstTimeInfoToLable forKey:@"callFirstTimeInfoToLable"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callFirstTimeInfoToLable (Bool NegativeBalance Controller)  (NSUserdefaults) -
+
+// Work with setCallFirstTimeInfoToLableTwo (get)
+- (BOOL)getCallFirstTimeInfoToLableTwo {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callFirstTimeInfoToLableTwo"];
+}
+
+
+// Work with setCallFirstTimeInfoToLableTwo (set)
+- (void)setCallFirstTimeInfoToLableTwo:(BOOL)callFirstTimeInfoToLableTwo {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callFirstTimeInfoToLableTwo forKey:@"callFirstTimeInfoToLableTwo"];
     [userDefaults synchronize];
 }
 
@@ -457,6 +504,11 @@
     return [[userDefaults objectForKey:@"historySpendOfMonth"] mutableCopy];
 }
 
+- (NSMutableArray*)getHistorySpendOfMonthNoCopy {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"historySpendOfMonth"];
+}
+
 // Work with historySpendOfMonth  (set)
 - (void)setHistorySpendOfMonth:(NSNumber*)currentSpendNumber andDate:(NSDate*)date {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -467,7 +519,7 @@
     NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
     [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
     [dictWithDateAndSum setObject:date forKey:@"currentDateOfSpend"];
-    [historySpendOfMonth addObject:dictWithDateAndSum];
+    [historySpendOfMonth insertObject:dictWithDateAndSum atIndex:0];
     [userDefaults setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
     [userDefaults synchronize];
 }
@@ -545,13 +597,9 @@
 #pragma mark - Work With MainScreenTableViewController -
 
 - (void)resetBoolOfNegativeBalanceEndDay {
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    //обнуление bool для negativebalance
-    [userDefault setBool:NO forKey:@"callOneTime"];
-    //обнуление bool для negativebalance dailyBudgetWillBeLabel
-    [userDefault setBool:NO forKey:@"callOneTimeToLable"];
-    [userDefault setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
-    [userDefault synchronize];
+    [self setCallOneTime:NO];
+    [self setCallFirstTimeInfoToLable:NO];
+    [self setCallFirstTimeInfoToLableTwo:NO];
 }
 
 - (void)recalculationEveryDay {
@@ -582,21 +630,16 @@
 }
 
 - (void)resetBoolOfNegativeBalanceEndMonth {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [self setCallOneTime:NO];
+    [self setCallFirstTimeInfoToLable:NO];
+    [self setCallFirstTimeInfoToLableTwo:NO];
     
-    [userDefaults setBool:NO forKey:@"callOneTime"];
-    [userDefaults setBool:NO forKey:@"callOneTimeToLable"];
-    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowBoolLabel"];
-    
-    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowCountedBool"];
-    [userDefaults setBool:NO forKey:@"dailyBudgetTomorrowBool"];
-    
-    [userDefaults synchronize];
+    [self setDailyBudgetTomorrowCountedBool:NO];
+    [self setDailyBudgetTomorrowBool:NO];
 }
 
 
 - (void)recalculationEveryMonth {
-    
     
     if ([[NSDate date] compare:[self getResetDateEveryMonth]] == NSOrderedDescending) {
         [self resetDate];//update date
@@ -667,37 +710,31 @@
     [userDefaults synchronize];
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 - (void)resetDate {
-    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
-    NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    NSDate *resetDateEveryMonth = [self getResetDateEveryMonth];
     NSDateComponents *componentsCurrentDate = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:resetDateEveryMonth];
     [componentsCurrentDate setTimeZone:[NSTimeZone systemTimeZone]];
     
     NSDate *newCurrentDate = [calendar dateFromComponents:componentsCurrentDate];
     [userDefaults setObject:newCurrentDate forKey:@"oldResetDateEveryMonth"];
+    [userDefaults synchronize];
     
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = 1;
     
     NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:newCurrentDate options:0];
-    [userDefaults setObject:newDate forKey:@"resetDateEveryMonth"];
-    [userDefaults synchronize];
-    
+    [self setResetDateEveryMonth:newDate];
 }
 
 #pragma mark - Work with Date -
 
 - (NSInteger)differenceDay {
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
-    NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
+
+    NSDate *dateFromDict = [self getBudgetOnCurrentDayDate];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setTimeZone:[NSTimeZone systemTimeZone]];
@@ -745,16 +782,16 @@
     return dateString;
 }
 
+#pragma mark - Fraimwork TimeAgo -
 
-
+// Fraimwork TimeAgo
 - (NSString*)workWithDateForMainTable:(NSDate*)date {
     NSString *timeAgo = [date timeAgo];
     return timeAgo;
 }
 
 - (NSInteger)daysToStartNewMonth {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDate *dateStartNewMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    NSDate *dateStartNewMonth = [self getResetDateEveryMonth];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *days = [calendar components:NSCalendarUnitDay fromDate:[NSDate new] toDate:dateStartNewMonth options:0];
     NSInteger daysToStartNewMonth = days.day;
@@ -767,7 +804,6 @@
 }
 
 - (NSString*)nameOfPreviousMonth {
-    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *date = [calendar components:NSCalendarUnitMonth fromDate:[NSDate date]];
     NSUInteger numberOfMonth = date.month - 1;
@@ -778,7 +814,6 @@
     [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
     NSString *monthName = [[df monthSymbols] objectAtIndex:(numberOfMonth)];
     return monthName;
-    
 }
 
 - (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name {
@@ -793,6 +828,7 @@
     [dictWithDateAndSum setObject:name forKey:@"currentMonthPeriod"];
     [historySaveOfMonth addObject:dictWithDateAndSum];
     [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
+    [userDefaults synchronize];
 }
 
 - (NSString*)stringForHistorySaveOfMonthDict {

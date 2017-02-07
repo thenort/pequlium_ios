@@ -25,6 +25,7 @@
     [super viewDidLoad];
     self.manager = [Manager sharedInstance];
     self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [[Manager sharedInstance] getBudgetOnCurrentDayMoneyDouble]];
+    self.navigationItem.hidesBackButton = YES;
 }
 
 - (void)callOneTimeDayBool {
@@ -33,29 +34,32 @@
 
 - (IBAction)moveBalanceOnToday:(id)sender {
     [self callOneTimeDayBool];
-    
     [self.manager moveBalanceOnTodayDayEnd];
-    
     //значение для switch в настройках дня 1 пункта
     [self.manager setTransferMoneyToNextDaySettingsDay:YES];
-    [self goToVC];
+    [self popVC];
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
     [self callOneTimeDayBool];
-    
     [self.manager amountOnDailyBudgetDayEnd];
-    
     //значение для switch в настройках дня 2 пункта
     [self.manager setAmountOnDailyBudgetSettingsDay:YES];
-    [self goToVC];
+    [self popVC];
 }
 
-- (void)goToVC {
-    UINavigationController *nav = [self.storyboard instantiateViewControllerWithIdentifier:@"NavigationViewController"];
-    MainScreenTableViewController *mainScreenTableViewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"MainScreenTableViewController"];
-    [nav pushViewController:mainScreenTableViewVC animated:YES];
-    [self presentViewController:nav animated:YES completion:nil];
+- (void)popVC {
+    UIViewController* popVC;
+    for (UIViewController* vC in self.navigationController.viewControllers) {
+        if ([vC isKindOfClass:[MainScreenTableViewController class]]) {
+            popVC = vC;
+            break;
+        }
+    }
+    if (popVC) {
+        [self.navigationController popToViewController:popVC animated:YES];
+    }
+    
 }
 
 @end
