@@ -640,8 +640,9 @@
 
 
 - (void)recalculationEveryMonth {
-    
+    [self newYear];
     if ([[NSDate date] compare:[self getResetDateEveryMonth]] == NSOrderedDescending) {
+        
         [self resetDate];//update date
         
         if ([self getChangeAllStableDebitBool]) {
@@ -676,7 +677,6 @@
         }
         [self resetBoolOfNegativeBalanceEndMonth];
     } else {
-        [self newYear];
         [self recalculationEveryDay];
     }
 }
@@ -710,6 +710,8 @@
     [userDefaults synchronize];
 }
 
+#pragma mark - Work with Date -
+
 - (void)resetDate {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -729,8 +731,6 @@
     NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:newCurrentDate options:0];
     [self setResetDateEveryMonth:newDate];
 }
-
-#pragma mark - Work with Date -
 
 - (NSInteger)differenceDay {
 
@@ -780,14 +780,6 @@
     [dateFormatter setDateFormat:@"dd.MM.YY HH:mm:ss"];
     NSString *dateString = [dateFormatter stringFromDate:date];
     return dateString;
-}
-
-#pragma mark - Fraimwork TimeAgo -
-
-// Fraimwork TimeAgo
-- (NSString*)workWithDateForMainTable:(NSDate*)date {
-    NSString *timeAgo = [date timeAgo];
-    return timeAgo;
 }
 
 - (NSInteger)daysToStartNewMonth {
@@ -855,6 +847,14 @@
     NSString *strWithOldResetDateEveryMonthAndResetDateEveryMonth = [NSString stringWithFormat:@"%@ - %@", datedayAndMonthOldResetDateEveryMonth, dateFromOldResetDateEveryMonth];
     
     return strWithOldResetDateEveryMonthAndResetDateEveryMonth;
+}
+
+#pragma mark - Fraimwork TimeAgo -
+
+// Fraimwork TimeAgo
+- (NSString*)workWithDateForMainTable:(NSDate*)date {
+    NSString *timeAgo = [date timeAgo];
+    return timeAgo;
 }
 
 #pragma mark - Button on keyboard -

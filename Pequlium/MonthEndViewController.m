@@ -30,12 +30,7 @@
 
 - (IBAction)moveBalanceOnToday:(id)sender {
     [self callOneTimeMonthBool];
-    
-    if ([self.manager getChangeAllStableDebitBool]) {
-        [self.manager setAllStableDebit];
-    } else {
-        [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
-    }
+
     [self.manager moveBalanceOnTodayMonthEnd];
     //Bool value for switch in settings 1
     [self.manager setTransferMoneyNextDaySettingsMonth:YES];
@@ -45,12 +40,7 @@
 
 - (IBAction)amountOnDailyBudget:(id)sender {
     [self callOneTimeMonthBool];
-    
-    if ([self.manager getChangeAllStableDebitBool]) {
-        [self.manager setAllStableDebit];
-    } else {
-        [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
-    }
+
     [self.manager amountOnDailyBudgetMonthEnd];
     //Bool value for switch in settings 2
     [self.manager setAmountDailyBudgetSettingsMonth:YES];
@@ -61,11 +51,6 @@
 - (IBAction)saveMoney:(id)sender {
     [self callOneTimeMonthBool];
 
-    if ([self.manager getChangeAllStableDebitBool]) {
-        [self.manager setAllStableDebit];
-    } else {
-        [self.manager setStableBudgetOnDay:[self.manager getMonthDebit] / [self.manager daysInCurrentMonth]];
-    }
     [self.manager setMoneyBox:[self.manager getMutableMonthDebit] + [self.manager getMoneyBox]];
     [self.manager saveMoneyMonthEnd];
     //Bool value for switch in settings 3

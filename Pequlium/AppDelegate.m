@@ -31,32 +31,9 @@
     [self.window makeKeyAndVisible];
     
     self.manager = [Manager sharedInstance];
-    //[self callMonthEndDayEndControllers];
     
     return YES;
 }
-
-/*
-- (void)callMonthEndDayEndControllers {
-    if ([[NSDate date] compare:[self.manager getResetDateEveryMonth]] == NSOrderedDescending) {
-        if (![self.manager getCallOneTimeMonth]) {
-            UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-            UINavigationController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
-            self.window.rootViewController = monthEndViewControllerVC;
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissKeyboard" object:nil];
-        }
-    } else {
-        if ([self.manager differenceDay] != 0 && ![self.manager getCallOneTimeDay]) {
-            if ([self.manager getBudgetOnCurrentDayMoneyDouble] > 0) {
-                UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-                UINavigationController *dayEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"DayEndViewController"];
-                self.window.rootViewController = dayEndViewControllerVC;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissKeyboard" object:nil];
-            }
-        }
-    }
-}
-*/
 
 
 - (void)customNavigationBar {

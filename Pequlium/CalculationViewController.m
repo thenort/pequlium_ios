@@ -11,6 +11,7 @@
 #import "MainScreenTableViewController.h"
 
 @interface CalculationViewController ()
+@property (strong, nonatomic) Manager *manager;
 @end
 
 @implementation CalculationViewController
@@ -24,23 +25,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.manager = [Manager sharedInstance];
     self.navigationItem.hidesBackButton = YES;
 }
 
 
 - (IBAction)budgetWithSavingMoney:(id)sender {
     
-    if (![[Manager sharedInstance] getBudgetOnDay]) {
-        [[Manager sharedInstance] setMoneyBox:[[Manager sharedInstance] getMonthPercent]];
-        [[Manager sharedInstance] setMonthDebit:[[Manager sharedInstance] getMonthDebit] - [[Manager sharedInstance] getMonthPercent]];
-        [[Manager sharedInstance] setMutableMonthDebit:[[Manager sharedInstance] getMutableMonthDebit] - [[Manager sharedInstance]getMonthPercent]];
+    if (![self.manager getBudgetOnDay]) {
+        [self.manager setMoneyBox:[self.manager getMonthPercent]];
+        [self.manager setMonthDebit:[self.manager getMonthDebit] - [self.manager getMonthPercent]];
+        [self.manager setMutableMonthDebit:[self.manager getMutableMonthDebit] - [self.manager getMonthPercent]];
         
-        [[Manager sharedInstance] setWithPercent:YES];
+        [self.manager setWithPercent:YES];
     } else {
-        [[Manager sharedInstance] setNewMonthDebit:[[Manager sharedInstance] getNewMonthDebit] - [[Manager sharedInstance] getNewMonthPercent]];
+        [self.manager setNewMonthDebit:[self.manager getNewMonthDebit] - [self.manager getNewMonthPercent]];
         
-        [[Manager sharedInstance] setNewWithPercent:YES];
-        [[Manager sharedInstance] setChangeAllStableDebitBool:YES];
+        [self.manager setNewWithPercent:YES];
+        [self.manager setChangeAllStableDebitBool:YES];
     }
     [self writeInData:[self.budgetOnDayWithSavingLabel.text doubleValue] setNewWithPercent:YES];
     
@@ -54,14 +56,14 @@
 }
 
 - (void)writeInData:(double)budgetOnDay setNewWithPercent:(BOOL)newWithPercent {
-    if (![[Manager sharedInstance] getBudgetOnDay]) {
-        [[Manager sharedInstance] setBudgetOnDay:budgetOnDay];
-        [[Manager sharedInstance] setBudgetOnCurrentDay:budgetOnDay dayWhenSpend:[NSDate date]];
-        [[Manager sharedInstance] setStableBudgetOnDay:budgetOnDay];
+    if (![self.manager getBudgetOnDay]) {
+        [self.manager setBudgetOnDay:budgetOnDay];
+        [self.manager setBudgetOnCurrentDay:budgetOnDay dayWhenSpend:[NSDate date]];
+        [self.manager setStableBudgetOnDay:budgetOnDay];
     } else {
-        [[Manager sharedInstance] setNewStableBudgetOnDay:budgetOnDay];
-        [[Manager sharedInstance] setNewWithPercent:newWithPercent];
-        [[Manager sharedInstance] setChangeAllStableDebitBool:YES];
+        [self.manager setNewStableBudgetOnDay:budgetOnDay];
+        [self.manager setNewWithPercent:newWithPercent];
+        [self.manager setChangeAllStableDebitBool:YES];
     }
 }
 
