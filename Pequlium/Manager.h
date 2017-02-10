@@ -100,11 +100,12 @@
 - (BOOL)getCallFirstTimeInfoToLableTwo;
 - (void)setCallFirstTimeInfoToLableTwo:(BOOL)callFirstTimeInfoToLableTwo;
 
-#pragma mark - -
+#pragma mark - getHistorySpendOfMonth -
 - (NSMutableArray*)getHistorySpendOfMonth;
 - (NSMutableArray*)getHistorySpendOfMonthNoCopy;
 - (void)setHistorySpendOfMonth:(NSNumber*)currentSpendNumber andDate:(NSDate*)date;
 - (void)setHistorySpendOfMonthNil;
+- (void)setHistorySpendOfMonthArray:(NSMutableArray*)arrayForTable;
 
 #pragma mark - Calculation Day End -
 - (void)moveBalanceOnTodayDayEnd;

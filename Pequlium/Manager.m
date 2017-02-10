@@ -8,8 +8,6 @@
 
 #import "Manager.h"
 #import <NSDate+TimeAgo.h>
-#include <sys/types.h>
-#include <sys/sysctl.h>
 
 
 @implementation Manager
@@ -528,6 +526,13 @@
 - (void)setHistorySpendOfMonthNil {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
+}
+
+
+- (void)setHistorySpendOfMonthArray:(NSMutableArray*)arrayForTable {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:arrayForTable forKey:@"historySpendOfMonth"];
+    [userDefaults synchronize];
 }
 
 #pragma mark - Calculation Day End -

@@ -20,7 +20,6 @@
 @property (strong, nonatomic) Manager *manager;
 @property (strong, nonatomic) NSMutableArray *arrayForTable;
 @property (strong, nonatomic) NSTimer* updateTimer;
-
 @end
 
 @implementation MainScreenTableViewController
@@ -133,7 +132,6 @@
     } else if (height > 667.f && height <= 736.f) {
         [self.tableView.tableHeaderView setFrame:CGRectMake(self.tableView.tableHeaderView.frame.origin.x, self.tableView.tableHeaderView.frame.origin.y, self.tableView.tableHeaderView.frame.size.width, 400.f)];
     }
-    
 }
 
 #pragma mark - Timer -
@@ -157,11 +155,9 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < - 64 ) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
-        
     }
     else if (scrollView.contentOffset.y > 41 ) {
         [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
-        
     }
 }
 
@@ -283,11 +279,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         [self.arrayForTable removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:self.arrayForTable forKey:@"historySpendOfMonth"];
-        [userDefaults synchronize];
-        
+        [self.manager setHistorySpendOfMonthArray:self.arrayForTable];
         [tableView reloadData];
     }
 }
