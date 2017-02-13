@@ -8,8 +8,6 @@
 
 #import "Manager.h"
 #import <NSDate+TimeAgo.h>
-#include <sys/types.h>
-#include <sys/sysctl.h>
 
 
 @implementation Manager
@@ -105,7 +103,7 @@
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:[NSNumber numberWithDouble:stableBudgetOnDay] forKey:@"stableBudgetOnDay"];
     [userDefaults synchronize];
-
+    
 }
 
 #pragma mark - Work with newStableBudgetOnDay  (NSUserdefaults) -
@@ -265,8 +263,192 @@
     [userDefaults synchronize];
 }
 
+#pragma mark - Work with Switch -
+
+#pragma mark - Work with SwitchDayEnd -
+
+// Work with SwitchDayEnd amountOnDailyBudgetSettingsDay (get)
+- (BOOL)getAmountOnDailyBudgetSettingsDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"amountOnDailyBudgetSettingsDay"];
+}
+
+// Work with SwitchDayEnd amountOnDailyBudgetSettingsDay (set)
+- (void)setAmountOnDailyBudgetSettingsDay:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"amountOnDailyBudgetSettingsDay"];
+    [userDefaults synchronize];
+}
+
+// Work with SwitchDayEnd transferMoneyToNextDaySettingsDay (get)
+- (BOOL)getTransferMoneyToNextDaySettingsDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"transferMoneyToNextDaySettingsDay"];
+}
+
+// Work with SwitchDayEnd transferMoneyToNextDaySettingsDay (set)
+- (void)setTransferMoneyToNextDaySettingsDay:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"transferMoneyToNextDaySettingsDay"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with SwitchMonthEnd -
+
+// Work with SwitchMonthEnd transferMoneyNextDaySettingsMonth (get)
+- (BOOL)getTransferMoneyNextDaySettingsMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"transferMoneyNextDaySettingsMonth"];
+}
+
+// Work with SwitchMonthEnd amountOnDailyBudgetSettingsDay (set)
+- (void)setTransferMoneyNextDaySettingsMonth:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"transferMoneyNextDaySettingsMonth"];
+    [userDefaults synchronize];
+}
+
+// Work with SwitchMonthEnd amountDailyBudgetSettingsMonth (get)
+- (BOOL)getAmountDailyBudgetSettingsMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"amountDailyBudgetSettingsMonth"];
+}
+
+// Work with SwitchMonthEnd amountDailyBudgetSettingsMonth (set)
+- (void)setAmountDailyBudgetSettingsMonth:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"amountDailyBudgetSettingsMonth"];
+    [userDefaults synchronize];
+}
+
+// Work with SwitchMonthEnd moneyBoxSettingsMonth (get)
+- (BOOL)getMoneyBoxSettingsMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"moneyBoxSettingsMonth"];
+}
+
+// Work with SwitchMonthEnd moneyBoxSettingsMonth (set)
+- (void)setMoneyBoxSettingsMonth:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"moneyBoxSettingsMonth"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callOneTimeDay (Bool)  (NSUserdefaults) -
+
+// Work with callOneTimeDay  (get)
+- (BOOL)getCallOneTimeDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callOneTimeDay"];
+}
+
+
+// Work with callOneTimeDay  (set)
+- (void)setCallOneTimeDay:(BOOL)callOneTimeDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callOneTimeDay forKey:@"callOneTimeDay"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callOneTimeMonth (Bool)  (NSUserdefaults) -
+
+// Work with callOneTimeMonth  (get)
+- (BOOL)getCallOneTimeMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callOneTimeMonth"];
+}
+
+
+// Work with callOneTimeMonth  (set)
+- (void)setCallOneTimeMonth:(BOOL)callOneTimeMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callOneTimeMonth forKey:@"callOneTimeMonth"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callOneTime (Bool)  (NSUserdefaults) -
+
+// Work with callOneTimeMonth  (get)
+- (BOOL)getCallOneTime {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callOneTime"];
+}
+
+
+// Work with callOneTime  (set)
+- (void)setCallOneTime:(BOOL)callOneTime {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callOneTime forKey:@"callOneTime"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with dailyBudgetTomorrowCountedBool (Bool)  (NSUserdefaults) -
+
+// Work with dailyBudgetTomorrowCountedBool  (get)
+- (BOOL)getDailyBudgetTomorrowCountedBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"dailyBudgetTomorrowCountedBool"];
+}
+
+
+// Work with dailyBudgetTomorrowCountedBool  (set)
+- (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:dailyBudgetTomorrowCountedBool forKey:@"dailyBudgetTomorrowCountedBool"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with dailyBudgetTomorrowBool (Bool)  (NSUserdefaults) -
+
+// Work with dailyBudgetTomorrowBool  (get)
+- (BOOL)getDailyBudgetTomorrowBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"dailyBudgetTomorrowBool"];
+}
+
+
+// Work with dailyBudgetTomorrowBool  (set)
+- (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callFirstTimeInfoToLable (Bool NegativeBalance Controller)  (NSUserdefaults) -
+
+// Work with callFirstTimeInfoToLable  (get)
+- (BOOL)getCallFirstTimeInfoToLable {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callFirstTimeInfoToLable"];
+}
+
+
+// Work with dailyBudgetTomorrowBool  (set)
+- (void)setCallFirstTimeInfoToLable:(BOOL)callFirstTimeInfoToLable {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callFirstTimeInfoToLable forKey:@"callFirstTimeInfoToLable"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with callFirstTimeInfoToLable (Bool NegativeBalance Controller)  (NSUserdefaults) -
+
+// Work with setCallFirstTimeInfoToLableTwo (get)
+- (BOOL)getCallFirstTimeInfoToLableTwo {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"callFirstTimeInfoToLableTwo"];
+}
+
+
+// Work with setCallFirstTimeInfoToLableTwo (set)
+- (void)setCallFirstTimeInfoToLableTwo:(BOOL)callFirstTimeInfoToLableTwo {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:callFirstTimeInfoToLableTwo forKey:@"callFirstTimeInfoToLableTwo"];
+    [userDefaults synchronize];
+}
+
 #pragma mark - Work with change: (monthPercent, monthDebit, stableBudgetOnDay) -
 
+// Work with setAllStableDebit (set)
 - (void)setAllStableDebit {
     [self setMonthDebit:[self getNewMonthDebit]];
     [self setStableBudgetOnDay:[self getNewStableBudgetOnDay]];
@@ -295,79 +477,269 @@
     [userDefaults synchronize];
 }
 
+#pragma mark - Work with processOfSpendingMoneyTextField  (NSUserdefaults) -
 
-
-#pragma mark - Work with NSUserDefaults -
-
-- (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key {
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    double valueDouble = [textFromTextField doubleValue];
-    [userDefault setDouble:valueDouble forKey:key];
-    [userDefault synchronize];
-}
-
-- (void)saveInData:(double)anyDoubleValue withKey:(NSString*)key {
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    [userDefault setDouble:anyDoubleValue forKey:key];
-    [userDefault synchronize];
-}
-
-
-- (NSString*)getDebitFromDataInStringFormat:(NSString*)key {
-    double valueFromData = [[NSUserDefaults standardUserDefaults]doubleForKey:key];
-    return [NSString stringWithFormat:@"%.2f",valueFromData];
-}
-
-- (double)getDebitFromDataInDoubleFormat:(NSString*)key {
-    double valueFromData = [[NSUserDefaults standardUserDefaults]doubleForKey:key];
-    return valueFromData;
-}
-
-- (void)resetUserDefData:(NSNumber*)mutableBudgetOnDay {
-    //обнуление средств (возобновление даты и бюджета)
+// Work with processOfSpendingMoneyTextField  (get)
+- (double)getProcessOfSpendingMoneyTextField {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
-    [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
-    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    
-    budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", mutableBudgetOnDay, @"mutableBudgetOnDay", nil];
-    [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
-    [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
+    return [[userDefaults objectForKey:@"processOfSpendingMoneyTextField"] doubleValue];
+}
+
+
+// Work with processOfSpendingMoneyTextField  (set)
+- (void)setProcessOfSpendingMoneyTextField:(NSNumber*)processOfSpendingMoneyTextField {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:processOfSpendingMoneyTextField forKey:@"processOfSpendingMoneyTextField"];
     [userDefaults synchronize];
 }
 
-- (void)resetDate {
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 
-    //обнуляем историю
+#pragma mark - Work with historySpendOfMonth  (NSUserdefaults) -
+
+// Work with historySpendOfMonth  (get)
+- (NSMutableArray*)getHistorySpendOfMonth {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [[userDefaults objectForKey:@"historySpendOfMonth"] mutableCopy];
+}
+
+- (NSMutableArray*)getHistorySpendOfMonthNoCopy {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults objectForKey:@"historySpendOfMonth"];
+}
+
+// Work with historySpendOfMonth  (set)
+- (void)setHistorySpendOfMonth:(NSNumber*)currentSpendNumber andDate:(NSDate*)date {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *historySpendOfMonth = [NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySpendOfMonth"]];
+    if (historySpendOfMonth == nil) {
+        historySpendOfMonth = [NSMutableArray array];
+    }
+    NSMutableDictionary *dictWithDateAndSum = [NSMutableDictionary new];
+    [dictWithDateAndSum setObject:currentSpendNumber forKey: @"currentSpendNumber"];
+    [dictWithDateAndSum setObject:date forKey:@"currentDateOfSpend"];
+    [historySpendOfMonth insertObject:dictWithDateAndSum atIndex:0];
+    [userDefaults setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
+    [userDefaults synchronize];
+}
+
+// Work with historySpendOfMonthNil  (set)
+- (void)setHistorySpendOfMonthNil {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
+}
+
+
+- (void)setHistorySpendOfMonthArray:(NSMutableArray*)arrayForTable {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:arrayForTable forKey:@"historySpendOfMonth"];
+    [userDefaults synchronize];
+}
+
+#pragma mark - Calculation Day End -
+
+- (void)moveBalanceOnTodayDayEnd {
+    [self setBudgetOnCurrentDay:[self getBudgetOnDay] + [self getBudgetOnCurrentDayMoneyDouble] dayWhenSpend:[NSDate date]];
+}
+
+- (void)amountOnDailyBudgetDayEnd {
+    double divided = [self getBudgetOnCurrentDayMoneyDouble] / [self daysToStartNewMonth];
+    double amountBudgetOnDay = [self getBudgetOnDay] + divided;
+    [self setBudgetOnDay:amountBudgetOnDay];
+    [self setBudgetOnCurrentDay:amountBudgetOnDay dayWhenSpend:[NSDate date]];
+    [self setDailyBudgetTomorrowCounted:amountBudgetOnDay];
+}
+
+#pragma mark - Calculation Month End -
+
+- (void)moveBalanceOnTodayMonthEnd {
+    const NSString *emptyBudgetToMoneyBox = @"0";
+    
+    [self setBudgetOnDay:[self getStableBudgetOnDay]];
+    [self setBudgetOnCurrentDay:[self getMutableMonthDebit] + [self getBudgetOnDay] dayWhenSpend:[NSDate date]];
+    [self setMutableMonthDebit:[self getMonthDebit] + [self getMutableMonthDebit]];
+    [self setDailyBudgetTomorrowCounted: [self getBudgetOnDay]];
+    
+    [self workWithHistoryOfSave:emptyBudgetToMoneyBox nameOfPeriod:[self stringForHistorySaveOfMonthDict]];
+    [self setHistorySpendOfMonthNil];
+}
+
+- (void)amountOnDailyBudgetMonthEnd {
+    const NSString *emptyBudgetToMoneyBox = @"0";
+    
+    double divided = [self getMutableMonthDebit] / [self daysToStartNewMonth];
+    double amountBudget = [self getStableBudgetOnDay] + divided;
+    [self setBudgetOnDay:amountBudget];
+    [self setBudgetOnCurrentDay:amountBudget dayWhenSpend:[NSDate date]];
+    [self setDailyBudgetTomorrowCounted:amountBudget];
+    [self setMutableMonthDebit:[self getMonthDebit] + [self getMutableMonthDebit]];
+    
+    [self workWithHistoryOfSave:emptyBudgetToMoneyBox nameOfPeriod:[self stringForHistorySaveOfMonthDict]];
+    [self setHistorySpendOfMonthNil];
+}
+
+- (void)saveMoneyMonthEnd {
+    
+    //массив для подсчета отложенного бюджета за год
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray *arrForHistorySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
+    if (arrForHistorySaveOfMonthMoneyDebit == nil) {
+        arrForHistorySaveOfMonthMoneyDebit = [NSMutableArray array];
+    }
+    [arrForHistorySaveOfMonthMoneyDebit addObject:[self getMutableMonthDebitNumber]];
+    [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
+    [userDefaults synchronize];
+    //
+    
+    [self workWithHistoryOfSave:[self getMutableMonthDebitNumber] nameOfPeriod:[self stringForHistorySaveOfMonthDict]];
+    [self setHistorySpendOfMonthNil];
+    
+    [self setBudgetOnDay:[self getStableBudgetOnDay]];
+    [self setBudgetOnCurrentDay:[self getBudgetOnDay] dayWhenSpend:[NSDate date]];
+    [self setMutableMonthDebit:[self getMonthDebit]];
+    [self setDailyBudgetTomorrowCounted:[self getBudgetOnDay]];
+}
+
+#pragma mark - Work With MainScreenTableViewController -
+
+- (void)resetBoolOfNegativeBalanceEndDay {
+    [self setCallOneTime:NO];
+    [self setCallFirstTimeInfoToLable:NO];
+    [self setCallFirstTimeInfoToLableTwo:NO];
+}
+
+- (void)recalculationEveryDay {
+    
+    if ([self differenceDay] != 0) {
+        [self resetBoolOfNegativeBalanceEndDay];
+        
+        if ([self getBudgetOnCurrentDayMoneyDouble] > 0 && [self getCallOneTimeDay]) {
+            if ([self getTransferMoneyToNextDaySettingsDay]) {
+                [self moveBalanceOnTodayDayEnd];
+            } else if ([self getAmountOnDailyBudgetSettingsDay] && [self getCallOneTimeDay]) {
+                [self amountOnDailyBudgetDayEnd];
+            }
+        }
+        
+        if ([self getBudgetOnCurrentDayMoneyDouble] < 0) {
+            if ([self getDailyBudgetTomorrowCountedBool]) {
+                [self setBudgetOnCurrentDay:[self getDailyBudgetTomorrowCounted] dayWhenSpend:[NSDate date]];
+                [self setDailyBudgetTomorrowCounted:[self getBudgetOnDay]];
+                [self setDailyBudgetTomorrowCountedBool:NO];
+                [self setDailyBudgetTomorrowBool:NO];
+            } else {
+                [self setBudgetOnCurrentDay:[self getBudgetOnDay] dayWhenSpend:[NSDate date]];
+                [self setDailyBudgetTomorrowBool:NO];
+            }
+        }
+    }
+}
+
+- (void)resetBoolOfNegativeBalanceEndMonth {
+    [self setCallOneTime:NO];
+    [self setCallFirstTimeInfoToLable:NO];
+    [self setCallFirstTimeInfoToLableTwo:NO];
+    
+    [self setDailyBudgetTomorrowCountedBool:NO];
+    [self setDailyBudgetTomorrowBool:NO];
+}
+
+
+- (void)recalculationEveryMonth {
+    [self newYear];
+    if ([[NSDate date] compare:[self getResetDateEveryMonth]] == NSOrderedDescending) {
+        
+        [self resetDate];//update date
+        
+        if ([self getChangeAllStableDebitBool]) {
+            [self setAllStableDebit];
+        } else {
+            [self setStableBudgetOnDay:[self getMonthDebit] / [self daysInCurrentMonth]];
+        }
+        
+        if ([self getTransferMoneyNextDaySettingsMonth] && [self getCallOneTimeMonth]) {
+            
+            if ([self getWithPercent]) {
+                [self setMoneyBox:[self getMonthPercent] + [self getMoneyBox]];
+            }
+            [self moveBalanceOnTodayMonthEnd];
+            
+        } else if ([self getAmountDailyBudgetSettingsMonth] && [self getCallOneTimeMonth]) {
+            
+            if ([self getWithPercent]) {
+                [self setMoneyBox:[self getMonthPercent] + [self getMoneyBox]];
+            }
+            [self amountOnDailyBudgetMonthEnd];
+            
+        } else if ([self getMoneyBoxSettingsMonth] && [self getCallOneTimeMonth]) {
+            
+            if ([self getWithPercent]) {
+                [self setMoneyBox:[self getMutableMonthDebit] + [self getMonthPercent] + [self getMoneyBox]];
+            } else {
+                [self setMoneyBox:[self getMutableMonthDebit] + [self getMoneyBox]];
+            }
+            [self saveMoneyMonthEnd];
+            
+        }
+        [self resetBoolOfNegativeBalanceEndMonth];
+    } else {
+        [self recalculationEveryDay];
+    }
+}
+
+//для подсчета скопленного бюджета за год (копилка)
+- (void)newYear {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if (![userDefaults integerForKey:@"Year"]) {
+        NSCalendar *calendar = [NSCalendar currentCalendar];
+        NSDate *currDate = [NSDate date];
+        NSInteger yearOfCurrDate = [calendar component:NSCalendarUnitYear fromDate:currDate];
+        [userDefaults setInteger:yearOfCurrDate forKey:@"Year"];
+    }
+    NSInteger yearOfCurrDateInt = [userDefaults integerForKey:@"Year"];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger yearOfCurrDate = [calendar component:NSCalendarUnitYear fromDate:[NSDate date]];
+    
+    if (yearOfCurrDateInt < yearOfCurrDate) {
+        NSArray *historySaveOfMonthMoneyDebit = [[userDefaults objectForKey:@"historySaveOfMonthMoneyDebit"] mutableCopy];
+        double sumOfSaveMoneyForYear = 0.0;
+        for (NSNumber* budgetInArray in historySaveOfMonthMoneyDebit) {
+            sumOfSaveMoneyForYear = sumOfSaveMoneyForYear + [budgetInArray doubleValue];
+        }
+        [self workWithHistoryOfSave:[NSNumber numberWithDouble:sumOfSaveMoneyForYear] nameOfPeriod:[NSString stringWithFormat:@"%ld", yearOfCurrDateInt]];
+        
+        [userDefaults setObject:nil forKey:@"historySaveOfMonthMoneyDebit"];
+        [userDefaults setInteger:yearOfCurrDate forKey:@"Year"];
+    }
+    
+    [userDefaults synchronize];
+}
+
+#pragma mark - Work with Date -
+
+- (void)resetDate {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
-    NSDate *resetDateEveryMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    NSDate *resetDateEveryMonth = [self getResetDateEveryMonth];
     NSDateComponents *componentsCurrentDate = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:resetDateEveryMonth];
     [componentsCurrentDate setTimeZone:[NSTimeZone systemTimeZone]];
     
     NSDate *newCurrentDate = [calendar dateFromComponents:componentsCurrentDate];
     [userDefaults setObject:newCurrentDate forKey:@"oldResetDateEveryMonth"];
+    [userDefaults synchronize];
     
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = 1;
     
     NSDate *newDate = [calendar dateByAddingComponents:dateComponents toDate:newCurrentDate options:0];
-    [userDefaults setObject:newDate forKey:@"resetDateEveryMonth"];
-    [userDefaults synchronize];
-    
+    [self setResetDateEveryMonth:newDate];
 }
 
-#pragma mark - Work with Date -
-
 - (NSInteger)differenceDay {
-    
-    NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];
-    NSDictionary *budgetOnCurrentDay = [userDefault objectForKey:@"budgetOnCurrentDay"];
-    NSDate *dateFromDict = [budgetOnCurrentDay objectForKey:@"dayWhenSpend"];
+
+    NSDate *dateFromDict = [self getBudgetOnCurrentDayDate];
     
     NSCalendar *calendar = [NSCalendar currentCalendar];
     [calendar setTimeZone:[NSTimeZone systemTimeZone]];
@@ -401,8 +773,9 @@
 }
 
 - (NSUInteger)daysInCurrentMonth {
-    NSDate *currentDate = [NSDate new];
+    NSDate *currentDate = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone localTimeZone]];
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:currentDate];
     return range.length;
 }
@@ -414,16 +787,8 @@
     return dateString;
 }
 
-
-
-- (NSString*)workWithDateForMainTable:(NSDate*)date {
-    NSString *timeAgo = [date timeAgo];
-    return timeAgo;
-}
-
 - (NSInteger)daysToStartNewMonth {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDate *dateStartNewMonth = [userDefaults objectForKey:@"resetDateEveryMonth"];
+    NSDate *dateStartNewMonth = [self getResetDateEveryMonth];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *days = [calendar components:NSCalendarUnitDay fromDate:[NSDate new] toDate:dateStartNewMonth options:0];
     NSInteger daysToStartNewMonth = days.day;
@@ -436,7 +801,6 @@
 }
 
 - (NSString*)nameOfPreviousMonth {
-    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *date = [calendar components:NSCalendarUnitMonth fromDate:[NSDate date]];
     NSUInteger numberOfMonth = date.month - 1;
@@ -447,7 +811,6 @@
     [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
     NSString *monthName = [[df monthSymbols] objectAtIndex:(numberOfMonth)];
     return monthName;
-
 }
 
 - (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name {
@@ -462,6 +825,7 @@
     [dictWithDateAndSum setObject:name forKey:@"currentMonthPeriod"];
     [historySaveOfMonth addObject:dictWithDateAndSum];
     [userDefaults setObject:historySaveOfMonth forKey:@"historySaveOfMonth"];
+    [userDefaults synchronize];
 }
 
 - (NSString*)stringForHistorySaveOfMonthDict {
@@ -490,6 +854,14 @@
     return strWithOldResetDateEveryMonthAndResetDateEveryMonth;
 }
 
+#pragma mark - Fraimwork TimeAgo -
+
+// Fraimwork TimeAgo
+- (NSString*)workWithDateForMainTable:(NSDate*)date {
+    NSString *timeAgo = [date timeAgo];
+    return timeAgo;
+}
+
 #pragma mark - Button on keyboard -
 
 - (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action {
@@ -513,9 +885,9 @@
                                                                         action:addAction];
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     UIBarButtonItem *btnCancelOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-                                                                         style:UIBarButtonItemStylePlain
-                                                                        target:nil
-                                                                        action:cancelAction];
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:nil
+                                                                           action:cancelAction];
     [ViewForButtonsOnKeyboard setItems:@[btnAddOnKeyboard, flexible, btnCancelOnKeyboard]];
     nameOfTextField.inputAccessoryView = ViewForButtonsOnKeyboard;
 }
@@ -524,10 +896,7 @@
 
 
 - (NSString*)updateTextBalanceLabel {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    NSNumber *mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-    return [NSString stringWithFormat:@"%.2f", [mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
+    return [NSString stringWithFormat:@"%.2f", [self getBudgetOnCurrentDayMoneyDouble]];
 }
 
 @end

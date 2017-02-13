@@ -58,31 +58,86 @@
 - (NSDate*)getResetDateEveryMonth;
 - (void)setResetDateEveryMonth:(NSDate*)resetDateEveryMonth;
 
+- (BOOL)getAmountOnDailyBudgetSettingsDay;
+- (void)setAmountOnDailyBudgetSettingsDay:(BOOL)boolValue;
+- (BOOL)getTransferMoneyToNextDaySettingsDay;
+- (void)setTransferMoneyToNextDaySettingsDay:(BOOL)boolValue;
+
+- (BOOL)getTransferMoneyNextDaySettingsMonth;
+- (void)setTransferMoneyNextDaySettingsMonth:(BOOL)boolValue;
+- (BOOL)getAmountDailyBudgetSettingsMonth;
+- (void)setAmountDailyBudgetSettingsMonth:(BOOL)boolValue;
+- (BOOL)getMoneyBoxSettingsMonth;
+- (void)setMoneyBoxSettingsMonth:(BOOL)boolValue;
+
+- (BOOL)getCallOneTimeDay;
+- (void)setCallOneTimeDay:(BOOL)callOneTimeDay;
+
+- (BOOL)getCallOneTimeMonth;
+- (void)setCallOneTimeMonth:(BOOL)callOneTimeMonth;
+
+- (BOOL)getCallOneTime;
+- (void)setCallOneTime:(BOOL)callOneTime;
+
+
+- (BOOL)getDailyBudgetTomorrowCountedBool;
+- (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool;
+
+- (double)getProcessOfSpendingMoneyTextField;
+- (void)setProcessOfSpendingMoneyTextField:(NSNumber*)processOfSpendingMoneyTextField;
+
+- (BOOL)getDailyBudgetTomorrowBool;
+- (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool;
+
 - (void)setAllStableDebit;
 
 - (BOOL)getChangeAllStableDebitBool;
 - (void)setChangeAllStableDebitBool:(BOOL)changeAllStableDebitBool;
 
+#pragma mark - Bool NegativeBalance Controller -
+- (BOOL)getCallFirstTimeInfoToLable;
+- (void)setCallFirstTimeInfoToLable:(BOOL)callFirstTimeInfoToLable;
+- (BOOL)getCallFirstTimeInfoToLableTwo;
+- (void)setCallFirstTimeInfoToLableTwo:(BOOL)callFirstTimeInfoToLableTwo;
+
+#pragma mark - getHistorySpendOfMonth -
+- (NSMutableArray*)getHistorySpendOfMonth;
+- (NSMutableArray*)getHistorySpendOfMonthNoCopy;
+- (void)setHistorySpendOfMonth:(NSNumber*)currentSpendNumber andDate:(NSDate*)date;
+- (void)setHistorySpendOfMonthNil;
+- (void)setHistorySpendOfMonthArray:(NSMutableArray*)arrayForTable;
+
+#pragma mark - Calculation Day End -
+- (void)moveBalanceOnTodayDayEnd;
+- (void)amountOnDailyBudgetDayEnd;
+
+#pragma mark - Calculation Month End -
+- (void)moveBalanceOnTodayMonthEnd;
+- (void)amountOnDailyBudgetMonthEnd;
+- (void)saveMoneyMonthEnd;
+
+
+#pragma mark - Work With MainScreenTableViewController -
+- (void)resetBoolOfNegativeBalanceEndDay;
+- (void)recalculationEveryDay;
+- (void)resetBoolOfNegativeBalanceEndMonth;
+- (void)recalculationEveryMonth;
+
+
 - (void)resetDate;
 
-
-
-
-- (void)saveInDataFromTextField:(NSString*)textFromTextField withKey:(NSString*)key;
-- (void)saveInData:(double)anyDoubleValue withKey:(NSString*)key;
-- (NSString*)getDebitFromDataInStringFormat:(NSString*)key;
-- (double)getDebitFromDataInDoubleFormat:(NSString*)key;
 - (NSUInteger)daysInCurrentMonth;
 - (NSString*)updateTextBalanceLabel;
+
 - (void)customBtnOnKeyboardFor:(UITextField*)nameOfTextField nameOfAction:(SEL)action;
 - (void)customButtonsOnKeyboardFor:(UITextField*)nameOfTextField addAction:(SEL)addAction cancelAction:(SEL)cancelAction;
+
 - (NSString*)formatDate:(NSDate*)date;
 - (NSInteger)daysToStartNewMonth;
 - (NSInteger)differenceDay;
 - (NSString*)nameOfPreviousMonth;
 - (NSString*)stringForHistorySaveOfMonthDict;
 - (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name;
-- (void)resetUserDefData:(NSNumber*)mutableBudgetOnDay;
 - (NSString*)workWithDateForMainTable:(NSDate*)date;
 
 @end

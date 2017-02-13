@@ -9,19 +9,39 @@
 #import "MonthDebitViewController.h"
 #import "CalculationViewController.h"
 #import "Manager.h"
+#import "SettingsMainScreenTableViewController.h"
 
 @interface MonthDebitViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *monthDebitTextField;
+
+@property (strong, nonatomic) Manager *manager;
 @end
 
 @implementation MonthDebitViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.monthDebitTextField becomeFirstResponder];
-    [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.manager = [Manager sharedInstance];
+    
+    self.navigationItem.hidesBackButton = YES;
+    [self.monthDebitTextField becomeFirstResponder];
+    [self.manager customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
+    
+    
+    [self hidesBackButton];
+}
+
+
+- (void)hidesBackButton {
+    if ([self.manager getMonthDebit]) {
+        self.navigationItem.hidesBackButton = NO;
+    }
+}
 
 #pragma mark - Custom Button Add -
 
@@ -48,22 +68,22 @@
     } else {
         
         double monthDebit = [self.monthDebitTextField.text doubleValue];
-        double budgetOnDay = monthDebit / [[Manager sharedInstance] daysInCurrentMonth];
+        double budgetOnDay = monthDebit / [self.manager daysInCurrentMonth];
         double monthDebitWithEightPercent = (monthDebit / 100) * 8;
-        double budgetOnDayWithEconomy = (monthDebit - monthDebitWithEightPercent) / [[Manager sharedInstance] daysInCurrentMonth];
+        double budgetOnDayWithEconomy = (monthDebit - monthDebitWithEightPercent) / [self.manager daysInCurrentMonth];
         double moneySavingInYear = monthDebitWithEightPercent * 12;
         
         
-        if (![[Manager sharedInstance] getMonthDebit]) {
-            [[Manager sharedInstance] setMonthDebit:monthDebit];
-            [[Manager sharedInstance] setMutableMonthDebit:monthDebit];
-            [[Manager sharedInstance] setMonthPercent:monthDebitWithEightPercent];
+        if (![self.manager getMonthDebit]) {
+            [self.manager setMonthDebit:monthDebit];
+            [self.manager setMutableMonthDebit:monthDebit];
+            [self.manager setMonthPercent:monthDebitWithEightPercent];
 
-            [[Manager sharedInstance] setResetDateEveryMonth:[NSDate date]];
-            [[Manager sharedInstance] resetDate];
+            [self.manager setResetDateEveryMonth:[NSDate date]];
+            [self.manager resetDate];
         } else {
-            [[Manager sharedInstance] setNewMonthDebit:monthDebit];
-            [[Manager sharedInstance] setNewMonthPercent:monthDebitWithEightPercent];
+            [self.manager setNewMonthDebit:monthDebit];
+            [self.manager setNewMonthPercent:monthDebitWithEightPercent];
         }
 
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];

@@ -18,12 +18,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem *btnBack = [[UIBarButtonItem alloc]
-                                initWithTitle:@""
-                                style:UIBarButtonItemStylePlain
-                                target:self
-                                action:nil];
-    self.navigationController.navigationBar.topItem.backBarButtonItem = btnBack;
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     self.arrayForTable = [[userDefaults objectForKey:@"historySaveOfMonth"] mutableCopy];
     self.reverseArrayForTable = [[self.arrayForTable reverseObjectEnumerator] allObjects];
