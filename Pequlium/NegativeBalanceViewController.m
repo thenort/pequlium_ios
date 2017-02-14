@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *dailyBudgetWillBeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dailyBudgetWillBeTomorrowLabel;
 
+@property (assign, nonatomic) double mutableBudgetOnDay;
 @property (strong, nonatomic) Manager *manager;
 @end
 
@@ -24,7 +25,10 @@
     [super viewDidLoad];
     self.manager = [Manager sharedInstance];
     self.navigationItem.hidesBackButton = YES;
-    self.negativeBalanceLabel.text = [[Manager sharedInstance] updateTextBalanceLabel];
+    
+    
+    self.mutableBudgetOnDay = [self.manager getBudgetOnCurrentDayMoneyDouble] - self.valueFromKeyboard;
+    self.negativeBalanceLabel.text = [NSString stringWithFormat:@"%.2f", self.mutableBudgetOnDay];
     
     [self allocationDailyBudgetOnMonthInfo];
     [self dailyBudgetWillBeTomorrowInfo];
@@ -32,12 +36,12 @@
 
 - (void)allocationDailyBudgetOnMonthInfo {
     if (![self.manager getCallFirstTimeInfoToLable]) {
-        double divided = [self.manager getBudgetOnCurrentDayMoneyDouble] / [self.manager daysToStartNewMonth];
-        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"%.2f", [self.manager getBudgetOnDay] - fabs(divided)];
+        double divided = fabs(self.mutableBudgetOnDay) / [self.manager daysToStartNewMonth];
+        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"%.2f", [self.manager getBudgetOnDay] - divided];
         [self.manager setCallFirstTimeInfoToLable:YES];
     } else {
-        double divided = [self.manager getProcessOfSpendingMoneyTextField] / [self.manager daysToStartNewMonth];
-        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"%.2f", [self.manager getBudgetOnDay] - fabs(divided)];
+        double divided = self.valueFromKeyboard / [self.manager daysToStartNewMonth];
+        self.dailyBudgetWillBeLabel.text = [NSString stringWithFormat:@"%.2f", [self.manager getBudgetOnDay] - divided];
     }
 }
 
@@ -55,11 +59,11 @@
             
             [self.manager setCallOneTime:YES];
         } else {
-            double divided = [self.manager getProcessOfSpendingMoneyTextField] / [self.manager daysToStartNewMonth];
-            [self.manager setBudgetOnDay:[self.manager getBudgetOnDay] - fabs(divided)];
+            double divided = self.valueFromKeyboard / [self.manager daysToStartNewMonth];
+            [self.manager setBudgetOnDay:[self.manager getBudgetOnDay] - divided];
             
             if ([self.manager getDailyBudgetTomorrowCounted]) {
-                [self.manager setDailyBudgetTomorrowCounted:[self.manager getDailyBudgetTomorrowCounted] - fabs(divided)];
+                [self.manager setDailyBudgetTomorrowCounted:[self.manager getDailyBudgetTomorrowCounted] - divided];
             }
         }
         [self popVC];
@@ -76,7 +80,7 @@
     
     if (![self.manager getCallFirstTimeInfoToLableTwo]) {
         
-        double dailyBudgetWillBeTomorrow = [self.manager getBudgetOnDay] - fabs([self.manager getBudgetOnCurrentDayMoneyDouble]) ;
+        double dailyBudgetWillBeTomorrow = [self.manager getBudgetOnDay] - fabs(self.mutableBudgetOnDay);
         
         if (dailyBudgetWillBeTomorrow <= 0) {
             self.dailyBudgetWillBeTomorrowLabel.text = @"0";
@@ -88,8 +92,7 @@
         
     } else {
         if (![self.manager getDailyBudgetTomorrowCounted]) {
-            double dailyBudgetWillBeTomorrow = [self.manager getBudgetOnDay] - fabs([self.manager getProcessOfSpendingMoneyTextField]);
-            
+             double dailyBudgetWillBeTomorrow = [self.manager getBudgetOnDay] - self.valueFromKeyboard;
             if (dailyBudgetWillBeTomorrow <= 0) {
                 self.dailyBudgetWillBeTomorrowLabel.text = @"0";
             } else {
@@ -97,7 +100,7 @@
             }
             
         } else {
-            double dailyBudgetWillBeTomorrow = [self.manager getDailyBudgetTomorrowCounted] - fabs([self.manager getProcessOfSpendingMoneyTextField]);
+            double dailyBudgetWillBeTomorrow = [self.manager getDailyBudgetTomorrowCounted] - self.valueFromKeyboard;
             
             if (dailyBudgetWillBeTomorrow <= 0) {
                 self.dailyBudgetWillBeTomorrowLabel.text = @"0";
@@ -120,9 +123,9 @@
             [self.manager setDailyBudgetTomorrowBool:YES];
         } else {
             if (![self.manager getDailyBudgetTomorrowCounted]) {
-                [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay] - fabs([self.manager getProcessOfSpendingMoneyTextField])];
+                [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay] - self.valueFromKeyboard];
             } else {
-                [self.manager setDailyBudgetTomorrowCounted:[self.manager getDailyBudgetTomorrowCounted] - fabs([self.manager getProcessOfSpendingMoneyTextField])];
+                [self.manager setDailyBudgetTomorrowCounted:[self.manager getDailyBudgetTomorrowCounted] - self.valueFromKeyboard];
             }
         }
         [self popVC];
@@ -137,29 +140,12 @@
 }
 
 - (IBAction)mistakeEnterDifferentAmount:(id)sender {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-
-    NSMutableArray *historySpendOfMonth = [self.manager getHistorySpendOfMonth];
-    NSDictionary *firsDictInHistorySpendOfMonth = [historySpendOfMonth firstObject];
-    double currentSpend = fabs([[firsDictInHistorySpendOfMonth objectForKey:@"currentSpendNumber"] doubleValue]);
-    
-    [self.manager setMutableMonthDebit:[self.manager getMutableMonthDebit] + currentSpend];
-    
-    NSMutableDictionary *budgetOnCurrentDay = [[self.manager getBudgetOnCurrentDay] mutableCopy];
-    double mutableDayDebitWithReturn = [[budgetOnCurrentDay objectForKey:@"mutableBudgetOnDay"] doubleValue] + currentSpend;
-    NSNumber *mutableDayDebitWithReturnNumber = [NSNumber numberWithDouble:mutableDayDebitWithReturn];
-    [budgetOnCurrentDay setObject:mutableDayDebitWithReturnNumber forKey:@"mutableBudgetOnDay"];
-    [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
 
     if ([self.manager getBudgetOnCurrentDayMoneyDouble] > 0) {
         [self.manager setCallFirstTimeInfoToLable:NO];
         [self.manager setCallFirstTimeInfoToLableTwo:NO];
     }
-    
-    [historySpendOfMonth removeObjectAtIndex:0];
-    [userDefaults setObject:historySpendOfMonth forKey:@"historySpendOfMonth"];
-    [userDefaults synchronize];
-    
+
     [self popVC];
     
 }

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface NegativeBalanceViewController : UIViewController
-
+@property (assign, nonatomic) double valueFromKeyboard;
 @end

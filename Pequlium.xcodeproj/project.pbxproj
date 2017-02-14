@@ -108,8 +108,6 @@
 		449917981DFAFA7C0099800E /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				44C0D9121DFAB6C300E3D413 /* AppDelegate.h */,
-				44C0D9131DFAB6C300E3D413 /* AppDelegate.m */,
 				137964B31E093DA10042BF27 /* Manager.h */,
 				137964B41E093DA10042BF27 /* Manager.m */,
 			);
@@ -199,6 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				4499179B1DFAFA930099800E /* Categories */,
+				44C0D9121DFAB6C300E3D413 /* AppDelegate.h */,
+				44C0D9131DFAB6C300E3D413 /* AppDelegate.m */,
 				449917981DFAFA7C0099800E /* Model */,
 				449917991DFAFA7E0099800E /* View */,
 				4499179A1DFAFA800099800E /* Controller */,

@@ -83,9 +83,6 @@
 - (BOOL)getDailyBudgetTomorrowCountedBool;
 - (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool;
 
-- (double)getProcessOfSpendingMoneyTextField;
-- (void)setProcessOfSpendingMoneyTextField:(NSNumber*)processOfSpendingMoneyTextField;
-
 - (BOOL)getDailyBudgetTomorrowBool;
 - (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool;
 
@@ -139,5 +136,5 @@
 - (NSString*)stringForHistorySaveOfMonthDict;
 - (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name;
 - (NSString*)workWithDateForMainTable:(NSDate*)date;
-
+- (NSNumber*)numFromStringDecimal:(NSString*)str;
 @end

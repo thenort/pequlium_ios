@@ -19,7 +19,8 @@
 @property (strong, nonatomic) MainScreenHeaderView *headerView;
 @property (strong, nonatomic) Manager *manager;
 @property (strong, nonatomic) NSMutableArray *arrayForTable;
-@property (strong, nonatomic) NSTimer* updateTimer;
+@property (strong, nonatomic) NSTimer *updateTimer;
+@property (strong, nonatomic) NSNumber *currentSpendNumber;
 @end
 
 @implementation MainScreenTableViewController
@@ -106,11 +107,10 @@
 }
 
 - (void)negativeBalance {
-    if ([self.manager getBudgetOnCurrentDayMoneyDouble] < 0) {
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
-        NegativeBalanceViewController *negativeBalanceViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"NegativeBalanceViewController"];
-        [self.navigationController pushViewController:negativeBalanceViewControllerVC animated:YES];
-    }
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
+    NegativeBalanceViewController *negativeBalanceViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"NegativeBalanceViewController"];
+    negativeBalanceViewControllerVC.valueFromKeyboard = fabs([self.currentSpendNumber doubleValue]);
+    [self.navigationController pushViewController:negativeBalanceViewControllerVC animated:YES];
 }
 
 //добавление xib в tableview header
@@ -168,7 +168,6 @@
 }
 
 - (void)checkTextField {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
     if ([self.headerView.processOfSpendingMoneyTextField.text length] <= 0 || [self.headerView.processOfSpendingMoneyTextField.text  isEqual: @"-0"]) {
         
@@ -185,35 +184,34 @@
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"Ок" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:okAction];
         [self presentViewController:alertController animated:YES completion:nil];
-        
-        [self cleanupProcessOfSpendingMoneyTextField];
-        
+
     } else {
         
-        NSNumberFormatter* numberFormatter = [NSNumberFormatter new];
-        [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-        NSNumber *currentSpendNumber = [numberFormatter numberFromString:self.headerView.processOfSpendingMoneyTextField.text];
+        self.currentSpendNumber = [self.manager numFromStringDecimal:self.headerView.processOfSpendingMoneyTextField.text];
+        double mutableBudgetOnDay = [self.manager getBudgetOnCurrentDayMoneyDouble] - fabs([self.currentSpendNumber doubleValue]);
         
-        [self.manager setHistorySpendOfMonth:currentSpendNumber andDate:[NSDate date]];
-        
-        self.arrayForTable = [self.manager getHistorySpendOfMonth];
-        [self.tableView reloadData];
-
-        //work with mutableBudgetOnDay
-        NSMutableDictionary *budgetOnCurrentDay = [[[Manager sharedInstance] getBudgetOnCurrentDay] mutableCopy];
-        [budgetOnCurrentDay setObject: [NSNumber numberWithDouble:[self.manager getBudgetOnCurrentDayMoneyDouble] - fabs([currentSpendNumber doubleValue])] forKey:@"mutableBudgetOnDay"];
-        [userDefaults setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
-        [userDefaults synchronize];
-        
-        //work with mutableMonthdebit
-        [self.manager setMutableMonthDebit:[self.manager getMutableMonthDebit] - fabs([currentSpendNumber doubleValue])];
-        
-        [self.manager setProcessOfSpendingMoneyTextField:currentSpendNumber];
-        
-        self.headerView.currentBudgetOnDayLabel.text = [self.manager updateTextBalanceLabel];
-        [self negativeBalance];
-        [self cleanupProcessOfSpendingMoneyTextField];
+        if (mutableBudgetOnDay < 0) {
+            [self negativeBalance];
+        } else {
+            
+            [self.manager setHistorySpendOfMonth:self.currentSpendNumber andDate:[NSDate date]];
+            
+            self.arrayForTable = [self.manager getHistorySpendOfMonth];
+            [self.tableView reloadData];
+            
+            //work with mutableBudgetOnDay
+            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+            NSMutableDictionary *budgetOnCurrentDay = [[self.manager getBudgetOnCurrentDay] mutableCopy];
+            [budgetOnCurrentDay setObject: [NSNumber numberWithDouble:[self.manager getBudgetOnCurrentDayMoneyDouble] - fabs([self.currentSpendNumber doubleValue])] forKey:@"mutableBudgetOnDay"];
+            [userDefaults setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
+            [userDefaults synchronize];
+            //work with mutableMonthdebit
+            [self.manager setMutableMonthDebit:[self.manager getMutableMonthDebit] - fabs([self.currentSpendNumber doubleValue])];
+            
+            self.headerView.currentBudgetOnDayLabel.text = [self.manager updateTextBalanceLabel];
+        }
     }
+    [self cleanupProcessOfSpendingMoneyTextField];
 }
 
 - (void)cleanupProcessOfSpendingMoneyTextField {

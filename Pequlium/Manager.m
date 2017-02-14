@@ -130,7 +130,7 @@
     return [[userDefaults objectForKey:@"mutableMonthDebit"] doubleValue];
 }
 
-- (NSNumber*) getMutableMonthDebitNumber {
+- (NSNumber*)getMutableMonthDebitNumber {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults objectForKey:@"mutableMonthDebit"];
 }
@@ -477,23 +477,6 @@
     [userDefaults synchronize];
 }
 
-#pragma mark - Work with processOfSpendingMoneyTextField  (NSUserdefaults) -
-
-// Work with processOfSpendingMoneyTextField  (get)
-- (double)getProcessOfSpendingMoneyTextField {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [[userDefaults objectForKey:@"processOfSpendingMoneyTextField"] doubleValue];
-}
-
-
-// Work with processOfSpendingMoneyTextField  (set)
-- (void)setProcessOfSpendingMoneyTextField:(NSNumber*)processOfSpendingMoneyTextField {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:processOfSpendingMoneyTextField forKey:@"processOfSpendingMoneyTextField"];
-    [userDefaults synchronize];
-}
-
-
 #pragma mark - Work with historySpendOfMonth  (NSUserdefaults) -
 
 // Work with historySpendOfMonth  (get)
@@ -686,6 +669,12 @@
     }
 }
 
+- (NSNumber*)numFromStringDecimal:(NSString*)str {
+    NSNumberFormatter* numberFormatter = [NSNumberFormatter new];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    return [numberFormatter numberFromString:str];
+}
+
 //для подсчета скопленного бюджета за год (копилка)
 - (void)newYear {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
@@ -718,18 +707,12 @@
 #pragma mark - Work with Date -
 
 - (void)resetDate {
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    
-    NSDate *resetDateEveryMonth = [self getResetDateEveryMonth];
-    NSDateComponents *componentsCurrentDate = [calendar components:(NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:resetDateEveryMonth];
+    NSDateComponents *componentsCurrentDate = [calendar components: (NSCalendarUnitDay| NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[self getResetDateEveryMonth]];
     [componentsCurrentDate setTimeZone:[NSTimeZone systemTimeZone]];
     
     NSDate *newCurrentDate = [calendar dateFromComponents:componentsCurrentDate];
-    [userDefaults setObject:newCurrentDate forKey:@"oldResetDateEveryMonth"];
-    [userDefaults synchronize];
-    
+
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = 1;
     
@@ -745,7 +728,7 @@
     [calendar setTimeZone:[NSTimeZone systemTimeZone]];
     [calendar setLocale:[NSLocale systemLocale]];
     
-    //разница в time zone
+    //difference time zone
     NSDate* currentDate = [NSDate date];
     NSTimeZone* CurrentTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"UTC"];
     NSTimeZone* SystemTimeZone = [NSTimeZone systemTimeZone];
@@ -800,19 +783,6 @@
     }
 }
 
-- (NSString*)nameOfPreviousMonth {
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *date = [calendar components:NSCalendarUnitMonth fromDate:[NSDate date]];
-    NSUInteger numberOfMonth = date.month - 1;
-    if (numberOfMonth == 0) {
-        numberOfMonth = 12;
-    }
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
-    NSString *monthName = [[df monthSymbols] objectAtIndex:(numberOfMonth)];
-    return monthName;
-}
-
 - (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSMutableArray *historySaveOfMonth = [[NSMutableArray arrayWithArray:[userDefaults objectForKey:@"historySaveOfMonth"]]mutableCopy];
@@ -829,29 +799,50 @@
 }
 
 - (NSString*)stringForHistorySaveOfMonthDict {
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
     [dateFormatter setDateFormat:@"dd LLL"];
-    
+
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *dateComp = [calendar components:NSCalendarUnitDay | NSCalendarUnitMonth fromDate:[userDefaults objectForKey:@"oldResetDateEveryMonth"]];
     
-    dateComp.month = dateComp.month - 1;
+    NSDateComponents *dateComp = [calendar components: (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[self getResetDateEveryMonth]];
+    
+    dateComp.month = dateComp.month - 2;
     if (dateComp.month == 0) {
         dateComp.month = 12;
     }
     
-    NSDate *dayAndMonthOldResetDateEveryMonth = [calendar dateFromComponents:dateComp];
-    [userDefaults setObject:dayAndMonthOldResetDateEveryMonth forKey:@"dayAndMonthOldResetDateEveryMonth"];
+    NSDateComponents *dateComponent = [calendar components: (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[self getResetDateEveryMonth]];
     
-    NSString *datedayAndMonthOldResetDateEveryMonth = [dateFormatter stringFromDate:[userDefaults objectForKey:@"dayAndMonthOldResetDateEveryMonth"]];
-    NSString *dateFromOldResetDateEveryMonth = [dateFormatter stringFromDate:[userDefaults objectForKey:@"oldResetDateEveryMonth"]];
+    dateComponent.month = dateComponent.month - 1;
+    if (dateComponent.month == 0) {
+        dateComponent.month = 12;
+    }
     
-    NSString *strWithOldResetDateEveryMonthAndResetDateEveryMonth = [NSString stringWithFormat:@"%@ - %@", datedayAndMonthOldResetDateEveryMonth, dateFromOldResetDateEveryMonth];
+    NSDate *dayMonthComp = [calendar dateFromComponents:dateComp];
+    NSString *dayMonthCompStr = [dateFormatter stringFromDate:dayMonthComp];
     
-    return strWithOldResetDateEveryMonthAndResetDateEveryMonth;
+    NSDate *dayMonthComponent = [calendar dateFromComponents:dateComponent];
+    NSString *dateComponentStr = [dateFormatter stringFromDate:dayMonthComponent];
+    
+    NSString *strToTable = [NSString stringWithFormat:@"%@ - %@", dayMonthCompStr, dateComponentStr];
+    
+    return strToTable;
+}
+
+
+- (NSString*)nameOfPreviousMonth {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *date = [calendar components:NSCalendarUnitMonth fromDate:[NSDate date]];
+    NSUInteger numberOfMonth = date.month - 1;
+    if (numberOfMonth == 0) {
+        numberOfMonth = 12;
+    }
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"ru_RU"]];
+    NSString *monthName = [[df monthSymbols] objectAtIndex:(numberOfMonth)];
+    return monthName;
 }
 
 #pragma mark - Fraimwork TimeAgo -
