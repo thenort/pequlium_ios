@@ -50,8 +50,9 @@
     NSString *dateString = [dateFormatter stringFromDate:[[Manager sharedInstance] getResetDateEveryMonth]];
     
     self.headerView.summaToNewMonthLabel.text = [NSString stringWithFormat:@"Сумма до %@", dateString];
-    self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [[Manager sharedInstance] getMutableMonthDebit]];
-    [self.headerView.moneyBoxButton setTitle:[NSString stringWithFormat:@"%2.f", [[Manager sharedInstance] getMoneyBox]] forState:UIControlStateNormal];
+    
+    self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%.2f", [[Manager sharedInstance] getMutableMonthDebit]];
+    [self.headerView.moneyBoxButton setTitle:[NSString stringWithFormat:@"%.2f", [[Manager sharedInstance] getMoneyBox]] forState:UIControlStateNormal];
 }
 
 #pragma mark - actions buttons on UIToolbar UITextField -
@@ -70,7 +71,7 @@
 
         [[Manager sharedInstance] setMutableMonthDebit:[[Manager sharedInstance] getMutableMonthDebit] + [self.headerView.enterMoneyTextField.text doubleValue]];
         
-        self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%2.f", [[Manager sharedInstance] getMutableMonthDebit]];
+        self.headerView.howMuchMoneyToNewMonthLabel.text = [NSString stringWithFormat:@"%.2f", [[Manager sharedInstance] getMutableMonthDebit]];
         double divided = [self.headerView.enterMoneyTextField.text doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
         double newBudgetOnDay = [[Manager sharedInstance] getBudgetOnDay] + divided;
         [[Manager sharedInstance] setBudgetOnDay:newBudgetOnDay];

@@ -83,8 +83,8 @@
 - (BOOL)getDailyBudgetTomorrowCountedBool;
 - (void)setDailyBudgetTomorrowCountedBool:(BOOL)dailyBudgetTomorrowCountedBool;
 
-- (BOOL)getDailyBudgetTomorrowBool;
-- (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool;
+- (BOOL)getIsAllocationDailyBudgetOnMonth;
+- (void)setIsAllocationDailyBudgetOnMonth:(BOOL)isAllocationDailyBudgetOnMonth;
 
 - (void)setAllStableDebit;
 
@@ -120,7 +120,7 @@
 - (void)resetBoolOfNegativeBalanceEndMonth;
 - (void)recalculationEveryMonth;
 
-
+- (void)operationMinWithBudget:(double)valueFromKeyboard;
 - (void)resetDate;
 
 - (NSUInteger)daysInCurrentMonth;

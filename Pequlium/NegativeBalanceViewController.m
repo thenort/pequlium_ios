@@ -48,7 +48,11 @@
 - (IBAction)allocationDailyBudgetOnMonth:(id)sender {
     
     if ([self.dailyBudgetWillBeLabel.text doubleValue] > 0) {
-        [self.manager setDailyBudgetTomorrowBool:YES];
+        [self.manager setIsAllocationDailyBudgetOnMonth:YES];
+        
+        [self.manager setHistorySpendOfMonth:[NSNumber numberWithDouble:(self.valueFromKeyboard * -1)] andDate:[NSDate date]];
+        [self.manager operationMinWithBudget:self.valueFromKeyboard];
+        
         if (![self.manager getCallOneTime]) {
             double divided = [self.manager getBudgetOnCurrentDayMoneyDouble] / [self.manager daysToStartNewMonth];
             [self.manager setBudgetOnDay:[self.manager getBudgetOnDay] - fabs(divided)];
@@ -114,13 +118,14 @@
 
 - (IBAction)dailyBudgetWillBeTomorrow:(id)sender {
     if ([self.dailyBudgetWillBeTomorrowLabel.text doubleValue] > 0) {
-        
         [self.manager setCallOneTime:YES];
         [self.manager setDailyBudgetTomorrowCountedBool:YES];
         
-        if (![self.manager getDailyBudgetTomorrowBool]) {
+        [self.manager setHistorySpendOfMonth:[NSNumber numberWithDouble:(self.valueFromKeyboard * -1)] andDate:[NSDate date]];
+        [self.manager operationMinWithBudget:self.valueFromKeyboard];
+        if (![self.manager getIsAllocationDailyBudgetOnMonth]) {
             [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay] - fabs([self.manager getBudgetOnCurrentDayMoneyDouble])];
-            [self.manager setDailyBudgetTomorrowBool:YES];
+            [self.manager setIsAllocationDailyBudgetOnMonth:YES];
         } else {
             if (![self.manager getDailyBudgetTomorrowCounted]) {
                 [self.manager setDailyBudgetTomorrowCounted:[self.manager getBudgetOnDay] - self.valueFromKeyboard];

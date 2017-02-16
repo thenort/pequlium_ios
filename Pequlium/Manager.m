@@ -398,19 +398,19 @@
     [userDefaults synchronize];
 }
 
-#pragma mark - Work with dailyBudgetTomorrowBool (Bool)  (NSUserdefaults) -
+#pragma mark - Work with isAllocationDailyBudgetOnMonth (Bool)  (NSUserdefaults) -
 
-// Work with dailyBudgetTomorrowBool  (get)
-- (BOOL)getDailyBudgetTomorrowBool {
+// Work with isAllocationDailyBudgetOnMonth  (get)
+- (BOOL)getIsAllocationDailyBudgetOnMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults boolForKey:@"dailyBudgetTomorrowBool"];
+    return [userDefaults boolForKey:@"isAllocationDailyBudgetOnMonth"];
 }
 
 
-// Work with dailyBudgetTomorrowBool  (set)
-- (void)setDailyBudgetTomorrowBool:(BOOL)dailyBudgetTomorrowBool {
+// Work with isAllocationDailyBudgetOnMonth  (set)
+- (void)setIsAllocationDailyBudgetOnMonth:(BOOL)isAllocationDailyBudgetOnMonth {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    [userDefaults setBool:dailyBudgetTomorrowBool forKey:@"dailyBudgetTomorrowBool"];
+    [userDefaults setBool:isAllocationDailyBudgetOnMonth forKey:@"isAllocationDailyBudgetOnMonth"];
     [userDefaults synchronize];
 }
 
@@ -423,7 +423,7 @@
 }
 
 
-// Work with dailyBudgetTomorrowBool  (set)
+// Work with callFirstTimeInfoToLable  (set)
 - (void)setCallFirstTimeInfoToLable:(BOOL)callFirstTimeInfoToLable {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults setBool:callFirstTimeInfoToLable forKey:@"callFirstTimeInfoToLable"];
@@ -608,10 +608,10 @@
                 [self setBudgetOnCurrentDay:[self getDailyBudgetTomorrowCounted] dayWhenSpend:[NSDate date]];
                 [self setDailyBudgetTomorrowCounted:[self getBudgetOnDay]];
                 [self setDailyBudgetTomorrowCountedBool:NO];
-                [self setDailyBudgetTomorrowBool:NO];
+                [self setIsAllocationDailyBudgetOnMonth:NO];
             } else {
                 [self setBudgetOnCurrentDay:[self getBudgetOnDay] dayWhenSpend:[NSDate date]];
-                [self setDailyBudgetTomorrowBool:NO];
+                [self setIsAllocationDailyBudgetOnMonth:NO];
             }
         }
     }
@@ -623,7 +623,7 @@
     [self setCallFirstTimeInfoToLableTwo:NO];
     
     [self setDailyBudgetTomorrowCountedBool:NO];
-    [self setDailyBudgetTomorrowBool:NO];
+    [self setIsAllocationDailyBudgetOnMonth:NO];
 }
 
 
@@ -669,14 +669,9 @@
     }
 }
 
-- (NSNumber*)numFromStringDecimal:(NSString*)str {
-    NSNumberFormatter* numberFormatter = [NSNumberFormatter new];
-    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    return [numberFormatter numberFromString:str];
-}
-
 //для подсчета скопленного бюджета за год (копилка)
 - (void)newYear {
+    
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if (![userDefaults integerForKey:@"Year"]) {
         NSCalendar *calendar = [NSCalendar currentCalendar];
@@ -702,6 +697,23 @@
     }
     
     [userDefaults synchronize];
+}
+
+- (void)operationMinWithBudget:(double)valueFromKeyboard {
+    //work with mutableBudgetOnDay
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *budgetOnCurrentDay = [[self getBudgetOnCurrentDay] mutableCopy];
+    [budgetOnCurrentDay setObject: [NSNumber numberWithDouble:[self getBudgetOnCurrentDayMoneyDouble] - fabs(valueFromKeyboard)] forKey:@"mutableBudgetOnDay"];
+    [userDefaults setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
+    [userDefaults synchronize];
+    //work with mutableMonthdebit
+    [self setMutableMonthDebit:[self getMutableMonthDebit] - fabs(valueFromKeyboard)];
+}
+
+- (NSNumber*)numFromStringDecimal:(NSString*)str {
+    NSNumberFormatter* numberFormatter = [NSNumberFormatter new];
+    [numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+    return [numberFormatter numberFromString:str];
 }
 
 #pragma mark - Work with Date -
@@ -874,7 +886,9 @@
                                                                          style:UIBarButtonItemStylePlain
                                                                         target:nil
                                                                         action:addAction];
+    
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    
     UIBarButtonItem *btnCancelOnKeyboard = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
                                                                             style:UIBarButtonItemStylePlain
                                                                            target:nil

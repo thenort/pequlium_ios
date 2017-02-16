@@ -29,6 +29,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
 
     self.arrayForTable = [self.manager getHistorySpendOfMonth];
     [self callMonthEndDayEndControllers];
@@ -63,6 +64,16 @@
                                                object:nil];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    [self stopTimer];
+    [self.headerView.processOfSpendingMoneyTextField resignFirstResponder];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTextCurrentBudgetOnDayLabel" object:nil];
+}
+
 - (void)callMonthEndDayEndControllers {
     if ([[NSDate date] compare:[self.manager getResetDateEveryMonth]] == NSOrderedDescending) {
         if (![self.manager getCallOneTimeMonth]) {
@@ -79,15 +90,6 @@
             }
         }
     }
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    [self stopTimer];
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"updateTextCurrentBudgetOnDayLabel" object:nil];
 }
 
 - (void) reloadDateInTableView {
@@ -151,7 +153,6 @@
 
 #pragma mark - UIScrollViewDelegat -
 
-//когда клавиатура выезжает
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (scrollView.contentOffset.y < - 64 ) {
         [self.headerView.processOfSpendingMoneyTextField becomeFirstResponder];
@@ -168,7 +169,6 @@
 }
 
 - (void)checkTextField {
-    
     if ([self.headerView.processOfSpendingMoneyTextField.text length] <= 0 || [self.headerView.processOfSpendingMoneyTextField.text  isEqual: @"-0"]) {
         
         NSString *error = @"Введите корректную сумму";
@@ -193,20 +193,11 @@
         if (mutableBudgetOnDay < 0) {
             [self negativeBalance];
         } else {
-            
             [self.manager setHistorySpendOfMonth:self.currentSpendNumber andDate:[NSDate date]];
-            
             self.arrayForTable = [self.manager getHistorySpendOfMonth];
             [self.tableView reloadData];
             
-            //work with mutableBudgetOnDay
-            NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-            NSMutableDictionary *budgetOnCurrentDay = [[self.manager getBudgetOnCurrentDay] mutableCopy];
-            [budgetOnCurrentDay setObject: [NSNumber numberWithDouble:[self.manager getBudgetOnCurrentDayMoneyDouble] - fabs([self.currentSpendNumber doubleValue])] forKey:@"mutableBudgetOnDay"];
-            [userDefaults setObject:budgetOnCurrentDay  forKey:@"budgetOnCurrentDay"];
-            [userDefaults synchronize];
-            //work with mutableMonthdebit
-            [self.manager setMutableMonthDebit:[self.manager getMutableMonthDebit] - fabs([self.currentSpendNumber doubleValue])];
+            [self.manager operationMinWithBudget:fabs([self.currentSpendNumber doubleValue])];
             
             self.headerView.currentBudgetOnDayLabel.text = [self.manager updateTextBalanceLabel];
         }
