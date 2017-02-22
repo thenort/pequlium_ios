@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		053FA8254BB6A6024BEC7AAD /* libPods-PequliumWidget.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D500E61101D5B1D83DDCB04C /* libPods-PequliumWidget.a */; };
 		13086D491E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13086D481E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m */; };
 		13086D4D1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13086D4C1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m */; };
 		130E613F1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130E613E1E1E757A00F333B4 /* SettingsDayBalanceTableViewController.m */; };
@@ -14,6 +15,12 @@
 		130E61451E1E75F800F333B4 /* ResolutionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 130E61441E1E75F800F333B4 /* ResolutionTableViewController.m */; };
 		137964B51E093DA10042BF27 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964B41E093DA10042BF27 /* Manager.m */; };
 		137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964BA1E095A4B0042BF27 /* CalculationViewController.m */; };
+		13BCC8E51E5DE59B00013720 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13BCC8571E5DCEFD00013720 /* NotificationCenter.framework */; };
+		13BCC8E91E5DE59B00013720 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BCC8E81E5DE59B00013720 /* TodayViewController.m */; };
+		13BCC8EC1E5DE59B00013720 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13BCC8EA1E5DE59B00013720 /* MainInterface.storyboard */; };
+		13BCC8F01E5DE59B00013720 /* PequliumWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 13BCC8E41E5DE59B00013720 /* PequliumWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		13BCC8F41E5DED5E00013720 /* TodayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13BCC8E81E5DE59B00013720 /* TodayViewController.m */; };
+		13BCC8F51E5DED8600013720 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 137964B41E093DA10042BF27 /* Manager.m */; };
 		13C35BAF1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */; };
 		13C35BB21E0C189100DD497B /* MainScreenTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C35BB11E0C189100DD497B /* MainScreenTableViewCell.m */; };
 		13CF86391E363C61005CB2EA /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13CF86381E363C61005CB2EA /* UserNotifications.framework */; };
@@ -37,6 +44,30 @@
 		59C8503892ABBFE2CF934543 /* libPods-Pequlium.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 426B8E129D5FAF837F623C84 /* libPods-Pequlium.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		13BCC8EE1E5DE59B00013720 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44C0D9041DFAB6C300E3D413 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 13BCC8E31E5DE59B00013720;
+			remoteInfo = PequliumWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		13BCC8671E5DCEFD00013720 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				13BCC8F01E5DE59B00013720 /* PequliumWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		13086D471E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyBoxHistoryTableViewController.h; sourceTree = "<group>"; };
 		13086D481E28D9B60006A6DC /* MoneyBoxHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyBoxHistoryTableViewController.m; sourceTree = "<group>"; };
@@ -52,6 +83,14 @@
 		137964B41E093DA10042BF27 /* Manager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
 		137964B91E095A4B0042BF27 /* CalculationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalculationViewController.h; sourceTree = "<group>"; };
 		137964BA1E095A4B0042BF27 /* CalculationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculationViewController.m; sourceTree = "<group>"; };
+		13BCC8571E5DCEFD00013720 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		13BCC8D51E5DDE3400013720 /* libNSDate+TimeAgo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libNSDate+TimeAgo.a"; path = "../../Library/Developer/Xcode/DerivedData/Pequlium-fpxtymffdvkwxwdopkajyfadaijo/Build/Products/Debug-iphonesimulator/NSDate+TimeAgo/libNSDate+TimeAgo.a"; sourceTree = "<group>"; };
+		13BCC8D71E5DDE3F00013720 /* libPods-Pequlium.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-Pequlium.a"; path = "../../Library/Developer/Xcode/DerivedData/Pequlium-fpxtymffdvkwxwdopkajyfadaijo/Build/Products/Debug-iphonesimulator/libPods-Pequlium.a"; sourceTree = "<group>"; };
+		13BCC8E41E5DE59B00013720 /* PequliumWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PequliumWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		13BCC8E71E5DE59B00013720 /* TodayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TodayViewController.h; sourceTree = "<group>"; };
+		13BCC8E81E5DE59B00013720 /* TodayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TodayViewController.m; sourceTree = "<group>"; };
+		13BCC8EB1E5DE59B00013720 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		13BCC8ED1E5DE59B00013720 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13C35BAD1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenTableViewCell.h; sourceTree = "<group>"; };
 		13C35BAE1E0C0A5E00DD497B /* SettingsMainScreenTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenTableViewCell.m; sourceTree = "<group>"; };
 		13C35BB01E0C189100DD497B /* MainScreenTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainScreenTableViewCell.h; sourceTree = "<group>"; };
@@ -89,10 +128,22 @@
 		44E28D791DFEB7A80033514F /* SettingsMainScreenHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsMainScreenHeaderView.h; sourceTree = "<group>"; };
 		44E28D7A1DFEB7A80033514F /* SettingsMainScreenHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsMainScreenHeaderView.m; sourceTree = "<group>"; };
 		44E28D7C1DFEB7B10033514F /* SettingsMainScreenHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsMainScreenHeader.xib; sourceTree = "<group>"; };
+		926AAA3CF5A673DEBE2AA103 /* Pods-PequliumWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PequliumWidget.release.xcconfig"; path = "Pods/Target Support Files/Pods-PequliumWidget/Pods-PequliumWidget.release.xcconfig"; sourceTree = "<group>"; };
+		D500E61101D5B1D83DDCB04C /* libPods-PequliumWidget.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PequliumWidget.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4A495592FC6E427F574DC8C /* Pods-Pequlium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pequlium.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pequlium/Pods-Pequlium.release.xcconfig"; sourceTree = "<group>"; };
+		E61A2F09B8F901FB253FF3BB /* Pods-PequliumWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PequliumWidget.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PequliumWidget/Pods-PequliumWidget.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		13BCC8E11E5DE59B00013720 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13BCC8E51E5DE59B00013720 /* NotificationCenter.framework in Frameworks */,
+				053FA8254BB6A6024BEC7AAD /* libPods-PequliumWidget.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44C0D9091DFAB6C300E3D413 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -105,6 +156,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		13BCC8A41E5DD73A00013720 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				44C0D9121DFAB6C300E3D413 /* AppDelegate.h */,
+				44C0D9131DFAB6C300E3D413 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
+			sourceTree = "<group>";
+		};
+		13BCC8E61E5DE59B00013720 /* PequliumWidget */ = {
+			isa = PBXGroup;
+			children = (
+				13BCC8E71E5DE59B00013720 /* TodayViewController.h */,
+				13BCC8E81E5DE59B00013720 /* TodayViewController.m */,
+				13BCC8EA1E5DE59B00013720 /* MainInterface.storyboard */,
+				13BCC8ED1E5DE59B00013720 /* Info.plist */,
+			);
+			path = PequliumWidget;
+			sourceTree = "<group>";
+		};
 		449917981DFAFA7C0099800E /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,17 +239,11 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		4499179B1DFAFA930099800E /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Categories;
-			sourceTree = "<group>";
-		};
 		44C0D9031DFAB6C300E3D413 = {
 			isa = PBXGroup;
 			children = (
 				44C0D90E1DFAB6C300E3D413 /* Pequlium */,
+				13BCC8E61E5DE59B00013720 /* PequliumWidget */,
 				44C0D90D1DFAB6C300E3D413 /* Products */,
 				6FFC07B72A5538747C7CAB0C /* Pods */,
 				D54193F36A9CF6BBB0A9EC3A /* Frameworks */,
@@ -189,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				44C0D90C1DFAB6C300E3D413 /* Pequlium.app */,
+				13BCC8E41E5DE59B00013720 /* PequliumWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -196,9 +262,7 @@
 		44C0D90E1DFAB6C300E3D413 /* Pequlium */ = {
 			isa = PBXGroup;
 			children = (
-				4499179B1DFAFA930099800E /* Categories */,
-				44C0D9121DFAB6C300E3D413 /* AppDelegate.h */,
-				44C0D9131DFAB6C300E3D413 /* AppDelegate.m */,
+				13BCC8A41E5DD73A00013720 /* AppDelegate */,
 				449917981DFAFA7C0099800E /* Model */,
 				449917991DFAFA7E0099800E /* View */,
 				4499179A1DFAFA800099800E /* Controller */,
@@ -222,6 +286,8 @@
 			children = (
 				1ECEE08ADD40ADA3010F9681 /* Pods-Pequlium.debug.xcconfig */,
 				E4A495592FC6E427F574DC8C /* Pods-Pequlium.release.xcconfig */,
+				E61A2F09B8F901FB253FF3BB /* Pods-PequliumWidget.debug.xcconfig */,
+				926AAA3CF5A673DEBE2AA103 /* Pods-PequliumWidget.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -229,8 +295,12 @@
 		D54193F36A9CF6BBB0A9EC3A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13BCC8D71E5DDE3F00013720 /* libPods-Pequlium.a */,
+				13BCC8D51E5DDE3400013720 /* libNSDate+TimeAgo.a */,
 				13CF86381E363C61005CB2EA /* UserNotifications.framework */,
 				426B8E129D5FAF837F623C84 /* libPods-Pequlium.a */,
+				13BCC8571E5DCEFD00013720 /* NotificationCenter.framework */,
+				D500E61101D5B1D83DDCB04C /* libPods-PequliumWidget.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -238,6 +308,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		13BCC8E31E5DE59B00013720 /* PequliumWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13BCC8F11E5DE59B00013720 /* Build configuration list for PBXNativeTarget "PequliumWidget" */;
+			buildPhases = (
+				973F35459C2D16C598BC0A57 /* [CP] Check Pods Manifest.lock */,
+				13BCC8E01E5DE59B00013720 /* Sources */,
+				13BCC8E11E5DE59B00013720 /* Frameworks */,
+				13BCC8E21E5DE59B00013720 /* Resources */,
+				9D3C9922FA5D8522F8CA8566 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PequliumWidget;
+			productName = PequliumWidget;
+			productReference = 13BCC8E41E5DE59B00013720 /* PequliumWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		44C0D90B1DFAB6C300E3D413 /* Pequlium */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44C0D9231DFAB6C300E3D413 /* Build configuration list for PBXNativeTarget "Pequlium" */;
@@ -248,10 +337,12 @@
 				44C0D90A1DFAB6C300E3D413 /* Resources */,
 				612939E7DDE050B3067E56DE /* [CP] Embed Pods Frameworks */,
 				2BFD159B8C97AD7B59E9A4CD /* [CP] Copy Pods Resources */,
+				13BCC8671E5DCEFD00013720 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				13BCC8EF1E5DE59B00013720 /* PBXTargetDependency */,
 			);
 			name = Pequlium;
 			productName = Pequlium;
@@ -267,6 +358,10 @@
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Kyrylo Matvieiev";
 				TargetAttributes = {
+					13BCC8E31E5DE59B00013720 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					44C0D90B1DFAB6C300E3D413 = {
 						CreatedOnToolsVersion = 8.1;
 						ProvisioningStyle = Automatic;
@@ -287,11 +382,20 @@
 			projectRoot = "";
 			targets = (
 				44C0D90B1DFAB6C300E3D413 /* Pequlium */,
+				13BCC8E31E5DE59B00013720 /* PequliumWidget */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		13BCC8E21E5DE59B00013720 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13BCC8EC1E5DE59B00013720 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44C0D90A1DFAB6C300E3D413 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -352,9 +456,48 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Pequlium/Pods-Pequlium-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		973F35459C2D16C598BC0A57 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9D3C9922FA5D8522F8CA8566 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PequliumWidget/Pods-PequliumWidget-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		13BCC8E01E5DE59B00013720 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13BCC8E91E5DE59B00013720 /* TodayViewController.m in Sources */,
+				13BCC8F51E5DED8600013720 /* Manager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44C0D9081DFAB6C300E3D413 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -373,6 +516,7 @@
 				130E61451E1E75F800F333B4 /* ResolutionTableViewController.m in Sources */,
 				44C9213F1E0164AC00F3D004 /* MonthEndViewController.m in Sources */,
 				137964B51E093DA10042BF27 /* Manager.m in Sources */,
+				13BCC8F41E5DED5E00013720 /* TodayViewController.m in Sources */,
 				137964BB1E095A4B0042BF27 /* CalculationViewController.m in Sources */,
 				44C9213C1E01648800F3D004 /* DayEndViewController.m in Sources */,
 				13086D4D1E28FD840006A6DC /* MoneyBoxHistoryTableViewCell.m in Sources */,
@@ -385,7 +529,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		13BCC8EF1E5DE59B00013720 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 13BCC8E31E5DE59B00013720 /* PequliumWidget */;
+			targetProxy = 13BCC8EE1E5DE59B00013720 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		13BCC8EA1E5DE59B00013720 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13BCC8EB1E5DE59B00013720 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		44C0D9181DFAB6C300E3D413 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -405,6 +565,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		13BCC8F21E5DE59B00013720 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E61A2F09B8F901FB253FF3BB /* Pods-PequliumWidget.debug.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				INFOPLIST_FILE = PequliumWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = LuftDigital.Pequlium.PequliumWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		13BCC8F31E5DE59B00013720 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 926AAA3CF5A673DEBE2AA103 /* Pods-PequliumWidget.release.xcconfig */;
+			buildSettings = {
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				INFOPLIST_FILE = PequliumWidget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = LuftDigital.Pequlium.PequliumWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		44C0D9211DFAB6C300E3D413 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -520,6 +708,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		13BCC8F11E5DE59B00013720 /* Build configuration list for PBXNativeTarget "PequliumWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13BCC8F21E5DE59B00013720 /* Debug */,
+				13BCC8F31E5DE59B00013720 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		44C0D9071DFAB6C300E3D413 /* Build configuration list for PBXProject "Pequlium" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

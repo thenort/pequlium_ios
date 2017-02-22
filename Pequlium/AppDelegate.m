@@ -22,7 +22,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [self puthNSUserDefaultsPlist];
+    [self pathWhereSaveDataFile];
     [self customNavigationBar];
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIStoryboard* storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -66,7 +66,7 @@
     
     if ([userDefaults boolForKey:@"resolutionSettingsSwitch"]) {
         UNMutableNotificationContent *objNotificationContent = [[UNMutableNotificationContent alloc] init];
-        objNotificationContent.title = [NSString localizedUserNotificationStringForKey:@"Не забудьте управлять своим бюджетом!" arguments:nil];
+        objNotificationContent.title = [NSString localizedUserNotificationStringForKey:@"Напоминание" arguments:nil];
         objNotificationContent.body = [NSString localizedUserNotificationStringForKey:@"Зайдите в Pequlium для упраления бюджетом!" arguments:nil];
         objNotificationContent.sound = [UNNotificationSound defaultSound];
         
@@ -130,10 +130,13 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)puthNSUserDefaultsPlist {
-    // puth of NSUserDefaults plist
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSLog(@"%@",paths);
+#pragma mark - Path Where Save Data File -
+
+- (void)pathWhereSaveDataFile {
+    NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    NSLog(@"Path Where Save Data File: ( %@ )", path);
+    
 }
+
 
 @end

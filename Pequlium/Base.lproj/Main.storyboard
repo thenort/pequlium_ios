@@ -315,7 +315,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <rect key="frame" x="118" y="598" width="134" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.0071995421312749386" green="0.54907864332199097" blue="0.88178533315658569" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <state key="normal" title="Понеслась">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -335,7 +335,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pequlium" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rte-IN-2Xg">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pequlium" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="32" translatesAutoresizingMaskIntoConstraints="NO" id="Rte-IN-2Xg">
                                 <rect key="frame" x="21" y="64" width="329" height="157"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <fontDescription key="fontDescription" name="Kailasa-Bold" family="Kailasa" pointSize="63"/>
@@ -385,7 +385,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <string key="text">Не забудьте, что ваш бюджет строится из суммы, которая остается после оплаты аренды, ипотеки, коммунальных платежей, кредитов и т.д.              </string>
                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
-                                <color key="textColor" red="0.56087040899999996" green="0.59527117009999997" blue="0.62125557659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" red="0.40779560804367065" green="0.40787053108215332" blue="0.40779092907905579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -467,23 +467,11 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4k-7S-PYy">
-                                <rect key="frame" x="39.5" y="617" width="294.5" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <state key="normal" title="Нет, я не хочу откладывать деньги"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="6"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="budgetWithNonSavingMoney:" destination="oDm-Hs-1VP" eventType="touchUpInside" id="ucf-ZP-OgM"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mvy-NY-z1S">
-                                <rect key="frame" x="39.5" y="579" width="294.5" height="30"/>
+                                <rect key="frame" x="30.5" y="579" width="315" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" red="0.0071995421309999997" green="0.5490786433" blue="0.88178533319999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Отложить и пересчитать бюджет">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -509,6 +497,20 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F4k-7S-PYy">
+                                <rect key="frame" x="30.5" y="617" width="315" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Нет, я не хочу откладывать деньги"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="budgetWithNonSavingMoney:" destination="oDm-Hs-1VP" eventType="touchUpInside" id="ucf-ZP-OgM"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -520,7 +522,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U2N-LA-o1O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3450" y="-690"/>
+            <point key="canvasLocation" x="-3450" y="-690.84507042253517"/>
         </scene>
         <!--Main Screen Table View Controller-->
         <scene sceneID="Vr8-sH-z30">
@@ -535,18 +537,18 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <rect key="frame" x="0.0" y="28" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NbC-dK-Cfo" id="TdM-aX-kTW">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-22" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxp-GN-jKa">
-                                            <rect key="frame" x="19.5" y="20" width="347.5" height="21"/>
+                                            <rect key="frame" x="18" y="20" width="347" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="30 минут назад" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HbR-vA-O2u">
-                                            <rect key="frame" x="19.5" y="0.0" width="347.5" height="21"/>
+                                            <rect key="frame" x="18" y="0.0" width="347" height="21"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.56087040899999996" green="0.59527117009999997" blue="0.62125557659999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -595,7 +597,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="28R-ey-BX2" id="gfL-8s-68V">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKh-h0-Zdo">
@@ -648,7 +650,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                         <rect key="frame" x="0.0" y="30" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ou7-Ch-7Fa" id="qcy-jL-KhV">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Переносить на следующий день" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hd4-bF-6XW">
@@ -680,7 +682,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                         <rect key="frame" x="0.0" y="74" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rkV-xV-ekM" id="DFR-nh-9OS">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Распределять на дневной бюджет" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L29-PO-nWR">
@@ -744,7 +746,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <rect key="frame" x="0.0" y="58" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xDD-EQ-1XA" id="LRx-ZK-5Z1">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Month" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fJO-pV-QvL">
@@ -811,7 +813,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                         <rect key="frame" x="0.0" y="30" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DYS-fN-zyS" id="FB7-Hl-vYl">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ohf-S9-En7">
@@ -844,7 +846,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                         <rect key="frame" x="0.0" y="74" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gee-n2-CVt" id="xYj-p3-MOC">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="zAH-4h-UiO">
@@ -877,7 +879,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                         <rect key="frame" x="0.0" y="118" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hQV-KX-3Lh" id="iuo-Jm-CUf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VZe-ei-Q74">
@@ -925,36 +927,6 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
             </objects>
             <point key="canvasLocation" x="-943.125" y="-169.01408450704224"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="OHs-gN-ys5">
-            <objects>
-                <viewController id="64r-E9-AH2" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ziw-TW-Idc"/>
-                        <viewControllerLayoutGuide type="bottom" id="LXe-eH-0B1"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="ET9-jw-SVz">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YC9-KF-ZvY">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </webView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="YC9-KF-ZvY" secondAttribute="trailing" id="T7h-Lh-Ahy"/>
-                            <constraint firstItem="LXe-eH-0B1" firstAttribute="top" secondItem="YC9-KF-ZvY" secondAttribute="bottom" id="ohH-vg-Hlq"/>
-                            <constraint firstItem="YC9-KF-ZvY" firstAttribute="top" secondItem="ET9-jw-SVz" secondAttribute="top" id="teQ-TC-tNj"/>
-                            <constraint firstItem="YC9-KF-ZvY" firstAttribute="leading" secondItem="ET9-jw-SVz" secondAttribute="leading" id="tss-6F-FyR"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tRw-jS-jK0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-96" y="100"/>
-        </scene>
         <!--Разрешения-->
         <scene sceneID="EFG-WO-PnH">
             <objects>
@@ -975,7 +947,7 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                         <rect key="frame" x="0.0" y="30" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fmk-zE-PPF" id="pGg-ee-aeZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="jAI-wE-xX7">

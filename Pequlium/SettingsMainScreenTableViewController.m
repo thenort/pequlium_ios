@@ -192,7 +192,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *str = @"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-=!№;%:?@#$^&*() ";
     NSCharacterSet *acceptedInput = [NSCharacterSet characterSetWithCharactersInString:str];
-    if ([[string componentsSeparatedByCharactersInSet:acceptedInput] count] > 1){
+    if ([[string componentsSeparatedByCharactersInSet:acceptedInput] count] > 1) {
         return NO;
     } else {
         return YES;

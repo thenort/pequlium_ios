@@ -8,14 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		18C5B28AABF523D2AA92FE55C73594F6 /* NSDate+TimeAgo.m in Sources */ = {isa = PBXBuildFile; fileRef = 414E4F5C5DB066018F93E184EBAC65DF /* NSDate+TimeAgo.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		207E559B6B031275A48B33E80172EF33 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		4F2462309810550C7BC8A9470E47BAA2 /* NSDate+TimeAgo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FBAFC64DC3AA880D8256ABA23788D61 /* NSDate+TimeAgo-dummy.m */; };
 		67A01A1BAFFA765D00B47B28698A90E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
-		927FE4D2DDB8D6419CCA917FCD8AEC55 /* Pods-Pequlium-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFAEDCEFE24D950BDE38E818A83E333 /* Pods-Pequlium-dummy.m */; };
+		72375804FE798A1EE1D119EAE9CC009B /* Pods-PequliumWidget-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B502FE36385D990F11D960C9F6B6BC3 /* Pods-PequliumWidget-dummy.m */; };
+		927FE4D2DDB8D6419CCA917FCD8AEC55 /* Pods-Pequlium-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDC0496442E203C004096471B16C1B3 /* Pods-Pequlium-dummy.m */; };
 		C411ECF88F1CA6D85AD5143244B4200D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */; };
 		C92A9567CFF0EF4E3D1CC85390621F89 /* NSDate+TimeAgo.h in Headers */ = {isa = PBXBuildFile; fileRef = 11FE235B84892266FA5943ABF6E9621F /* NSDate+TimeAgo.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8C27F3C80E40BD928505F52372475477 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 34570380B54CF07B477E17BD491D3D17;
+			remoteInfo = "NSDate+TimeAgo";
+		};
 		A6E74FB2F382F4173B2382DE55406A10 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -27,22 +36,29 @@
 
 /* Begin PBXFileReference section */
 		00EDED636CE3E4BE9AEEB45EE133C034 /* NSDate+TimeAgo.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "NSDate+TimeAgo.xcconfig"; sourceTree = "<group>"; };
+		0DCB375C980A181B0748DA2DED987074 /* Pods-PequliumWidget.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PequliumWidget.release.xcconfig"; sourceTree = "<group>"; };
 		11FE235B84892266FA5943ABF6E9621F /* NSDate+TimeAgo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo.h"; sourceTree = "<group>"; };
+		23C22F3925020D632A9AA17A121DFCA6 /* Pods-Pequlium-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Pequlium-resources.sh"; sourceTree = "<group>"; };
+		2B502FE36385D990F11D960C9F6B6BC3 /* Pods-PequliumWidget-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-PequliumWidget-dummy.m"; sourceTree = "<group>"; };
 		414E4F5C5DB066018F93E184EBAC65DF /* NSDate+TimeAgo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo.m"; sourceTree = "<group>"; };
-		4AFAEDCEFE24D950BDE38E818A83E333 /* Pods-Pequlium-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Pequlium-dummy.m"; sourceTree = "<group>"; };
-		4B15A2DB874F8AD430FCFE54A8738F2D /* Pods-Pequlium-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Pequlium-resources.sh"; sourceTree = "<group>"; };
+		434DC157C27E6390147F0007F3C3E92C /* libPods-PequliumWidget.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-PequliumWidget.a"; path = "libPods-PequliumWidget.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		48F0E4F103EC6C0E991B37BA3BE336D1 /* Pods-PequliumWidget.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-PequliumWidget.debug.xcconfig"; sourceTree = "<group>"; };
+		5A59628E089EA0FAFC36CA3FD8186C5E /* Pods-Pequlium-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Pequlium-acknowledgements.plist"; sourceTree = "<group>"; };
+		5C632139F377A68D103CF79B5ECA073F /* Pods-Pequlium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Pequlium.release.xcconfig"; sourceTree = "<group>"; };
 		6882FC55657E15646246B28456A3C2DF /* NSDate+TimeAgo-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSDate+TimeAgo-prefix.pch"; sourceTree = "<group>"; };
-		6EC0D700CE3B69B90F978F9C9BD87E1D /* Pods-Pequlium-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Pequlium-acknowledgements.markdown"; sourceTree = "<group>"; };
-		89A644C04B528D26E57F4D2323B1F7AF /* libNSDate+TimeAgo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libNSDate+TimeAgo.a"; path = "libNSDate+TimeAgo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8E9258565181FBCC3CA6D98DB1810017 /* Pods-Pequlium.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Pequlium.release.xcconfig"; sourceTree = "<group>"; };
+		68AD10F7637898C54A352F77CBA5ACD5 /* Pods-PequliumWidget-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-PequliumWidget-resources.sh"; sourceTree = "<group>"; };
+		692C2F2DE406E9D5A9D2E10C46672FD2 /* Pods-Pequlium-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Pequlium-frameworks.sh"; sourceTree = "<group>"; };
+		8FDC0496442E203C004096471B16C1B3 /* Pods-Pequlium-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Pequlium-dummy.m"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9DD2598D8556BCE3CBA8F7AB57A3CB4C /* NSDateTimeAgo.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; path = NSDateTimeAgo.bundle; sourceTree = "<group>"; };
 		9FBAFC64DC3AA880D8256ABA23788D61 /* NSDate+TimeAgo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDate+TimeAgo-dummy.m"; sourceTree = "<group>"; };
-		AE30E563358F20CC978E3EBF4E4E96E8 /* Pods-Pequlium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Pequlium.debug.xcconfig"; sourceTree = "<group>"; };
-		C4ECB0A977F222E2F68830AEBC8F0B5E /* Pods-Pequlium-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Pequlium-acknowledgements.plist"; sourceTree = "<group>"; };
+		AEBAC5F89FB44C16596093C18A376545 /* Pods-PequliumWidget-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-PequliumWidget-acknowledgements.plist"; sourceTree = "<group>"; };
+		B297DE0B7B2F62D537B7E78F1ED66F51 /* Pods-PequliumWidget-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-PequliumWidget-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B9C7F367E73B07BB9E87598F64C9946A /* Pods-Pequlium.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Pequlium.debug.xcconfig"; sourceTree = "<group>"; };
+		C9A12B9AE80B670BCD7D6627EF10D75F /* libPods-Pequlium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Pequlium.a"; path = "libPods-Pequlium.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBB3DE36805AF21409EC968A9691732F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		CC7A3F7654343FC9CA5D96EF56E9547F /* Pods-Pequlium-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Pequlium-frameworks.sh"; sourceTree = "<group>"; };
-		E77D37DD1E54361A2E86B08BD1699931 /* libPods-Pequlium.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Pequlium.a"; path = "libPods-Pequlium.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CBDE0D77D60F0F8A8E220FC1111C03C3 /* Pods-Pequlium-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Pequlium-acknowledgements.markdown"; sourceTree = "<group>"; };
+		E353420FE29B8D72BF6B7ED799C5A675 /* libNSDate+TimeAgo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libNSDate+TimeAgo.a"; path = "libNSDate+TimeAgo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,17 +78,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7A0AF9C0E928E381EEF2015517C6DCC5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				207E559B6B031275A48B33E80172EF33 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0992D8AE8C774991F5D30F01C7FDB75B /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				12F57F9157E91EEB0CA382D60B3A7950 /* Pods-Pequlium */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
 		11718D22FBB37BD3ADA631E0CDF97A7F /* NSDate+TimeAgo */ = {
 			isa = PBXGroup;
 			children = (
@@ -83,21 +99,6 @@
 			);
 			name = "NSDate+TimeAgo";
 			path = "NSDate+TimeAgo";
-			sourceTree = "<group>";
-		};
-		12F57F9157E91EEB0CA382D60B3A7950 /* Pods-Pequlium */ = {
-			isa = PBXGroup;
-			children = (
-				6EC0D700CE3B69B90F978F9C9BD87E1D /* Pods-Pequlium-acknowledgements.markdown */,
-				C4ECB0A977F222E2F68830AEBC8F0B5E /* Pods-Pequlium-acknowledgements.plist */,
-				4AFAEDCEFE24D950BDE38E818A83E333 /* Pods-Pequlium-dummy.m */,
-				CC7A3F7654343FC9CA5D96EF56E9547F /* Pods-Pequlium-frameworks.sh */,
-				4B15A2DB874F8AD430FCFE54A8738F2D /* Pods-Pequlium-resources.sh */,
-				AE30E563358F20CC978E3EBF4E4E96E8 /* Pods-Pequlium.debug.xcconfig */,
-				8E9258565181FBCC3CA6D98DB1810017 /* Pods-Pequlium.release.xcconfig */,
-			);
-			name = "Pods-Pequlium";
-			path = "Target Support Files/Pods-Pequlium";
 			sourceTree = "<group>";
 		};
 		22606603472C3AD1B82AAD789E75E045 /* Pods */ = {
@@ -119,21 +120,21 @@
 			path = "../Target Support Files/NSDate+TimeAgo";
 			sourceTree = "<group>";
 		};
-		39596859161E08AE131830D8DE0B899A /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				89A644C04B528D26E57F4D2323B1F7AF /* libNSDate+TimeAgo.a */,
-				E77D37DD1E54361A2E86B08BD1699931 /* libPods-Pequlium.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		4AB898374E320AE9662940F21CB7FAFC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				9DD2598D8556BCE3CBA8F7AB57A3CB4C /* NSDateTimeAgo.bundle */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		51E0096035903B5A9D025756819A75BD /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A85FEE81D641C58F0D0CA353DF4DCE6B /* Pods-Pequlium */,
+				A0CBCCAE5C7BFA73460A5799C997C761 /* Pods-PequliumWidget */,
+			);
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */ = {
@@ -150,9 +151,38 @@
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
 				22606603472C3AD1B82AAD789E75E045 /* Pods */,
-				39596859161E08AE131830D8DE0B899A /* Products */,
-				0992D8AE8C774991F5D30F01C7FDB75B /* Targets Support Files */,
+				E03AF55FAF47BEE3DECD86571AE9EF02 /* Products */,
+				51E0096035903B5A9D025756819A75BD /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		A0CBCCAE5C7BFA73460A5799C997C761 /* Pods-PequliumWidget */ = {
+			isa = PBXGroup;
+			children = (
+				B297DE0B7B2F62D537B7E78F1ED66F51 /* Pods-PequliumWidget-acknowledgements.markdown */,
+				AEBAC5F89FB44C16596093C18A376545 /* Pods-PequliumWidget-acknowledgements.plist */,
+				2B502FE36385D990F11D960C9F6B6BC3 /* Pods-PequliumWidget-dummy.m */,
+				68AD10F7637898C54A352F77CBA5ACD5 /* Pods-PequliumWidget-resources.sh */,
+				48F0E4F103EC6C0E991B37BA3BE336D1 /* Pods-PequliumWidget.debug.xcconfig */,
+				0DCB375C980A181B0748DA2DED987074 /* Pods-PequliumWidget.release.xcconfig */,
+			);
+			name = "Pods-PequliumWidget";
+			path = "Target Support Files/Pods-PequliumWidget";
+			sourceTree = "<group>";
+		};
+		A85FEE81D641C58F0D0CA353DF4DCE6B /* Pods-Pequlium */ = {
+			isa = PBXGroup;
+			children = (
+				CBDE0D77D60F0F8A8E220FC1111C03C3 /* Pods-Pequlium-acknowledgements.markdown */,
+				5A59628E089EA0FAFC36CA3FD8186C5E /* Pods-Pequlium-acknowledgements.plist */,
+				8FDC0496442E203C004096471B16C1B3 /* Pods-Pequlium-dummy.m */,
+				692C2F2DE406E9D5A9D2E10C46672FD2 /* Pods-Pequlium-frameworks.sh */,
+				23C22F3925020D632A9AA17A121DFCA6 /* Pods-Pequlium-resources.sh */,
+				B9C7F367E73B07BB9E87598F64C9946A /* Pods-Pequlium.debug.xcconfig */,
+				5C632139F377A68D103CF79B5ECA073F /* Pods-Pequlium.release.xcconfig */,
+			);
+			name = "Pods-Pequlium";
+			path = "Target Support Files/Pods-Pequlium";
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -161,6 +191,16 @@
 				7531C8F8DE19F1AA3C8A7AC97A91DC29 /* iOS */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E03AF55FAF47BEE3DECD86571AE9EF02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E353420FE29B8D72BF6B7ED799C5A675 /* libNSDate+TimeAgo.a */,
+				C9A12B9AE80B670BCD7D6627EF10D75F /* libPods-Pequlium.a */,
+				434DC157C27E6390147F0007F3C3E92C /* libPods-PequliumWidget.a */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,7 +231,7 @@
 			);
 			name = "NSDate+TimeAgo";
 			productName = "NSDate+TimeAgo";
-			productReference = 89A644C04B528D26E57F4D2323B1F7AF /* libNSDate+TimeAgo.a */;
+			productReference = E353420FE29B8D72BF6B7ED799C5A675 /* libNSDate+TimeAgo.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		60F241C94F8A9F9A17D8EA80F6D2927C /* Pods-Pequlium */ = {
@@ -208,7 +248,24 @@
 			);
 			name = "Pods-Pequlium";
 			productName = "Pods-Pequlium";
-			productReference = E77D37DD1E54361A2E86B08BD1699931 /* libPods-Pequlium.a */;
+			productReference = C9A12B9AE80B670BCD7D6627EF10D75F /* libPods-Pequlium.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		8723FE9470E0B517B2B98DAE95A0679B /* Pods-PequliumWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8C737905CD3749CE4CFC7E896B057AE3 /* Build configuration list for PBXNativeTarget "Pods-PequliumWidget" */;
+			buildPhases = (
+				434A08CB1990F716B3737C9A60B1BCD6 /* Sources */,
+				7A0AF9C0E928E381EEF2015517C6DCC5 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA30963C8C0A0139961D80B793BE9D65 /* PBXTargetDependency */,
+			);
+			name = "Pods-PequliumWidget";
+			productName = "Pods-PequliumWidget";
+			productReference = 434DC157C27E6390147F0007F3C3E92C /* libPods-PequliumWidget.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -228,12 +285,13 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 39596859161E08AE131830D8DE0B899A /* Products */;
+			productRefGroup = E03AF55FAF47BEE3DECD86571AE9EF02 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				34570380B54CF07B477E17BD491D3D17 /* NSDate+TimeAgo */,
 				60F241C94F8A9F9A17D8EA80F6D2927C /* Pods-Pequlium */,
+				8723FE9470E0B517B2B98DAE95A0679B /* Pods-PequliumWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +302,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				927FE4D2DDB8D6419CCA917FCD8AEC55 /* Pods-Pequlium-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		434A08CB1990F716B3737C9A60B1BCD6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				72375804FE798A1EE1D119EAE9CC009B /* Pods-PequliumWidget-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,12 +331,18 @@
 			target = 34570380B54CF07B477E17BD491D3D17 /* NSDate+TimeAgo */;
 			targetProxy = A6E74FB2F382F4173B2382DE55406A10 /* PBXContainerItemProxy */;
 		};
+		AA30963C8C0A0139961D80B793BE9D65 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "NSDate+TimeAgo";
+			target = 34570380B54CF07B477E17BD491D3D17 /* NSDate+TimeAgo */;
+			targetProxy = 8C27F3C80E40BD928505F52372475477 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		01DE76D7948326464D5FD38FE501FCD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AE30E563358F20CC978E3EBF4E4E96E8 /* Pods-Pequlium.debug.xcconfig */;
+			baseConfigurationReference = B9C7F367E73B07BB9E87598F64C9946A /* Pods-Pequlium.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -286,52 +358,6 @@
 				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		29F9F3DCEF99490F5A01D66F7C991455 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00EDED636CE3E4BE9AEEB45EE133C034 /* NSDate+TimeAgo.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/NSDate+TimeAgo/NSDate+TimeAgo-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		39C8691E18EC174E2768794E8F344F76 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00EDED636CE3E4BE9AEEB45EE133C034 /* NSDate+TimeAgo.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/NSDate+TimeAgo/NSDate+TimeAgo-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -381,6 +407,78 @@
 			};
 			name = Debug;
 		};
+		6229F65497FB5341AC6AD2DA5740A52B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00EDED636CE3E4BE9AEEB45EE133C034 /* NSDate+TimeAgo.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/NSDate+TimeAgo/NSDate+TimeAgo-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		683516D88AA49115E434072CD1308790 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00EDED636CE3E4BE9AEEB45EE133C034 /* NSDate+TimeAgo.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/NSDate+TimeAgo/NSDate+TimeAgo-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		8F3EBFDD9E662F3CFD1E82CA94015C44 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48F0E4F103EC6C0E991B37BA3BE336D1 /* Pods-PequliumWidget.debug.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 		B7324857C38B065FEB1EEE3105C2367A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -421,9 +519,33 @@
 			};
 			name = Release;
 		};
+		EC258D864A912ED5724A094AA79CBF29 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0DCB375C980A181B0748DA2DED987074 /* Pods-PequliumWidget.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		ED752362A1EF860700ABD170BEE3CEC2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E9258565181FBCC3CA6D98DB1810017 /* Pods-Pequlium.release.xcconfig */;
+			baseConfigurationReference = 5C632139F377A68D103CF79B5ECA073F /* Pods-Pequlium.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -459,8 +581,17 @@
 		4C9712B150713685F741AB1DD34D8077 /* Build configuration list for PBXNativeTarget "NSDate+TimeAgo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				39C8691E18EC174E2768794E8F344F76 /* Debug */,
-				29F9F3DCEF99490F5A01D66F7C991455 /* Release */,
+				683516D88AA49115E434072CD1308790 /* Debug */,
+				6229F65497FB5341AC6AD2DA5740A52B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8C737905CD3749CE4CFC7E896B057AE3 /* Build configuration list for PBXNativeTarget "Pods-PequliumWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F3EBFDD9E662F3CFD1E82CA94015C44 /* Debug */,
+				EC258D864A912ED5724A094AA79CBF29 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
