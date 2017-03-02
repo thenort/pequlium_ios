@@ -388,11 +388,6 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Ib7-CB-QZk">
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="hidesBackButton" value="YES"/>
-                        </userDefinedRuntimeAttributes>
-                    </navigationItem>
                     <connections>
                         <outlet property="monthDebitTextField" destination="xGD-4q-Z9d" id="vA1-Az-OIr"/>
                         <segue destination="00A-bA-htq" kind="show" id="d0T-I0-wrd"/>
@@ -600,24 +595,19 @@ ICAgICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKh-h0-Zdo">
-                                            <rect key="frame" x="46" y="11" width="242" height="21"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FKh-h0-Zdo">
+                                            <rect key="frame" x="16" y="11" width="271" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oEU-mx-qRQ">
-                                            <rect key="frame" x="8" y="9" width="25" height="25"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
-                                            <color key="backgroundColor" red="0.22139382360000001" green="0.77392953630000005" blue="0.97283440830000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                    <integer key="value" value="6"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </imageView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="FKh-h0-Zdo" firstAttribute="leading" secondItem="gfL-8s-68V" secondAttribute="leading" constant="16" id="Nhl-l5-Gv9"/>
+                                        <constraint firstAttribute="trailing" secondItem="FKh-h0-Zdo" secondAttribute="trailing" id="dfE-xg-P4V"/>
+                                        <constraint firstAttribute="bottom" secondItem="FKh-h0-Zdo" secondAttribute="bottom" constant="11" id="lIw-h4-VCY"/>
+                                        <constraint firstItem="FKh-h0-Zdo" firstAttribute="top" secondItem="gfL-8s-68V" secondAttribute="top" constant="11" id="w9e-Ed-wsw"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="textForCellInSettingsMainScreenTableViewController" destination="FKh-h0-Zdo" id="ydB-qi-Cob"/>

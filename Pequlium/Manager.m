@@ -265,6 +265,36 @@
     [userDefaults synchronize];
 }
 
+#pragma mark - Work with Switch -
+
+#pragma mark - Work with SwitchDayEnd -
+
+// Work with SwitchDayEnd amountOnDailyBudgetSettingsDay (get)
+- (BOOL)getAmountOnDailyBudgetSettingsDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"amountOnDailyBudgetSettingsDay"];
+}
+
+// Work with SwitchDayEnd amountOnDailyBudgetSettingsDay (set)
+- (void)setAmountOnDailyBudgetSettingsDay:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"amountOnDailyBudgetSettingsDay"];
+    [userDefaults synchronize];
+}
+
+// Work with SwitchDayEnd transferMoneyToNextDaySettingsDay (get)
+- (BOOL)getTransferMoneyToNextDaySettingsDay {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    return [userDefaults boolForKey:@"transferMoneyToNextDaySettingsDay"];
+}
+
+// Work with SwitchDayEnd transferMoneyToNextDaySettingsDay (set)
+- (void)setTransferMoneyToNextDaySettingsDay:(BOOL)boolValue {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setBool:boolValue forKey:@"transferMoneyToNextDaySettingsDay"];
+    [userDefaults synchronize];
+}
+
 #pragma mark - Work with change: (monthPercent, monthDebit, stableBudgetOnDay) -
 
 - (void)setAllStableDebit {
@@ -323,15 +353,16 @@
     return valueFromData;
 }
 
-- (void)resetUserDefData:(NSNumber*)mutableBudgetOnDay {
+- (void)resetUserDefData:(double)mutableBudgetOnDay {
     //обнуление средств (возобновление даты и бюджета)
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     NSNumber *stableBudgetOnDay = [userDefaults objectForKey:@"stableBudgetOnDay"];
     [userDefaults setObject:stableBudgetOnDay forKey:@"budgetOnDay"];
-    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
     
-    budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", mutableBudgetOnDay, @"mutableBudgetOnDay", nil];
+    NSDictionary *budgetOnCurrentDay = [userDefaults objectForKey:@"budgetOnCurrentDay"];
+    budgetOnCurrentDay = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble:mutableBudgetOnDay], @"mutableBudgetOnDay", nil];
     [userDefaults setObject:budgetOnCurrentDay forKey:@"budgetOnCurrentDay"];
+    
     [userDefaults setObject:nil forKey:@"historySpendOfMonth"];
     [userDefaults synchronize];
 }
@@ -401,8 +432,9 @@
 }
 
 - (NSUInteger)daysInCurrentMonth {
-    NSDate *currentDate = [NSDate new];
+    NSDate *currentDate = [NSDate date];
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone localTimeZone]];
     NSRange range = [calendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:currentDate];
     return range.length;
 }

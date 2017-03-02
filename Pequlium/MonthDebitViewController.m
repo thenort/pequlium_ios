@@ -9,6 +9,7 @@
 #import "MonthDebitViewController.h"
 #import "CalculationViewController.h"
 #import "Manager.h"
+#import "SettingsMainScreenTableViewController.h"
 
 @interface MonthDebitViewController ()
 @property (weak, nonatomic) IBOutlet UITextField *monthDebitTextField;
@@ -16,12 +17,26 @@
 
 @implementation MonthDebitViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    [self.monthDebitTextField becomeFirstResponder];
-    [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.navigationItem.hidesBackButton = YES;
+    [self.monthDebitTextField becomeFirstResponder];
+    [[Manager sharedInstance] customBtnOnKeyboardFor:self.monthDebitTextField nameOfAction:@selector(addBtnFromKeyboardClicked:)];
+    
+    
+    [self hidesBackButton];
+}
+
+
+- (void)hidesBackButton {
+    if ([[Manager sharedInstance] getMonthDebit]) {
+        self.navigationItem.hidesBackButton = NO;
+    }
+}
 
 #pragma mark - Custom Button Add -
 

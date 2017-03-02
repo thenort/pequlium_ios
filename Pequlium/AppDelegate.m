@@ -60,6 +60,9 @@
     [[UINavigationBar appearance] setShadowImage:[UIImage new]];
     [[UINavigationBar appearance] setTranslucent:YES];
     [[UINavigationBar appearance] setBackgroundColor:[UIColor clearColor]];
+    
+    [[UIBarButtonItem appearance]setBackButtonTitlePositionAdjustment:UIOffsetMake(-60, -60)
+                                 forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)notificationsOffOrOn {

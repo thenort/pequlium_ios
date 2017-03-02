@@ -172,12 +172,12 @@
         NSString *emptyBudgetToMoneyBox = @"0";
         
         BOOL callOneTimeMonth = [userDefaults boolForKey:@"callOneTimeMonth"];
-        
         if (!callOneTimeMonth) {
             UIStoryboard *storyboard = [UIStoryboard storyboardWithName: @"Main" bundle: nil];
             MonthEndViewController *monthEndViewControllerVC = [storyboard instantiateViewControllerWithIdentifier:@"MonthEndViewController"];
             [self.navigationController pushViewController:monthEndViewControllerVC animated:NO];
         }
+        
         [[Manager sharedInstance] resetDate];
         
         if ([[Manager sharedInstance] getChangeAllStableDebitBool]) {
@@ -258,7 +258,7 @@
             [userDefaults setObject:arrForHistorySaveOfMonthMoneyDebit forKey:@"historySaveOfMonthMoneyDebit"];
             
             [[Manager sharedInstance] setMutableMonthDebit:[[Manager sharedInstance] getMonthDebit]];
-            [[Manager sharedInstance] resetUserDefData:[NSNumber numberWithDouble:[[Manager sharedInstance] getStableBudgetOnDay]]];
+            [[Manager sharedInstance] resetUserDefData:[[Manager sharedInstance] getStableBudgetOnDay]];
             
             [userDefaults setDouble:[[Manager sharedInstance] getStableBudgetOnDay] forKey:@"dailyBudgetTomorrowCounted"];
             [userDefaults synchronize];

@@ -12,7 +12,7 @@
 
 @interface DayEndViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *balanceEndDay;
-@property (strong, nonatomic) NSNumber *mutableBudgetOnDayWithSpendNumberFromDict;
+@property (strong, nonatomic) Manager *manager;
 @end
 
 @implementation DayEndViewController
@@ -23,16 +23,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    self.mutableBudgetOnDayWithSpendNumberFromDict = [dict objectForKey:@"mutableBudgetOnDay"];
-    self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue]];
-    
-    
-    /*
+    self.manager = [Manager sharedInstance];
     self.balanceEndDay.text = [NSString stringWithFormat:@"%.2f", [[Manager sharedInstance] getBudgetOnCurrentDayMoneyDouble]];
-    */
 }
 
 - (void)callOneTimeDayBool {
@@ -45,60 +37,24 @@
 - (IBAction)moveBalanceOnToday:(id)sender {
     [self callOneTimeDayBool];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    double mutableBalanceOnToday = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue];
-    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: mutableBalanceOnToday], @"mutableBudgetOnDay", nil];
-    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
-
-    /*
-    double mutableBalanceOnToday = [[Manager sharedInstance] getBudgetOnDay] + [[Manager sharedInstance] getBudgetOnCurrentDayMoneyDouble];
-    [[Manager sharedInstance] setBudgetOnCurrentDay:mutableBalanceOnToday dayWhenSpend:[NSDate date]];
-    */
+    [self.manager setBudgetOnCurrentDay:[self.manager getBudgetOnDay] + [self.manager getBudgetOnCurrentDayMoneyDouble] dayWhenSpend:[NSDate date]];
     
-    //значение для switch в настройках дня 1пункта
-    [userDefaults setBool:YES forKey:@"transferMoneyToNextDaySettingsDay"];
-    [userDefaults synchronize];
+    //значение для switch в настройках дня 1 пункта
+    [self.manager setTransferMoneyToNextDaySettingsDay:YES];
     [self goToVC];
 }
 
 - (IBAction)amountOnDailyBudget:(id)sender {
     [self callOneTimeDayBool];
     
-    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    double divided = [self.mutableBudgetOnDayWithSpendNumberFromDict doubleValue] / [[Manager sharedInstance] daysToStartNewMonth];
-    double amountBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue] + divided;
-    [userDefaults setObject:[NSNumber numberWithDouble:amountBudgetOnDay] forKey:@"budgetOnDay"];
-    double recalculationBudgetOnDay = [[userDefaults objectForKey:@"budgetOnDay"] doubleValue];
-    NSDictionary *dict = [userDefaults objectForKey:@"budgetOnCurrentDay"];
-    dict = [NSDictionary dictionaryWithObjectsAndKeys:[NSDate date], @"dayWhenSpend", [NSNumber numberWithDouble: recalculationBudgetOnDay], @"mutableBudgetOnDay", nil];
-    [userDefaults setObject:dict forKey:@"budgetOnCurrentDay"];
+    double divided = [self.manager getBudgetOnCurrentDayMoneyDouble] / [self.manager daysToStartNewMonth];
+    double amountBudgetOnDay = [self.manager getBudgetOnDay] + divided;
+    [self.manager setBudgetOnDay:amountBudgetOnDay];
+    [self.manager setBudgetOnCurrentDay:amountBudgetOnDay dayWhenSpend:[NSDate date]];
     
-    /*
-    double divided = [[Manager sharedInstance] getBudgetOnCurrentDayMoneyDouble] / [[Manager sharedInstance] daysToStartNewMonth];
-    double amountBudgetOnDay = [[Manager sharedInstance] getBudgetOnDay] + divided;
-    [[Manager sharedInstance] setBudgetOnDay:amountBudgetOnDay];
-    [[Manager sharedInstance] setBudgetOnCurrentDay:amountBudgetOnDay dayWhenSpend:[NSDate date]];
-    */
-    
-    //значение для switch в настройках дня 2пункта
-    [userDefaults setBool:YES forKey:@"amountOnDailyBudgetSettingsDay"];
-    [userDefaults synchronize];
+    //значение для switch в настройках дня 2 пункта
+    [self.manager setAmountOnDailyBudgetSettingsDay:YES];
     [self goToVC];
-}
-
-- (void)popVC {
-    UIViewController* popVC;
-    for (UIViewController* vC in self.navigationController.viewControllers) {
-        if ([vC isKindOfClass:[MainScreenTableViewController class]]) {
-            popVC = vC;
-            break;
-        }
-    }
-    if (popVC) {
-        [self.navigationController popToViewController:popVC animated:YES];
-    }
-    
 }
 
 - (void)goToVC {

@@ -58,6 +58,11 @@
 - (NSDate*)getResetDateEveryMonth;
 - (void)setResetDateEveryMonth:(NSDate*)resetDateEveryMonth;
 
+- (BOOL)getAmountOnDailyBudgetSettingsDay;
+- (void)setAmountOnDailyBudgetSettingsDay:(BOOL)boolValue;
+- (BOOL)getTransferMoneyToNextDaySettingsDay;
+- (void)setTransferMoneyToNextDaySettingsDay:(BOOL)boolValue;
+
 - (void)setAllStableDebit;
 
 - (BOOL)getChangeAllStableDebitBool;
@@ -82,7 +87,7 @@
 - (NSString*)nameOfPreviousMonth;
 - (NSString*)stringForHistorySaveOfMonthDict;
 - (void)workWithHistoryOfSave:(id)mutableMonthDebite nameOfPeriod:(NSString*)name;
-- (void)resetUserDefData:(NSNumber*)mutableBudgetOnDay;
+- (void)resetUserDefData:(double)mutableBudgetOnDay;
 - (NSString*)workWithDateForMainTable:(NSDate*)date;
 
 @end
