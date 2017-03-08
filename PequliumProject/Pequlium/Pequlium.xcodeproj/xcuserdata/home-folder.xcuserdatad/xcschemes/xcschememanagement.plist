@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pequlium.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>PequliumWidget.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>130B89B61E6577C100F6E894</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>133A9DC51E60DEC300F97630</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>135854011E63286600E1BC53</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>135854121E632A5F00E1BC53</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>13E6B7251E6027EC0079CEBF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>13E6B7441E6044400079CEBF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,594 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		130B89BA1E6577C100F6E894 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 130B89B91E6577C100F6E894 /* NotificationCenter.framework */; };
+		130B89BD1E6577C100F6E894 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B89BC1E6577C100F6E894 /* TodayViewController.swift */; };
+		130B89C01E6577C100F6E894 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 130B89BE1E6577C100F6E894 /* MainInterface.storyboard */; };
+		130B89C41E6577C100F6E894 /* PequliumWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 130B89B71E6577C100F6E894 /* PequliumWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1352BED51E61FC2C0099B4DF /* MonthBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BED41E61FC2C0099B4DF /* MonthBudgetViewController.swift */; };
+		1352BED71E61FC450099B4DF /* CreateBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BED61E61FC450099B4DF /* CreateBudgetViewController.swift */; };
+		1352BED91E61FC650099B4DF /* SpendBudgetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BED81E61FC650099B4DF /* SpendBudgetTableViewController.swift */; };
+		1352BEDB1E61FE940099B4DF /* SpendBudgetHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BEDA1E61FE940099B4DF /* SpendBudgetHeaderView.swift */; };
+		1352BEDD1E61FEC00099B4DF /* SpendBudgetHeaderXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1352BEDC1E61FEC00099B4DF /* SpendBudgetHeaderXib.xib */; };
+		1352BEDF1E6202780099B4DF /* SpendBudgetTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BEDE1E6202780099B4DF /* SpendBudgetTableViewCell.swift */; };
+		135854291E633D8600E1BC53 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135854281E633D8600E1BC53 /* SettingsTableViewController.swift */; };
+		1358542D1E6344A400E1BC53 /* SettingsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1358542C1E6344A400E1BC53 /* SettingsHeaderView.swift */; };
+		1358542F1E63450400E1BC53 /* SettingsHeaderXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1358542E1E63450400E1BC53 /* SettingsHeaderXib.xib */; };
+		135854351E635DF900E1BC53 /* DayEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135854341E635DF900E1BC53 /* DayEndViewController.swift */; };
+		135854371E635E0700E1BC53 /* MonthEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135854361E635E0700E1BC53 /* MonthEndViewController.swift */; };
+		135854391E635E1400E1BC53 /* NegBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135854381E635E1400E1BC53 /* NegBudgetViewController.swift */; };
+		139ACEB71E6841E400BED2A5 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E6B7581E6058700079CEBF /* Manager.swift */; };
+		139ACF3F1E68626900BED2A5 /* LocalizedTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */; };
+		139ACF401E68626900BED2A5 /* LocalizedTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */; };
+		139ACF411E68626900BED2A5 /* LocalizedTimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139ACF3E1E68626900BED2A5 /* LocalizedTimeAgo.swift */; };
+		139ACF421E68626900BED2A5 /* LocalizedTimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139ACF3E1E68626900BED2A5 /* LocalizedTimeAgo.swift */; };
+		139ACF441E68820C00BED2A5 /* SaveHistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139ACF431E68820C00BED2A5 /* SaveHistoryTableViewController.swift */; };
+		139ACF471E68884600BED2A5 /* SaveHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139ACF461E68884600BED2A5 /* SaveHistoryTableViewCell.swift */; };
+		13E1671D1E64771300E6C886 /* SettingsDayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E1671C1E64771300E6C886 /* SettingsDayTableViewController.swift */; };
+		13E1671F1E64772400E6C886 /* SettingsMonthTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E1671E1E64772400E6C886 /* SettingsMonthTableViewController.swift */; };
+		13E6B72A1E6027EC0079CEBF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E6B7291E6027EC0079CEBF /* AppDelegate.swift */; };
+		13E6B72F1E6027EC0079CEBF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13E6B72D1E6027EC0079CEBF /* Main.storyboard */; };
+		13E6B7311E6027EC0079CEBF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13E6B7301E6027EC0079CEBF /* Assets.xcassets */; };
+		13E6B7341E6027EC0079CEBF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 13E6B7321E6027EC0079CEBF /* LaunchScreen.storyboard */; };
+		13E6B7591E6058700079CEBF /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E6B7581E6058700079CEBF /* Manager.swift */; };
+		13E868C71E681C2D001EFC56 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 130B89BC1E6577C100F6E894 /* TodayViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		130B89C21E6577C100F6E894 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 13E6B71E1E6027EC0079CEBF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 130B89B61E6577C100F6E894;
+			remoteInfo = PequliumWidget;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		13E6B7501E6044400079CEBF /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				130B89C41E6577C100F6E894 /* PequliumWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		130B89B71E6577C100F6E894 /* PequliumWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PequliumWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		130B89B91E6577C100F6E894 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		130B89BC1E6577C100F6E894 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		130B89BF1E6577C100F6E894 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		130B89C11E6577C100F6E894 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		130B89C81E6577E900F6E894 /* Pequlium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pequlium.entitlements; sourceTree = "<group>"; };
+		130B89C91E65784000F6E894 /* PequliumWidget.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PequliumWidget.entitlements; sourceTree = "<group>"; };
+		1352BED41E61FC2C0099B4DF /* MonthBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthBudgetViewController.swift; sourceTree = "<group>"; };
+		1352BED61E61FC450099B4DF /* CreateBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBudgetViewController.swift; sourceTree = "<group>"; };
+		1352BED81E61FC650099B4DF /* SpendBudgetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpendBudgetTableViewController.swift; sourceTree = "<group>"; };
+		1352BEDA1E61FE940099B4DF /* SpendBudgetHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpendBudgetHeaderView.swift; sourceTree = "<group>"; };
+		1352BEDC1E61FEC00099B4DF /* SpendBudgetHeaderXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpendBudgetHeaderXib.xib; sourceTree = "<group>"; };
+		1352BEDE1E6202780099B4DF /* SpendBudgetTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpendBudgetTableViewCell.swift; sourceTree = "<group>"; };
+		135854281E633D8600E1BC53 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
+		1358542C1E6344A400E1BC53 /* SettingsHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsHeaderView.swift; sourceTree = "<group>"; };
+		1358542E1E63450400E1BC53 /* SettingsHeaderXib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsHeaderXib.xib; sourceTree = "<group>"; };
+		135854341E635DF900E1BC53 /* DayEndViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayEndViewController.swift; sourceTree = "<group>"; };
+		135854361E635E0700E1BC53 /* MonthEndViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthEndViewController.swift; sourceTree = "<group>"; };
+		135854381E635E1400E1BC53 /* NegBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NegBudgetViewController.swift; sourceTree = "<group>"; };
+		139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LocalizedTimeAgo.bundle; sourceTree = "<group>"; };
+		139ACF3E1E68626900BED2A5 /* LocalizedTimeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedTimeAgo.swift; sourceTree = "<group>"; };
+		139ACF431E68820C00BED2A5 /* SaveHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveHistoryTableViewController.swift; sourceTree = "<group>"; };
+		139ACF461E68884600BED2A5 /* SaveHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		13E1671C1E64771300E6C886 /* SettingsDayTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsDayTableViewController.swift; sourceTree = "<group>"; };
+		13E1671E1E64772400E6C886 /* SettingsMonthTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsMonthTableViewController.swift; sourceTree = "<group>"; };
+		13E6B7261E6027EC0079CEBF /* Pequlium.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pequlium.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13E6B7291E6027EC0079CEBF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		13E6B72E1E6027EC0079CEBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		13E6B7301E6027EC0079CEBF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		13E6B7331E6027EC0079CEBF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		13E6B7351E6027EC0079CEBF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		13E6B7581E6058700079CEBF /* Manager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Manager.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		130B89B41E6577C100F6E894 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				130B89BA1E6577C100F6E894 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13E6B7231E6027EC0079CEBF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		130B89B81E6577C100F6E894 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				130B89B91E6577C100F6E894 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		130B89BB1E6577C100F6E894 /* PequliumWidget */ = {
+			isa = PBXGroup;
+			children = (
+				130B89C91E65784000F6E894 /* PequliumWidget.entitlements */,
+				130B89BC1E6577C100F6E894 /* TodayViewController.swift */,
+				130B89BE1E6577C100F6E894 /* MainInterface.storyboard */,
+				130B89C11E6577C100F6E894 /* Info.plist */,
+			);
+			path = PequliumWidget;
+			sourceTree = "<group>";
+		};
+		133A9DC11E60D4BF00F97630 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1352BEDA1E61FE940099B4DF /* SpendBudgetHeaderView.swift */,
+				1352BEDC1E61FEC00099B4DF /* SpendBudgetHeaderXib.xib */,
+				1352BEDE1E6202780099B4DF /* SpendBudgetTableViewCell.swift */,
+				1358542C1E6344A400E1BC53 /* SettingsHeaderView.swift */,
+				1358542E1E63450400E1BC53 /* SettingsHeaderXib.xib */,
+				139ACF461E68884600BED2A5 /* SaveHistoryTableViewCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		13E6B71D1E6027EC0079CEBF = {
+			isa = PBXGroup;
+			children = (
+				13E6B7281E6027EC0079CEBF /* Pequlium */,
+				130B89BB1E6577C100F6E894 /* PequliumWidget */,
+				130B89B81E6577C100F6E894 /* Frameworks */,
+				13E6B7271E6027EC0079CEBF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		13E6B7271E6027EC0079CEBF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				13E6B7261E6027EC0079CEBF /* Pequlium.app */,
+				130B89B71E6577C100F6E894 /* PequliumWidget.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		13E6B7281E6027EC0079CEBF /* Pequlium */ = {
+			isa = PBXGroup;
+			children = (
+				13FB7D6A1E68375D00DB042C /* Extension */,
+				130B89C81E6577E900F6E894 /* Pequlium.entitlements */,
+				13E6B7291E6027EC0079CEBF /* AppDelegate.swift */,
+				13E6B73B1E6028DF0079CEBF /* Model */,
+				133A9DC11E60D4BF00F97630 /* View */,
+				13E6B73C1E6028E80079CEBF /* Controller */,
+				13E6B72D1E6027EC0079CEBF /* Main.storyboard */,
+				13E6B7301E6027EC0079CEBF /* Assets.xcassets */,
+				13E6B7321E6027EC0079CEBF /* LaunchScreen.storyboard */,
+				13E6B7351E6027EC0079CEBF /* Info.plist */,
+			);
+			path = Pequlium;
+			sourceTree = "<group>";
+		};
+		13E6B73B1E6028DF0079CEBF /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				13E6B7581E6058700079CEBF /* Manager.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		13E6B73C1E6028E80079CEBF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1352BED41E61FC2C0099B4DF /* MonthBudgetViewController.swift */,
+				1352BED61E61FC450099B4DF /* CreateBudgetViewController.swift */,
+				1352BED81E61FC650099B4DF /* SpendBudgetTableViewController.swift */,
+				135854341E635DF900E1BC53 /* DayEndViewController.swift */,
+				135854361E635E0700E1BC53 /* MonthEndViewController.swift */,
+				135854381E635E1400E1BC53 /* NegBudgetViewController.swift */,
+				135854281E633D8600E1BC53 /* SettingsTableViewController.swift */,
+				13E1671C1E64771300E6C886 /* SettingsDayTableViewController.swift */,
+				13E1671E1E64772400E6C886 /* SettingsMonthTableViewController.swift */,
+				139ACF431E68820C00BED2A5 /* SaveHistoryTableViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		13FB7D6A1E68375D00DB042C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				139ACF3E1E68626900BED2A5 /* LocalizedTimeAgo.swift */,
+				139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		130B89B61E6577C100F6E894 /* PequliumWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 130B89C51E6577C100F6E894 /* Build configuration list for PBXNativeTarget "PequliumWidget" */;
+			buildPhases = (
+				130B89B31E6577C100F6E894 /* Sources */,
+				130B89B41E6577C100F6E894 /* Frameworks */,
+				130B89B51E6577C100F6E894 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PequliumWidget;
+			productName = PequliumWidget;
+			productReference = 130B89B71E6577C100F6E894 /* PequliumWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		13E6B7251E6027EC0079CEBF /* Pequlium */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 13E6B7381E6027EC0079CEBF /* Build configuration list for PBXNativeTarget "Pequlium" */;
+			buildPhases = (
+				13E6B7221E6027EC0079CEBF /* Sources */,
+				13E6B7231E6027EC0079CEBF /* Frameworks */,
+				13E6B7241E6027EC0079CEBF /* Resources */,
+				13E6B7501E6044400079CEBF /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				130B89C31E6577C100F6E894 /* PBXTargetDependency */,
+			);
+			name = Pequlium;
+			productName = Pequlium;
+			productReference = 13E6B7261E6027EC0079CEBF /* Pequlium.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		13E6B71E1E6027EC0079CEBF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Kyrylo Matvieiev";
+				TargetAttributes = {
+					130B89B61E6577C100F6E894 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 76BQSTQDWZ;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+					13E6B7251E6027EC0079CEBF = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 76BQSTQDWZ;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = 13E6B7211E6027EC0079CEBF /* Build configuration list for PBXProject "Pequlium" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 13E6B71D1E6027EC0079CEBF;
+			productRefGroup = 13E6B7271E6027EC0079CEBF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				13E6B7251E6027EC0079CEBF /* Pequlium */,
+				130B89B61E6577C100F6E894 /* PequliumWidget */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		130B89B51E6577C100F6E894 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				139ACF401E68626900BED2A5 /* LocalizedTimeAgo.bundle in Resources */,
+				130B89C01E6577C100F6E894 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13E6B7241E6027EC0079CEBF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13E6B7341E6027EC0079CEBF /* LaunchScreen.storyboard in Resources */,
+				1358542F1E63450400E1BC53 /* SettingsHeaderXib.xib in Resources */,
+				139ACF3F1E68626900BED2A5 /* LocalizedTimeAgo.bundle in Resources */,
+				13E6B7311E6027EC0079CEBF /* Assets.xcassets in Resources */,
+				1352BEDD1E61FEC00099B4DF /* SpendBudgetHeaderXib.xib in Resources */,
+				13E6B72F1E6027EC0079CEBF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		130B89B31E6577C100F6E894 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				139ACF421E68626900BED2A5 /* LocalizedTimeAgo.swift in Sources */,
+				130B89BD1E6577C100F6E894 /* TodayViewController.swift in Sources */,
+				139ACEB71E6841E400BED2A5 /* Manager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		13E6B7221E6027EC0079CEBF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				13E6B72A1E6027EC0079CEBF /* AppDelegate.swift in Sources */,
+				1358542D1E6344A400E1BC53 /* SettingsHeaderView.swift in Sources */,
+				13E868C71E681C2D001EFC56 /* TodayViewController.swift in Sources */,
+				135854391E635E1400E1BC53 /* NegBudgetViewController.swift in Sources */,
+				13E1671F1E64772400E6C886 /* SettingsMonthTableViewController.swift in Sources */,
+				135854371E635E0700E1BC53 /* MonthEndViewController.swift in Sources */,
+				13E6B7591E6058700079CEBF /* Manager.swift in Sources */,
+				135854291E633D8600E1BC53 /* SettingsTableViewController.swift in Sources */,
+				13E1671D1E64771300E6C886 /* SettingsDayTableViewController.swift in Sources */,
+				1352BED91E61FC650099B4DF /* SpendBudgetTableViewController.swift in Sources */,
+				139ACF441E68820C00BED2A5 /* SaveHistoryTableViewController.swift in Sources */,
+				1352BEDF1E6202780099B4DF /* SpendBudgetTableViewCell.swift in Sources */,
+				1352BED51E61FC2C0099B4DF /* MonthBudgetViewController.swift in Sources */,
+				1352BEDB1E61FE940099B4DF /* SpendBudgetHeaderView.swift in Sources */,
+				1352BED71E61FC450099B4DF /* CreateBudgetViewController.swift in Sources */,
+				139ACF471E68884600BED2A5 /* SaveHistoryTableViewCell.swift in Sources */,
+				139ACF411E68626900BED2A5 /* LocalizedTimeAgo.swift in Sources */,
+				135854351E635DF900E1BC53 /* DayEndViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		130B89C31E6577C100F6E894 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 130B89B61E6577C100F6E894 /* PequliumWidget */;
+			targetProxy = 130B89C21E6577C100F6E894 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		130B89BE1E6577C100F6E894 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				130B89BF1E6577C100F6E894 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		13E6B72D1E6027EC0079CEBF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13E6B72E1E6027EC0079CEBF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		13E6B7321E6027EC0079CEBF /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				13E6B7331E6027EC0079CEBF /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		130B89C61E6577C100F6E894 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PequliumWidget/PequliumWidget.entitlements;
+				DEVELOPMENT_TEAM = 76BQSTQDWZ;
+				INFOPLIST_FILE = PequliumWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Luft.Pequlium.PequliumWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		130B89C71E6577C100F6E894 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = PequliumWidget/PequliumWidget.entitlements;
+				DEVELOPMENT_TEAM = 76BQSTQDWZ;
+				INFOPLIST_FILE = PequliumWidget/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Luft.Pequlium.PequliumWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		13E6B7361E6027EC0079CEBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		13E6B7371E6027EC0079CEBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		13E6B7391E6027EC0079CEBF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Pequlium/Pequlium.entitlements;
+				DEVELOPMENT_TEAM = 76BQSTQDWZ;
+				INFOPLIST_FILE = Pequlium/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Luft.Pequlium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		13E6B73A1E6027EC0079CEBF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Pequlium/Pequlium.entitlements;
+				DEVELOPMENT_TEAM = 76BQSTQDWZ;
+				INFOPLIST_FILE = Pequlium/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Luft.Pequlium;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		130B89C51E6577C100F6E894 /* Build configuration list for PBXNativeTarget "PequliumWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				130B89C61E6577C100F6E894 /* Debug */,
+				130B89C71E6577C100F6E894 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13E6B7211E6027EC0079CEBF /* Build configuration list for PBXProject "Pequlium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13E6B7361E6027EC0079CEBF /* Debug */,
+				13E6B7371E6027EC0079CEBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		13E6B7381E6027EC0079CEBF /* Build configuration list for PBXNativeTarget "Pequlium" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				13E6B7391E6027EC0079CEBF /* Debug */,
+				13E6B73A1E6027EC0079CEBF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 13E6B71E1E6027EC0079CEBF /* Project object */;
+}
