@@ -20,6 +20,7 @@ class DayEndViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.hidesBackButton = true
     }
 
     @IBAction func tapTransferDayBalance(_ sender: UIButton) {

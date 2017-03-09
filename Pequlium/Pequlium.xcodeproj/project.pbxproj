@@ -23,6 +23,7 @@
 		135854351E635DF900E1BC53 /* DayEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135854341E635DF900E1BC53 /* DayEndViewController.swift */; };
 		135854371E635E0700E1BC53 /* MonthEndViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135854361E635E0700E1BC53 /* MonthEndViewController.swift */; };
 		135854391E635E1400E1BC53 /* NegBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 135854381E635E1400E1BC53 /* NegBudgetViewController.swift */; };
+		1367108A1E7151B4005B83BC /* CustomUITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 136710891E7151B4005B83BC /* CustomUITextField.swift */; };
 		139ACEB71E6841E400BED2A5 /* Manager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E6B7581E6058700079CEBF /* Manager.swift */; };
 		139ACF3F1E68626900BED2A5 /* LocalizedTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */; };
 		139ACF401E68626900BED2A5 /* LocalizedTimeAgo.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */; };
@@ -84,6 +85,7 @@
 		135854341E635DF900E1BC53 /* DayEndViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayEndViewController.swift; sourceTree = "<group>"; };
 		135854361E635E0700E1BC53 /* MonthEndViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthEndViewController.swift; sourceTree = "<group>"; };
 		135854381E635E1400E1BC53 /* NegBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NegBudgetViewController.swift; sourceTree = "<group>"; };
+		136710891E7151B4005B83BC /* CustomUITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomUITextField.swift; sourceTree = "<group>"; };
 		139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = LocalizedTimeAgo.bundle; sourceTree = "<group>"; };
 		139ACF3E1E68626900BED2A5 /* LocalizedTimeAgo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizedTimeAgo.swift; sourceTree = "<group>"; };
 		139ACF431E68820C00BED2A5 /* SaveHistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveHistoryTableViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,15 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		136710841E714C3C005B83BC /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				139ACF3E1E68626900BED2A5 /* LocalizedTimeAgo.swift */,
+				139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */,
+			);
+			name = Date;
+			sourceTree = "<group>";
+		};
 		13E6B71D1E6027EC0079CEBF = {
 			isa = PBXGroup;
 			children = (
@@ -172,9 +183,9 @@
 		13E6B7281E6027EC0079CEBF /* Pequlium */ = {
 			isa = PBXGroup;
 			children = (
-				13FB7D6A1E68375D00DB042C /* Extension */,
 				130B89C81E6577E900F6E894 /* Pequlium.entitlements */,
 				13E6B7291E6027EC0079CEBF /* AppDelegate.swift */,
+				13FB7D6A1E68375D00DB042C /* Extension */,
 				13E6B73B1E6028DF0079CEBF /* Model */,
 				133A9DC11E60D4BF00F97630 /* View */,
 				13E6B73C1E6028E80079CEBF /* Controller */,
@@ -214,8 +225,8 @@
 		13FB7D6A1E68375D00DB042C /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				139ACF3E1E68626900BED2A5 /* LocalizedTimeAgo.swift */,
-				139ACF3D1E68626900BED2A5 /* LocalizedTimeAgo.bundle */,
+				136710841E714C3C005B83BC /* Date */,
+				136710891E7151B4005B83BC /* CustomUITextField.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -356,6 +367,7 @@
 				135854391E635E1400E1BC53 /* NegBudgetViewController.swift in Sources */,
 				13E1671F1E64772400E6C886 /* SettingsMonthTableViewController.swift in Sources */,
 				135854371E635E0700E1BC53 /* MonthEndViewController.swift in Sources */,
+				1367108A1E7151B4005B83BC /* CustomUITextField.swift in Sources */,
 				13E6B7591E6058700079CEBF /* Manager.swift in Sources */,
 				135854291E633D8600E1BC53 /* SettingsTableViewController.swift in Sources */,
 				13E1671D1E64771300E6C886 /* SettingsDayTableViewController.swift in Sources */,

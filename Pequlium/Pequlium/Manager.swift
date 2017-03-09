@@ -380,7 +380,6 @@ class Manager: NSObject {
         }
     }
     
-    
     //- Calculation DayEnd
     
     func transferDayBalanceDayEnd() {
@@ -455,6 +454,7 @@ class Manager: NSObject {
             self.setMoneyBox(value: self.getMoneyBox() + self.getMutableMonthBudget())
         }
         self.setSaveHistory(saveValue: self.getMutableMonthBudget(), savePeriod: self.savePeriod(date: self.getFinanceMonthDate()))
+        self.setSaveHistoryValue(saveValue: self.getMutableMonthBudget())
         
         self.newFinanceMonth()
         self.setMutableDailyBudget(mutableDailyBudget: self.getDailyBudget())
@@ -486,5 +486,48 @@ class Manager: NSObject {
         return self.sharedDefaults?.bool(forKey: "isCallMonthEndVC") as Bool!
     }
     
+    //MARK: - Sum Save Money For The Year
+    
+    //For (Sum Save Money For The Year)
+    func setSaveHistoryValue(saveValue: Double) {
+        var saveHistoryValue = self.sharedDefaults?.value(forKey: "saveHistoryValue") as? Array<Double>
+        if saveHistoryValue == nil {
+            saveHistoryValue = Array()
+        }
+        self.sharedDefaults?.set(saveHistoryValue, forKey: "saveHistoryValue")
+        self.sharedDefaults?.synchronize()
+    }
+    
+    func getSaveHistoryValue() -> Array<Double>? {
+        return self.sharedDefaults?.value(forKey: "saveHistoryValue") as? Array<Double>
+    }
+    
+    func sumSaveValueYearEnd() {
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.system
+        
+        let component = calendar.dateComponents([.year], from: Date())
+        if self.sharedDefaults?.value(forKey: "") == nil {
+            let dateYear = calendar.date(from: component)
+            self.sharedDefaults?.set(dateYear, forKey: "")
+        }
+        let oldYear = self.sharedDefaults?.value(forKey: "") as! Date
+        let newYear: Date! = calendar.date(from: component)
+        
+        if oldYear < newYear {
+            let saveHistoryValue = self.getSaveHistoryValue()!
+            var sumSaveValueYearEnd: Double!
+            
+            for valueInArray in saveHistoryValue {
+                sumSaveValueYearEnd = sumSaveValueYearEnd + valueInArray
+            }
+            self.setSaveHistory(saveValue: sumSaveValueYearEnd, savePeriod: self.dateInStrFormat(string: "yyyy", date: oldYear))
+            
+            self.sharedDefaults?.set(nil, forKey: "saveHistoryValue")
+            self.sharedDefaults?.set(newYear, forKey: "")
+        }
+        
+        self.sharedDefaults?.synchronize()
+    }
     
 }

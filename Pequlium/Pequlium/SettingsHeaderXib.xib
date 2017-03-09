@@ -33,7 +33,7 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xCb-5L-XXe">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xCb-5L-XXe" customClass="CustomUITextField" customModule="Pequlium" customModuleProvider="target">
                     <rect key="frame" x="16" y="171" width="343" height="0.0"/>
                     <constraints>
                         <constraint firstAttribute="height" id="CiP-ZW-uxs"/>
@@ -96,7 +96,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
-                <outlet property="addValueTF" destination="xCb-5L-XXe" id="aL8-RB-YXK"/>
+                <outlet property="addValueTF" destination="xCb-5L-XXe" id="d7b-wv-NQ2"/>
                 <outlet property="addValueText" destination="Tky-Bf-RGh" id="py0-Ed-lxK"/>
                 <outlet property="moneyBoxButton" destination="Se8-ga-CNb" id="YcZ-qC-AdX"/>
                 <outlet property="moneyBoxTextL" destination="yNr-tK-YjQ" id="KRN-A9-2qC"/>

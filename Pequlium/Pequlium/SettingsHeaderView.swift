@@ -19,7 +19,7 @@ class SettingsHeaderView: UIView {
     @IBOutlet weak var mutableMonthBudgetL: UILabel!
     
     @IBOutlet weak var tFHeightConstraint: NSLayoutConstraint!
-    @IBOutlet weak var addValueTF: UITextField!
+    @IBOutlet weak var addValueTF: CustomUITextField!
     @IBOutlet weak var addValueText: UIButton!
     @IBOutlet weak var moneyBoxButton: UIButton!
     @IBOutlet weak var moneyBoxTextL: UILabel!

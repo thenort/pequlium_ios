@@ -358,7 +358,7 @@ ICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XOn-vH-yES">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XOn-vH-yES" customClass="CustomUITextField" customModule="Pequlium" customModuleProvider="target">
                                 <rect key="frame" x="16" y="57" width="343" height="98"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="98" id="Nfw-lv-otr"/>
@@ -392,7 +392,7 @@ ICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="enterMonthBudgetTF" destination="XOn-vH-yES" id="e3V-qt-bhQ"/>
+                        <outlet property="enterMonthBudgetTF" destination="XOn-vH-yES" id="dvt-9E-CZB"/>
                         <segue destination="yto-8r-nFx" kind="show" id="B57-rU-d90"/>
                         <segue destination="e1Z-db-fzi" kind="show" id="f4W-Kd-4Lt"/>
                     </connections>

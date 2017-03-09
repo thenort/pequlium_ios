@@ -34,6 +34,7 @@ class SpendBudgetTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.startTimer()
+        
     }
     
     override func viewDidLoad() {
@@ -143,7 +144,6 @@ class SpendBudgetTableViewController: UITableViewController {
     }
     
     func autoresizeXib() {
-        
         let screen = UIScreen.main.bounds
         let height = screen.height
         
@@ -167,15 +167,6 @@ class SpendBudgetTableViewController: UITableViewController {
     }
 
     // MARK: - UITextFieldDelegate
-
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-+=!№;%:?@#$^&*() "
-        let characterSet = NSCharacterSet (charactersIn: string)
-        if string.rangeOfCharacter(from: characterSet.inverted) != nil {
-            return false
-        }
-        return true
-    }
     
     func textFieldDidChange(textField: UITextField) {
         if ((textField.text?.characters.count)! > 0) {

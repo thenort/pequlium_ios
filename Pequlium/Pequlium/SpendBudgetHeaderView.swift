@@ -11,7 +11,7 @@ import UIKit
 class SpendBudgetHeaderView: UIView {
 
     @IBOutlet weak var budgetOnDayL: UILabel!
-    @IBOutlet weak var spendValueTF: UITextField!
+    @IBOutlet weak var spendValueTF: CustomUITextField!
     @IBOutlet weak var spendTextL: UILabel!
     @IBOutlet weak var enterTextL: UILabel!
     

@@ -43,10 +43,10 @@ class SettingsTableViewController: UITableViewController, SettingsHeaderViewDele
     //MARK: Switch Resolution
     
     func updateStatusNotifSwitch() {
-        if self.sharedUserDefaults?.bool(forKey: "isNotificationSwitchOn") != nil {
-            self.notificationSwitch.setOn(false, animated: false)
-        } else {
+        if self.sharedUserDefaults?.value(forKey: "isNotificationSwitchOn") != nil {
             self.notificationSwitch.setOn(true, animated: false)
+        } else {
+            self.notificationSwitch.setOn(false, animated: false)
         }
     }
     
@@ -169,15 +169,6 @@ class SettingsTableViewController: UITableViewController, SettingsHeaderViewDele
     
     
     // MARK: - UITextFieldDelegate
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-+=!№;%:?@#$^&*() "
-        let characterSet = NSCharacterSet (charactersIn: string)
-        if string.rangeOfCharacter(from: characterSet.inverted) != nil {
-            return false
-        }
-        return true
-    }
     
     func textFieldDidChange(textField: UITextField) {
         if ((textField.text?.characters.count)! > 0) {

@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sF6-aW-RkY">
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sF6-aW-RkY" customClass="CustomUITextField" customModule="Pequlium" customModuleProvider="target">
                     <rect key="frame" x="16" y="137" width="343" height="114"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="114" id="9O9-ib-ceY"/>
@@ -81,7 +81,7 @@
                 <outlet property="budgetOnDayL" destination="9w5-e5-28V" id="37k-dm-HK4"/>
                 <outlet property="enterTextL" destination="G5n-Tn-N65" id="0CL-xj-mlP"/>
                 <outlet property="spendTextL" destination="suB-FH-RdE" id="hx0-I5-Rtb"/>
-                <outlet property="spendValueTF" destination="sF6-aW-RkY" id="cnk-wb-Ftg"/>
+                <outlet property="spendValueTF" destination="sF6-aW-RkY" id="KFF-89-waV"/>
             </connections>
             <point key="canvasLocation" x="-1589.5" y="3553"/>
         </view>

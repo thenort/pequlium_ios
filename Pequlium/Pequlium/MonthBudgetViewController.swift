@@ -10,7 +10,7 @@ import UIKit
 
 class MonthBudgetViewController: UIViewController {
 
-    @IBOutlet weak var enterMonthBudgetTF: UITextField!
+    @IBOutlet weak var enterMonthBudgetTF: CustomUITextField!
     private var manager = Manager.sharedInstance
     
     
@@ -53,15 +53,6 @@ class MonthBudgetViewController: UIViewController {
             viewController.monthBudget = NumberFormatter().number(from: self.enterMonthBudgetTF.text!)?.doubleValue
             self.navigationController!.pushViewController(viewController, animated: true)
         }
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        let string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя_-+=!№;%:?@#$^&*() "
-        let characterSet = NSCharacterSet (charactersIn: string)
-        if string.rangeOfCharacter(from: characterSet.inverted) != nil {
-            return false
-        }
-        return true
     }
 
 }
