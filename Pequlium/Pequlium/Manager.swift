@@ -24,7 +24,7 @@ class Manager: NSObject {
     // MARK: - Data Stack
     
     
-    // MonthBudget
+    // MonthlyBudget
     func setMonthlyBudget(monthlyBudget: Double) {
         self.sharedDefaults?.set(monthlyBudget, forKey: "monthlyBudget")
         self.sharedDefaults?.synchronize()
@@ -32,6 +32,15 @@ class Manager: NSObject {
     
     func getMonthlyBudget() -> Double? {
         return self.sharedDefaults?.value(forKey: "monthlyBudget") as! Double?
+    }
+    
+    func setNewMonthlyBudget(newMonthlyBudget: Double?) {
+        self.sharedDefaults?.set(newMonthlyBudget, forKey: "newMonthlyBudget")
+        self.sharedDefaults?.synchronize()
+    }
+    
+    func getNewMonthlyBudget() -> Double? {
+        return self.sharedDefaults?.value(forKey: "newMonthlyBudget") as! Double?
     }
     
     //MutableMonthBudget
@@ -93,6 +102,15 @@ class Manager: NSObject {
         return self.sharedDefaults?.value(forKey: "dailyBudget") as! Double
     }
     
+    func setNewDailyBudget(newDailyBudget: Double?) {
+        self.sharedDefaults?.set(newDailyBudget, forKey: "newDailyBudget")
+        self.sharedDefaults?.synchronize()
+    }
+    
+    func getNewDailyBudget() -> Double? {
+        return self.sharedDefaults?.value(forKey: "newDailyBudget") as! Double?
+    }
+    
     //MonthlyPerthent
     func setMonthlyPercent(monthlyPercent: Double?) {
         self.sharedDefaults?.set(monthlyPercent, forKey: "monthlyPercent")
@@ -101,6 +119,15 @@ class Manager: NSObject {
     
     func getMonthlyPercent() -> Double? {
         return self.sharedDefaults?.value(forKey: "monthlyPercent") as! Double?
+    }
+    
+    func setNewMonthlyPercent(newMonthlyPercent: Double?) {
+        self.sharedDefaults?.set(newMonthlyPercent, forKey: "newMonthlyPercent")
+        self.sharedDefaults?.synchronize()
+    }
+    
+    func getNewMonthlyPercent() -> Double? {
+        return self.sharedDefaults?.value(forKey: "newMonthlyPercent") as! Double?
     }
     
     //- SettingDayTableVC switch (BOOL)-//
@@ -420,6 +447,7 @@ class Manager: NSObject {
         self.setSaveHistory(saveValue: 0, savePeriod: self.savePeriod(date: self.getFinanceMonthDate()))
         
         self.newFinanceMonth()
+        self.setNewBudget()
         self.setMutableDailyBudget(mutableDailyBudget: self.getDailyBudget())
         self.setBudgetOnDay(dayBudget: self.getMutableMonthBudget() + self.getMutableDailyBudget(), daySpend: Date())
         self.setMutableMonthBudget(mutableMonthBudget: self.getMonthlyBudget()! + self.getMutableMonthBudget())
@@ -437,6 +465,7 @@ class Manager: NSObject {
         
         self.newFinanceMonth()
         let divivded = self.getMutableMonthBudget() / Double(self.daysToStartNewMonth())
+        self.setNewBudget()
         let amountBudget = self.getDailyBudget() + divivded
         self.setMutableDailyBudget(mutableDailyBudget: amountBudget)
         self.setBudgetOnDay(dayBudget: amountBudget, daySpend: Date())
@@ -454,9 +483,10 @@ class Manager: NSObject {
             self.setMoneyBox(value: self.getMoneyBox() + self.getMutableMonthBudget())
         }
         self.setSaveHistory(saveValue: self.getMutableMonthBudget(), savePeriod: self.savePeriod(date: self.getFinanceMonthDate()))
-        self.setSaveHistoryValue(saveValue: self.getMutableMonthBudget())
+        self.setMoneyBoxValue(saveValue: self.getMutableMonthBudget())
         
         self.newFinanceMonth()
+        self.setNewBudget()
         self.setMutableDailyBudget(mutableDailyBudget: self.getDailyBudget())
         self.setBudgetOnDay(dayBudget: self.getDailyBudget(), daySpend: Date())
         self.setMutableMonthBudget(mutableMonthBudget: self.getMonthlyBudget()!)
@@ -464,6 +494,23 @@ class Manager: NSObject {
         self.setSpendLessBudget(tomorrowBudget: nil)
         self.setIsFromKeybCalcRemove()
         self.setSpendHistoryRemove()
+    }
+    
+    //Change all Kind of Budgets (stable)
+    func setNewBudget() {
+        if self.getNewMonthlyBudget() != nil {
+            if self.getNewMonthlyPercent() != nil {
+                self.setMonthlyPercent(monthlyPercent: getNewMonthlyPercent()!)
+                self.setNewMonthlyPercent(newMonthlyPercent: nil)
+            } else {
+                self.setMonthlyPercent(monthlyPercent: nil)
+            }
+            self.setMonthlyBudget(monthlyBudget: self.getNewMonthlyBudget()!)
+            self.setDailyBudget(dailyBudget: self.getNewDailyBudget()!)
+            
+            setNewMonthlyBudget(newMonthlyBudget: nil)
+            setNewDailyBudget(newDailyBudget: nil)
+        }
     }
     
     //DayEndVC - BOOL -
@@ -489,44 +536,48 @@ class Manager: NSObject {
     //MARK: - Sum Save Money For The Year
     
     //For (Sum Save Money For The Year)
-    func setSaveHistoryValue(saveValue: Double) {
-        var saveHistoryValue = self.sharedDefaults?.value(forKey: "saveHistoryValue") as? Array<Double>
-        if saveHistoryValue == nil {
-            saveHistoryValue = Array()
+    func setMoneyBoxValue(saveValue: Double) {
+        var saveMoneyBoxValue = self.sharedDefaults?.value(forKey: "moneyBoxValue") as? Array<Double>
+        if saveMoneyBoxValue == nil {
+            saveMoneyBoxValue = Array()
         }
-        self.sharedDefaults?.set(saveHistoryValue, forKey: "saveHistoryValue")
+        saveMoneyBoxValue?.append(saveValue)
+        self.sharedDefaults?.set(saveMoneyBoxValue, forKey: "moneyBoxValue")
         self.sharedDefaults?.synchronize()
     }
     
-    func getSaveHistoryValue() -> Array<Double>? {
-        return self.sharedDefaults?.value(forKey: "saveHistoryValue") as? Array<Double>
+    func getMoneyBoxValue() -> Array<Double>? {
+        return self.sharedDefaults?.value(forKey: "moneyBoxValue") as? Array<Double>
     }
     
-    func sumSaveValueYearEnd() {
+    func sumSaveHistoryValueYearEnd() {
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.system
         
         let component = calendar.dateComponents([.year], from: Date())
-        if self.sharedDefaults?.value(forKey: "") == nil {
+        if self.sharedDefaults?.value(forKey: "moneyBoxYear") == nil {
             let dateYear = calendar.date(from: component)
-            self.sharedDefaults?.set(dateYear, forKey: "")
+            self.sharedDefaults?.set(dateYear, forKey: "moneyBoxYear")
         }
-        let oldYear = self.sharedDefaults?.value(forKey: "") as! Date
+        let oldYear = self.sharedDefaults?.value(forKey: "moneyBoxYear") as! Date
         let newYear: Date! = calendar.date(from: component)
         
         if oldYear < newYear {
-            let saveHistoryValue = self.getSaveHistoryValue()!
-            var sumSaveValueYearEnd: Double!
-            
-            for valueInArray in saveHistoryValue {
-                sumSaveValueYearEnd = sumSaveValueYearEnd + valueInArray
+            if self.getMoneyBoxValue() != nil {
+                let saveMoneyBoxValue = self.getMoneyBoxValue()!
+                var sumSaveValueYearEnd: Double = 0.00
+                
+                for value: Double in saveMoneyBoxValue {
+                    sumSaveValueYearEnd = sumSaveValueYearEnd + value
+                }
+                self.setSaveHistory(saveValue: sumSaveValueYearEnd, savePeriod: self.dateInStrFormat(string: "yyyy", date: oldYear))
+            } else {
+                self.setSaveHistory(saveValue: 0, savePeriod: self.dateInStrFormat(string: "yyyy", date: oldYear))
             }
-            self.setSaveHistory(saveValue: sumSaveValueYearEnd, savePeriod: self.dateInStrFormat(string: "yyyy", date: oldYear))
             
-            self.sharedDefaults?.set(nil, forKey: "saveHistoryValue")
-            self.sharedDefaults?.set(newYear, forKey: "")
+            self.sharedDefaults?.removeObject(forKey: "moneyBoxValue")
+            self.sharedDefaults?.set(newYear, forKey: "moneyBoxYear")
         }
-        
         self.sharedDefaults?.synchronize()
     }
     

@@ -45,8 +45,8 @@ class MonthEndViewController: UIViewController {
     
     @IBAction func tapSaveMonthBalance(_ sender: UIButton) {
         self.manager.setIsCallMonthEndVC(boolValue: true)
-        //do something
         self.manager.saveMonthBalanceMonthEnd()
+        //value for Switch SettingsMonthEnd
         self.manager.setSaveBalance(boolValue: true)
         self.manager.setTransferMonthBalance(boolValue: false)
         self.manager.setAmountMonthBalance(boolValue: false)

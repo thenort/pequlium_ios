@@ -38,9 +38,6 @@ class CreateBudgetViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.manager.getMonthlyBudget() != nil {
-            
-        }
     }
     
     override func viewDidLoad() {
@@ -56,18 +53,20 @@ class CreateBudgetViewController: UIViewController {
     }
     
     func saveInData(monthBudget:Double, dayBudget:Double, monthlyPercent:Double?) {
-        self.manager.setMonthlyBudget(monthlyBudget: monthBudget)
-        self.manager.setMutableMonthBudget(mutableMonthBudget: monthBudget)
-        
-        self.manager.setBudgetOnDay(dayBudget: dayBudget, daySpend: Date())
-        self.manager.setMutableDailyBudget(mutableDailyBudget: dayBudget)
-        self.manager.setDailyBudget(dailyBudget: dayBudget)
-        
-        self.manager.setMonthlyPercent(monthlyPercent: monthlyPercent)
-        
-        self.manager.setFinanceMonthDate(date: Date())
-        self.manager.newFinanceMonth()
-        
+        if self.manager.getMonthlyBudget() != nil {
+            self.manager.setNewMonthlyBudget(newMonthlyBudget: monthBudget)
+            self.manager.setNewDailyBudget(newDailyBudget: dayBudget)
+            self.manager.setNewMonthlyPercent(newMonthlyPercent: monthlyPercent)
+        } else {
+            self.manager.setMonthlyBudget(monthlyBudget: monthBudget)
+            self.manager.setMutableMonthBudget(mutableMonthBudget: monthBudget)
+            self.manager.setBudgetOnDay(dayBudget: dayBudget, daySpend: Date())
+            self.manager.setMutableDailyBudget(mutableDailyBudget: dayBudget)
+            self.manager.setDailyBudget(dailyBudget: dayBudget)
+            self.manager.setMonthlyPercent(monthlyPercent: monthlyPercent)
+            self.manager.setFinanceMonthDate(date: Date())
+            self.manager.newFinanceMonth()
+        }
         self.pushViewController()
     }
     

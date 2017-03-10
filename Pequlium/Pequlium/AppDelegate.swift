@@ -9,7 +9,9 @@
 import UIKit
 import UserNotifications
 
+
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
@@ -40,6 +42,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         self.isNotificationOnOff()
+        if self.sharedUserDefaults?.value(forKey: "financeMonthDate") != nil {
+            self.manager.recalculationMonthEnd()
+            self.manager.sumSaveHistoryValueYearEnd()
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSpendBudgetTVC"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSettingTVC"), object: nil)
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

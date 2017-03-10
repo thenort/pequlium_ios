@@ -32,8 +32,17 @@ class SettingsTableViewController: UITableViewController, SettingsHeaderViewDele
         self.tableView.tableFooterView = UIView();
         self.headerView.addValueTF.addTarget(self, action: #selector(self.textFieldDidChange(textField:)), for: UIControlEvents.editingChanged)
         self.manager.customBtnsOnKeyboardFor(textFieldName: self.headerView.addValueTF, addAction: #selector(self.addButtonKeyboard), cancelAction: #selector(self.cancelButtonKeyboard))
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.settingsTVCupdate), name: NSNotification.Name(rawValue: "updateSettingTVC"), object: nil)
     }
-
+    
+    func settingsTVCupdate() {
+        self.updateStatusNotifSwitch()
+        self.headerView.newFinanceMothDateL.text = "Сумма до " + self.manager.dateInStrFormat(string: "dd MMMM", date: self.manager.getFinanceMonthDate())
+        self.headerView.mutableMonthBudgetL.text = String(format: "%.2f", self.manager.getMutableMonthBudget())
+        self.headerView.moneyBoxButton.setTitle(String(format: "%.2f", self.manager.getMoneyBox()), for: UIControlState.normal)
+    }
+    
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

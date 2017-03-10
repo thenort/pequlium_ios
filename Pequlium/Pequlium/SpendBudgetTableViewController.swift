@@ -21,6 +21,7 @@ class SpendBudgetTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         self.headerView.spendValueTF.becomeFirstResponder()
         self.manager.recalculationMonthEnd()
+        self.manager.sumSaveHistoryValueYearEnd()
         self.callMonthEndDayEndVC()
         if self.manager.getSpendHistory() != nil {
             self.spendHistory = self.manager.getSpendHistory()!
@@ -46,15 +47,22 @@ class SpendBudgetTableViewController: UITableViewController {
         self.navigationItem.hidesBackButton = true
         self.headerView.spendValueTF.tintColor = UIColor.clear
         self.headerView.spendTextL.alpha = 0
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.spendBudgetTVCupdate), name: NSNotification.Name(rawValue: "updateSpendBudgetTVC"), object: nil)
     }
     
-    
+    func spendBudgetTVCupdate() {
+        self.callMonthEndDayEndVC()
+        self.headerView.budgetOnDayL.text = String(format: "%.2f", self.manager.getBudgetOnDayValue())
+    }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.stopTimer()
         self.headerView.spendValueTF.resignFirstResponder()
     }
+    
+    
     
     func callMonthEndDayEndVC() {
         let dayExeption = (self.manager.differenceDays() != 0, !self.manager.getIsCallDayEndVC(), self.manager.getBudgetOnDayValue() > 0)
