@@ -231,7 +231,7 @@ class Manager: NSObject {
     }
     
     func setSpendHistoryRemove() {
-        self.sharedDefaults?.setValue(nil, forKey: "spendHistory")//removeObject(forKey: "spendHistory")
+        self.sharedDefaults?.removeObject(forKey: "spendHistory")//removeObject(forKey: "spendHistory")
     }
     
     func getSpendHistory() -> Array<Dictionary<String, Any>>? {
@@ -350,13 +350,15 @@ class Manager: NSObject {
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.system
         let days = calendar.dateComponents([.day], from: Date(), to: self.getFinanceMonthDate())
-        var daysToStartNewMonth = days.day
+        let daysToStartNewMonth = days.day
+        /*
         if (daysToStartNewMonth == 0) {
             daysToStartNewMonth = 1
             return daysToStartNewMonth!
         } else {
             return daysToStartNewMonth!
-        }
+        }*/
+        return daysToStartNewMonth!
     }
     
     func formatHistorySpendDate(date: Date) -> String {

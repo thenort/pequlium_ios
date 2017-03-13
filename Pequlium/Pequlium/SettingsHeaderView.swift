@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol SettingsHeaderViewDelegate {
+protocol SettingsHeaderViewDelegate: class {
     func tapMoneyBox()
     func tapAddValue()
 }
@@ -24,7 +24,7 @@ class SettingsHeaderView: UIView {
     @IBOutlet weak var moneyBoxButton: UIButton!
     @IBOutlet weak var moneyBoxTextL: UILabel!
     
-    var delegate: SettingsHeaderViewDelegate?
+    weak var delegate: SettingsHeaderViewDelegate?
     
     
     @IBAction func tapAddValueButton(_ sender: UIButton) {

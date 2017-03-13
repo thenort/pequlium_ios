@@ -190,9 +190,9 @@ ICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K07-Xg-h0z">
-                                <rect key="frame" x="201" y="249" width="71" height="17"/>
+                                <rect key="frame" x="201" y="249" width="82" height="17"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="71" id="m5p-hO-ZZZ"/>
+                                    <constraint firstAttribute="width" constant="82" id="m5p-hO-ZZZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="16"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -908,10 +908,10 @@ ICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
             </objects>
             <point key="canvasLocation" x="3832.8000000000002" y="247.82608695652175"/>
         </scene>
-        <!--Save History Table View Controller-->
+        <!--История накоплений-->
         <scene sceneID="vgq-O3-0pj">
             <objects>
-                <tableViewController storyboardIdentifier="SaveHistoryTableViewController" id="K8y-Jq-KY5" customClass="SaveHistoryTableViewController" customModule="Pequlium" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SaveHistoryTableViewController" title="История накоплений" id="K8y-Jq-KY5" customClass="SaveHistoryTableViewController" customModule="Pequlium" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="cFx-Zb-3jZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -925,9 +925,9 @@ ICAgICAgICAgICAgINC90LAg0LfQsNCy0YLRgNCwA
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4L-8W-EdL">
-                                            <rect key="frame" x="16" y="11" width="168" height="21"/>
+                                            <rect key="frame" x="16" y="11" width="202" height="21"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="168" id="cgk-yL-A8m"/>
+                                                <constraint firstAttribute="width" constant="202" id="cgk-yL-A8m"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                             <nil key="textColor"/>

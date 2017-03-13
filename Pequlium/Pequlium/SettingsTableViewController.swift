@@ -36,11 +36,19 @@ class SettingsTableViewController: UITableViewController, SettingsHeaderViewDele
         NotificationCenter.default.addObserver(self, selector: #selector(self.settingsTVCupdate), name: NSNotification.Name(rawValue: "updateSettingTVC"), object: nil)
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "updateSettingTVC"), object: nil)
+        print("call method deinit SettingsTableViewController")
+    }
+    
     func settingsTVCupdate() {
-        self.updateStatusNotifSwitch()
-        self.headerView.newFinanceMothDateL.text = "Сумма до " + self.manager.dateInStrFormat(string: "dd MMMM", date: self.manager.getFinanceMonthDate())
-        self.headerView.mutableMonthBudgetL.text = String(format: "%.2f", self.manager.getMutableMonthBudget())
-        self.headerView.moneyBoxButton.setTitle(String(format: "%.2f", self.manager.getMoneyBox()), for: UIControlState.normal)
+        DispatchQueue.main.async {
+            self.headerView.newFinanceMothDateL.text = "Сумма до " + self.manager.dateInStrFormat(string: "dd MMMM", date: self.manager.getFinanceMonthDate())
+            self.headerView.mutableMonthBudgetL.text = String(format: "%.2f", self.manager.getMutableMonthBudget())
+            self.headerView.moneyBoxButton.setTitle(String(format: "%.2f", self.manager.getMoneyBox()), for: UIControlState.normal)
+            
+            self.updateStatusNotifSwitch()
+        }
     }
     
     // MARK: - Table view data source

@@ -10,9 +10,9 @@ import UIKit
 
 class SpendBudgetTableViewController: UITableViewController {
     
-    private var manager = Manager.sharedInstance
+    private let manager = Manager.sharedInstance
     private var headerView = SpendBudgetHeaderView()
-    private var timer = Timer()
+    private var timer: Timer?
     private var valueFromKeyboard: Double!
     private var spendHistory: Array<Dictionary<String, Any>>?
     
@@ -35,7 +35,6 @@ class SpendBudgetTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.startTimer()
-        
     }
     
     override func viewDidLoad() {
@@ -62,8 +61,6 @@ class SpendBudgetTableViewController: UITableViewController {
         self.headerView.spendValueTF.resignFirstResponder()
     }
     
-    
-    
     func callMonthEndDayEndVC() {
         let dayExeption = (self.manager.differenceDays() != 0, !self.manager.getIsCallDayEndVC(), self.manager.getBudgetOnDayValue() > 0)
         if (Date().compare(self.manager.getFinanceMonthDate()) == .orderedDescending) {
@@ -80,6 +77,10 @@ class SpendBudgetTableViewController: UITableViewController {
             }
         }
     }
+    
+    deinit {
+        
+    }
 
     //MARK: - Timer (update data table)
     
@@ -88,7 +89,8 @@ class SpendBudgetTableViewController: UITableViewController {
     }
     
     func stopTimer() {
-        self.timer.invalidate()
+        self.timer?.invalidate()
+        self.timer = nil
     }
     
     func tableViewReloadData() {
@@ -118,7 +120,30 @@ class SpendBudgetTableViewController: UITableViewController {
             alertController.addAction(alertAction);
             self.present(alertController, animated: true, completion: nil);
         } else {
-            if ((self.manager.getBudgetOnDayValue() - self.valueFromKeyboard) < 0 ) {
+            let condition = (self.manager.getBudgetOnDayValue() - self.valueFromKeyboard)
+            let exeption = (condition < 0 && self.manager.daysToStartNewMonth() != 0, condition < 0 && self.manager.daysToStartNewMonth() == 0)
+            
+            if (exeption.0) {
+                self.negativeBudgetVC()
+            } else if (exeption.1) {
+                let errorMessage = "Введенная вами сумма превышает ваш лимит на сегодня. Введите меньшую сумму. Завтра будет перерасчет финансового месяца";
+                let alertController = UIAlertController(title: "Ошибка", message: errorMessage, preferredStyle: .alert);
+                let alertAction = UIAlertAction(title: "OK", style: .cancel, handler: { (UIAlertAction) in
+                    self.headerView.spendValueTF.text = ""
+                })
+                alertController.addAction(alertAction)
+                self.present(alertController, animated: true, completion: nil);
+            } else {
+                self.manager.setSpendHistory(spendValue: self.valueFromKeyboard * -1, spendDate: Date())
+                if self.manager.getSpendHistory() != nil {
+                    self.spendHistory = self.manager.getSpendHistory()!
+                }
+                self.manager.calculationBudget(value: self.valueFromKeyboard)
+                self.headerView.budgetOnDayL.text = String(format: "%.2f", self.manager.getBudgetOnDayValue())
+                self.tableView.reloadData()
+            }
+            /*
+            if ((self.manager.getBudgetOnDayValue() - self.valueFromKeyboard) < 0) {
                 self.negativeBudgetVC()
             } else {
                 self.manager.setSpendHistory(spendValue: self.valueFromKeyboard * -1, spendDate: Date())
@@ -129,6 +154,7 @@ class SpendBudgetTableViewController: UITableViewController {
                 self.headerView.budgetOnDayL.text = String(format: "%.2f", self.manager.getBudgetOnDayValue())
                 self.tableView.reloadData()
             }
+            */
         }
         self.cleanupSpendValueTF()
     }

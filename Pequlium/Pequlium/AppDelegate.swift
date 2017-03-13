@@ -21,23 +21,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //MARK: - Standart Application functions
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
         if self.manager.getMonthlyBudget() != nil {
             self.newRootViewController()
         }
-        
         self.customNavigationBar();
         self.pathWhereSaveDataFile();
         return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
+        
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -45,13 +46,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if self.sharedUserDefaults?.value(forKey: "financeMonthDate") != nil {
             self.manager.recalculationMonthEnd()
             self.manager.sumSaveHistoryValueYearEnd()
-            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSpendBudgetTVC"), object: nil)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSettingTVC"), object: nil)
+        }
+        
+        DispatchQueue.global(qos: .background).async {
+           NotificationCenter.default.post(name: NSNotification.Name(rawValue: "updateSettingTVC"), object: nil)
         }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        
     }
     
     //MARK : - Custom functions
@@ -77,6 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func isNotificationOnOff()  {
         let center = UNUserNotificationCenter.current()
+        
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             if granted {
                 self.sharedUserDefaults?.set(true, forKey: "isNotificationSwitchOn")

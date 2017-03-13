@@ -34,15 +34,27 @@ class NegBudgetViewController: UIViewController {
         self.navigationItem.hidesBackButton = true
     }
     
+    deinit {
+        print("call method deinit NegBudgetViewController")
+    }
+    
     //MARK: - Info To Label
     
     func amountSpendInfo() {
         if !self.manager.getIsFromKeybCalc() {
             let newBudget = self.manager.getMutableDailyBudget() - ((self.negBalance * -1) / Double(self.manager.daysToStartNewMonth()))
-            self.amountSpendL.text = String(format: "%.2f", newBudget)
+            if newBudget < 0 {
+                self.amountSpendL.text = "0"
+            } else {
+                self.amountSpendL.text = String(format: "%.2f", newBudget)
+            }
         } else {
             let newBudget = self.manager.getMutableDailyBudget() - (self.valueFromKeyboard / Double(self.manager.daysToStartNewMonth()))
-            self.amountSpendL.text = String(format: "%.2f", newBudget)
+            if newBudget < 0 {
+                self.amountSpendL.text = "0"
+            } else {
+                self.amountSpendL.text = String(format: "%.2f", newBudget)
+            }
         }
     }
     
@@ -76,18 +88,36 @@ class NegBudgetViewController: UIViewController {
     //MARK: - Action Buttons
 
     @IBAction func tapAmountSpendButton(_ sender: UIButton) {
-        if !self.manager.getIsFromKeybCalc() {
-            let newBudget = self.manager.getMutableDailyBudget() - ((self.negBalance * -1) / Double(self.manager.daysToStartNewMonth()))
-            self.manager.setMutableDailyBudget(mutableDailyBudget: newBudget)
-            self.manager.setIsFromKeybCalc(boolValue: true)
-        } else {
-            let newBudget = self.manager.getMutableDailyBudget() - (self.valueFromKeyboard / Double(self.manager.daysToStartNewMonth()))
-            self.manager.setMutableDailyBudget(mutableDailyBudget: newBudget)
-        }
-        self.manager.calculationBudget(value: self.valueFromKeyboard)
-        self.manager.setSpendHistory(spendValue: (self.valueFromKeyboard * -1), spendDate: Date())
+        let amountSpend:Double! = Double(self.amountSpendL.text! as String)
         
-        self.popToViewController()
+        if amountSpend > 0 {
+            if !self.manager.getIsFromKeybCalc() {
+                let newBudget = self.manager.getMutableDailyBudget() - ((self.negBalance * -1) / Double(self.manager.daysToStartNewMonth()))
+                self.manager.setMutableDailyBudget(mutableDailyBudget: newBudget)
+                self.manager.setIsFromKeybCalc(boolValue: true)
+            } else {
+                let divided = (self.valueFromKeyboard / Double(self.manager.daysToStartNewMonth()))
+                let newBudget = self.manager.getMutableDailyBudget() - divided //(self.valueFromKeyboard / Double(self.manager.daysToStartNewMonth()))
+                self.manager.setMutableDailyBudget(mutableDailyBudget: newBudget)
+                //TEST 13/3/17
+                if self.manager.getSpendLessBudget() != nil {
+                    if (self.manager.getSpendLessBudget()! - divided) > 1 {
+                        self.manager.setSpendLessBudget(tomorrowBudget: self.manager.getSpendLessBudget()! - divided)
+                    }
+                }
+            }
+            self.manager.calculationBudget(value: self.valueFromKeyboard)
+            self.manager.setSpendHistory(spendValue: (self.valueFromKeyboard * -1), spendDate: Date())
+            
+            self.popToViewController()
+        } else {
+            let errorMessage = "Введенная вами сумма превышает ваш бюджет. Введите меньшую сумму";
+            let alertController = UIAlertController(title: "Ошибка", message: errorMessage, preferredStyle: .alert);
+            let alertAction = UIAlertAction(title: "ОК", style: .cancel, handler: nil);
+            alertController.addAction(alertAction);
+            self.present(alertController, animated: true, completion: nil);
+        }
+        
     }
     
     @IBAction func tapSpendLessButton(_ sender: UIButton) {
@@ -111,7 +141,7 @@ class NegBudgetViewController: UIViewController {
             self.manager.setSpendHistory(spendValue: (self.valueFromKeyboard * -1), spendDate: Date())
             self.popToViewController()
         } else {
-            let errorMessage = "Введенная вами сумма превышает ваш бюджет на завтра.\nНажмите: Пересчитать дневной бюджет, или введите меньшую сумму.";
+            let errorMessage = "Введенная вами сумма превышает ваш бюджет на завтра. Нажмите: Пересчитать дневной бюджет, или введите меньшую сумму.";
             let alertController = UIAlertController(title: "Ошибка", message: errorMessage, preferredStyle: .alert);
             let alertAction = UIAlertAction(title: "ОК", style: .cancel, handler: nil);
             alertController.addAction(alertAction);
@@ -125,12 +155,7 @@ class NegBudgetViewController: UIViewController {
     
     
     func popToViewController() {
-        let controllers = self.navigationController?.viewControllers
-        for vc in controllers! {
-            if vc is SpendBudgetTableViewController {
-                _ = self.navigationController?.popToViewController(vc as! SpendBudgetTableViewController, animated: true)
-            }
-        }
+         _ = self.navigationController?.popViewController(animated: true)
     }
     
 }
