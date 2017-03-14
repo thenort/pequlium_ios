@@ -97,7 +97,7 @@ class NegBudgetViewController: UIViewController {
                 self.manager.setIsFromKeybCalc(boolValue: true)
             } else {
                 let divided = (self.valueFromKeyboard / Double(self.manager.daysToStartNewMonth()))
-                let newBudget = self.manager.getMutableDailyBudget() - divided //(self.valueFromKeyboard / Double(self.manager.daysToStartNewMonth()))
+                let newBudget = self.manager.getMutableDailyBudget() - divided
                 self.manager.setMutableDailyBudget(mutableDailyBudget: newBudget)
                 //TEST 13/3/17
                 if self.manager.getSpendLessBudget() != nil {
