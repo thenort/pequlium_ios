@@ -95,8 +95,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func scheduleNotification() {
         let objNotificationContent = UNMutableNotificationContent()
-        objNotificationContent.title = "Напоминание"
-        objNotificationContent.body = "Зайдите в Pequlium для упраления бюджетом!"
+        objNotificationContent.title = "Напоминание!"
+        objNotificationContent.body = "Зайдите в Pequlium для управления бюджетом."
         objNotificationContent.sound = UNNotificationSound.default()
         
         var triggerDaily = DateComponents()
