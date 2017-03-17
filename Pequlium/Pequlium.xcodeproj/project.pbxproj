@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1349FBC91E7C0AE2007B98C2 /* NetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1349FBC81E7C0AE2007B98C2 /* NetViewController.swift */; };
 		1352BED51E61FC2C0099B4DF /* MonthBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BED41E61FC2C0099B4DF /* MonthBudgetViewController.swift */; };
 		1352BED71E61FC450099B4DF /* CreateBudgetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BED61E61FC450099B4DF /* CreateBudgetViewController.swift */; };
 		1352BED91E61FC650099B4DF /* SpendBudgetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1352BED81E61FC650099B4DF /* SpendBudgetTableViewController.swift */; };
@@ -49,6 +50,7 @@
 /* Begin PBXFileReference section */
 		130B89B91E6577C100F6E894 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		130B89C81E6577E900F6E894 /* Pequlium.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pequlium.entitlements; sourceTree = "<group>"; };
+		1349FBC81E7C0AE2007B98C2 /* NetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetViewController.swift; sourceTree = "<group>"; };
 		1352BED41E61FC2C0099B4DF /* MonthBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthBudgetViewController.swift; sourceTree = "<group>"; };
 		1352BED61E61FC450099B4DF /* CreateBudgetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateBudgetViewController.swift; sourceTree = "<group>"; };
 		1352BED81E61FC650099B4DF /* SpendBudgetTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpendBudgetTableViewController.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				13E1671C1E64771300E6C886 /* SettingsDayTableViewController.swift */,
 				13E1671E1E64772400E6C886 /* SettingsMonthTableViewController.swift */,
 				139ACF431E68820C00BED2A5 /* SaveHistoryTableViewController.swift */,
+				1349FBC81E7C0AE2007B98C2 /* NetViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				1352BEDF1E6202780099B4DF /* SpendBudgetTableViewCell.swift in Sources */,
 				1352BED51E61FC2C0099B4DF /* MonthBudgetViewController.swift in Sources */,
 				1352BEDB1E61FE940099B4DF /* SpendBudgetHeaderView.swift in Sources */,
+				1349FBC91E7C0AE2007B98C2 /* NetViewController.swift in Sources */,
 				1352BED71E61FC450099B4DF /* CreateBudgetViewController.swift in Sources */,
 				139ACF471E68884600BED2A5 /* SaveHistoryTableViewCell.swift in Sources */,
 				139ACF411E68626900BED2A5 /* LocalizedTimeAgo.swift in Sources */,
