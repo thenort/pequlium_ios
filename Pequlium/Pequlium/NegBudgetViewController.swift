@@ -157,5 +157,4 @@ class NegBudgetViewController: UIViewController {
     func popToViewController() {
          _ = self.navigationController?.popViewController(animated: true)
     }
-    
 }

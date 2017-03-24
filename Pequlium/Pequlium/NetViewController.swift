@@ -20,9 +20,4 @@ class NetViewController: UIViewController {
             self.appStoreWebView.loadRequest(request)
         }
     }
-    
-    deinit {
-        print("call method NetViewController deinit")
-    }
-    
 }
