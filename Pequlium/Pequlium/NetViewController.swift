@@ -14,8 +14,8 @@ class NetViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        if let url = URL(string: "https://itunes.apple.com/us/app/pequlium/id1216665284?ls=1&mt=8") {
+        
+        if let url = URL(string: "https://itunes.apple.com/us/app/pequlium/id1216665284?l=ru&ls=1&mt=8") {
             let request = URLRequest(url: url)
             self.appStoreWebView.loadRequest(request)
         }
