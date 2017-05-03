@@ -25,6 +25,7 @@ class SpendBudgetTableViewController: UITableViewController {
         self.callMonthEndDayEndVC()
         if self.manager.getSpendHistory() != nil {
             self.spendHistory = self.manager.getSpendHistory()!
+            self.tableView.reloadData()
         } else {
             self.spendHistory = nil
             self.tableView.reloadData()
@@ -105,9 +106,9 @@ class SpendBudgetTableViewController: UITableViewController {
         }
         
         let firstChar = String(self.headerView.spendValueTF.text!.characters.prefix(2))
-        let exception = (isEmpty: self.headerView.spendValueTF.text!.isEmpty, isNull: self.headerView.spendValueTF.text == "-0", isNullComa: self.headerView.spendValueTF.text == "-0,", isComa: firstChar == "-,", isDot: firstChar == "-.")
+        let exception = (isEmpty: self.headerView.spendValueTF.text!.isEmpty, isNull: self.headerView.spendValueTF.text == "-0", isNullComa: self.headerView.spendValueTF.text == "-0,", isComa: firstChar == "-,", isDot: firstChar == "-.", isNullDot: self.valueFromKeyboard < 0.01)
         
-        if (exception.isEmpty || exception.isNull || exception.isComa || exception.isDot || exception.isNullComa) {
+        if (exception.isEmpty || exception.isNull || exception.isComa || exception.isDot || exception.isNullComa || exception.isNullDot) {
             let errorMessage = "Введите корректную сумму";
             let alertController = UIAlertController(title: "Ошибка", message: errorMessage, preferredStyle: .alert);
             let alertAction = UIAlertAction(title: "ОК", style: .cancel, handler: nil);
